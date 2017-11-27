@@ -1,2 +1,9 @@
 language: node_js
 node_js: node
+deploy:
+  provider: heroku
+  api_key:
+    secure: qxAnCgrdbUHx/x6TK83//lZK/365QKqSDK9OMCxpRu7ehkIK/gzSYIt+cxSRF96zCmlzBcbUyKkZVRfe8eP99WKuAV9G6deM1X/RZWORnoejeAk53rQGzbFNxVy0CyVKgBK5t6V3kBa84uYsnRTrFTMaTHSwguAmZItb6dmV3EDLxjCeDjXuViCh8SQ3fYP3MY79IXl5cXF1JUH4UZgyMwqmfCR8kYUGM5Xf4wxsDTitW7/mdKU8zS1RD3XB66A8HKJLI9gUkVGW/g/c6rpqVbT51aqPTqsLeIasjG7Oyn7CKSLKQ1QNfbFQ3jb786kanatUt69obQlWT9y/9jxmjmfxENsaeluyEWKvEotsw68fLG5TTyDUGp/KNYPm+s0jTNaEctZdl0WWeY8PjcqJJJ3S03iclL7kkal9unsB7oFwDmXLwCZ4OesTWk/5VJ+Q4Yr7ZSydpiAxWvEGCJlAnKF9V6JcAEU6SiA8gMi/bXNe/MumxYtSWlIIAkBK0LeIx5aAyldQcgftuxOQmkRQbqGg+85orVXPtzSy0ujCwV2VqonGNsSpkqIWP7+zGFVBQTlClbMTtL7FiFsWyFgZz0M6hNtlmcoU6MbRwgwdooU3Yq+tys0vrIW7LhBUyPEo0qdPzOuu+jhq1qqvUnFxM/cPW2n6VZ9X6bXPemrcHdo=
+  app: powerful-coast-30681
+  on:
+    repo: julweng/healthygeekcooks
