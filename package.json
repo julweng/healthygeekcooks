@@ -1,0 +1,22 @@
+{
+  "name": "capstone2_recipe",
+  "version": "1.0.0",
+  "description": "capstone_project_2",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/julweng/healthygeekcooks.git"
+  },
+  "author": "Julia Weng",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/julweng/healthygeekcooks/issues"
+  },
+  "homepage": "https://github.com/julweng/healthygeekcooks#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
