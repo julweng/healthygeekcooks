@@ -147,34 +147,69 @@ const MOCK_RECIPE_UPDATES = {
     },
     {
 			"id": "444",
-	    "name": "Butterbeer",
-	    "type": ["low sugar", "low fat"],
+	    "name": "Golden Dragon Noodles",
+	    "type": ["low fat"],
 	    "ingredients": [
-			 	"1 quart reduced fat vanilla ice cream",
-				"100 ml Butterscotch syrup",
-				"32 oz zero calorie/diet soda root beer",
-        "whipped cream (optional)"
+        "1 tsp sesame oil",
+        "1 shoot of green onion, finely chopped",
+        "1 garlic clove, finely chopped",
+        "1 tsp cooking wine",
+        "1 tsp soy sauce",
+        "1 tsp miso paste",
+        "1 sheet of roasted seaweed",
+        "1 egg"
+        "3-4 ounces of hokkien/egg/ramen noodles"
+        "2 cups of water"
 			],
 			"supplies": [
-				"4 (16-ounce) glasses",
-        "1 blender"
+				"1 cooking pot"
 			],
 			"instructions": [
-        "Chill glasses in fridge for at least half an hour.",
-        "Mix ice cream and root bear in a blender.",
-        "Pour into chilled glasses.",
-        "Optional: top with whipped cream."
-			],
-	    "author": "Sevon Snape",
-			"series": "Harry Potter",
-			"category": "beverage",
-			"preparation time": "5 minutes",
-			"cooking time": "5 minutes",
-			"serving": 4,
+        "Mix together the cooking wine, soy sauce, and miso paste.",
+        "Bring water to a boil, add the garlic, noodles and sesame oil.",
+        "When the soup boils again, crack an egg into the pot.",
+        "when the egg looks like it is roughly cooked (not fully cooked, but appear soft and tender), add the seaweed and green onions.",
+        "Turn off the heat and Cover for 1 to 2 minutes."
+      ],
+	    "author": "Ella Ironpaw",
+			"series": "World of Warcraft",
+			"category": "entree",
+			"preparation time": "10 minutes",
+			"cooking time": "15 minutes",
+			"serving": 1,
       "apaptedFromURL": "",
-      "publishDate": "2017-11-28",
-      "rating": 4.5
+      "publishDate": "2017-11-27",
+      "rating": 3
     },
+    "id": "555",
+    "name": "Butterbeer",
+    "type": ["low sugar", "low fat"],
+    "ingredients": [
+      "1 quart reduced fat vanilla ice cream",
+      "100 ml Butterscotch syrup",
+      "32 oz zero calorie/diet soda root beer",
+      "whipped cream (optional)"
+    ],
+    "supplies": [
+      "4 (16-ounce) glasses",
+      "1 blender"
+    ],
+    "instructions": [
+      "Chill glasses in fridge for at least half an hour.",
+      "Mix ice cream and root bear in a blender.",
+      "Pour into chilled glasses.",
+      "Optional: top with whipped cream."
+    ],
+    "author": "Sevon Snape",
+    "series": "Harry Potter",
+    "category": "beverage",
+    "preparation time": "5 minutes",
+    "cooking time": "5 minutes",
+    "serving": 4,
+    "apaptedFromURL": "",
+    "publishDate": "2017-11-28",
+    "rating": 4.5
+  },
   ]
 };
 
