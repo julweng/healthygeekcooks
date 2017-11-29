@@ -69,7 +69,7 @@ const MOCK_RECIPE_UPDATES = {
     {
 			"id": "222",
       "name": "Barbecued Buzzard Wings",
-      "type": ["low-fat"],
+      "type": ["low fat"],
       "ingredients": [
 				"2 lbs. chicken wings",
 				"1/2 cup fresh lemon juice",

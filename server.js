@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
@@ -9,7 +11,7 @@ const {PORT, DATABASE_URL} = require('./config');
 const {Recipe} = require('./model');
 
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname,'public')));
+app.use(express.static('public'));
 app.use(morgan('common'));
 
 // GET requests to /recipes
