@@ -59,8 +59,8 @@ const MOCK_RECIPE_UPDATES = {
       "author": "Dorris Targaryen",
 			"series": "Game of Thrones",
 			"category": "entree",
-			"preparation time": "40 minutes",
-			"cooking time": "4 hours, 15 minutes",
+			"prepTime": "40 minutes",
+			"cookTime": "4 hours, 15 minutes",
 			"serving": 4,
       "AdaptedFromURL": "https://www.glutafin.co.uk/recipes/pastry/gluten-free-select-steak-and-kidney-pie/",
       "publishDate": "2017-4-25",
@@ -101,8 +101,8 @@ const MOCK_RECIPE_UPDATES = {
       "author": "Shado-Pan",
 			"series": "World of Warcraft",
 			"category": "appetizer",
-			"preparation time": "15 minutes",
-			"cooking time": "1 hour",
+			"prepTime": "15 minutes",
+			"cookTime": "1 hour",
 			"serving": 4,
       "AdaptedFromURL": "http://www.geniuskitchen.com/recipe/barbecued-buzzard-wings-346660",
       "publishDate": "2017-8-30",
@@ -138,8 +138,8 @@ const MOCK_RECIPE_UPDATES = {
 	    "author": "Jenna Proudmoore",
 			"series": "World of Warcraft",
 			"category": "breakfast",
-			"preparation time": "10 minutes",
-			"cooking time": "10 minutes",
+			"prepTime": "10 minutes",
+			"cookTime": "10 minutes",
 			"serving": 1,
       "apaptedFromURL": "https://www.ibreatheimhungry.com/cheesy-italian-omelette-low-carb-and-gluten-free/",
       "publishDate": "2017-11-20",
@@ -157,9 +157,9 @@ const MOCK_RECIPE_UPDATES = {
         "1 tsp soy sauce",
         "1 tsp miso paste",
         "1 sheet of roasted seaweed",
-        "1 egg"
-        "3-4 ounces of hokkien/egg/ramen noodles"
-        "2 cups of water"
+        "1 egg",
+        "3-4 ounces of hokkien/egg/ramen noodles",
+        "2 cups of water",
 			],
 			"supplies": [
 				"1 cooking pot"
@@ -174,13 +174,14 @@ const MOCK_RECIPE_UPDATES = {
 	    "author": "Ella Ironpaw",
 			"series": "World of Warcraft",
 			"category": "entree",
-			"preparation time": "10 minutes",
-			"cooking time": "15 minutes",
+			"prepTime": "10 minutes",
+			"cookTime": "15 minutes",
 			"serving": 1,
       "apaptedFromURL": "",
       "publishDate": "2017-11-27",
       "rating": 3
     },
+    {
     "id": "555",
     "name": "Butterbeer",
     "type": ["low sugar", "low fat"],
@@ -203,8 +204,8 @@ const MOCK_RECIPE_UPDATES = {
     "author": "Sevon Snape",
     "series": "Harry Potter",
     "category": "beverage",
-    "preparation time": "5 minutes",
-    "cooking time": "5 minutes",
+    "prepTime": "5 minutes",
+    "cookTime": "5 minutes",
     "serving": 4,
     "apaptedFromURL": "",
     "publishDate": "2017-11-28",
@@ -230,7 +231,12 @@ function getRecentRecipeUpdates(callbackFn) {
 function displayRecipeUpdates(data) {
     for (index in data.recipeUpdates) {
 	   $('body').append(
-        '<p>' + data.recipeUpdates[index].name + '</p>');
+        `<ul>
+          <li>
+          <h3>${data.recipeUpdates[index].name} by <span>${data.recipeUpdates[index].author}</span></h3>
+          <p>${data.recipeUpdates[index].type}</p>
+          </li>
+        </ul>`);
     }
 }
 
@@ -238,6 +244,7 @@ function displayRecipeUpdates(data) {
 // are connecting to real API
 function getAndDisplayRecipeUpdates() {
 	getRecentRecipeUpdates(displayRecipeUpdates);
+  getRecentRecipeUpdates(displayIngredients)
 }
 
 //  on page load do this
