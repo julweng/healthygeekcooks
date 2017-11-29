@@ -72,7 +72,7 @@ app.put('/recipes/:id', (req, res) => {
   }
 
   const toUpdate = {};
-  const updateableFields = ['name', 'type', 'ingredients', 'supplies','instructions', 'author', 'series', 'category', 'prepTime', 'cookTime', 'serving', 'AdaptedFromURL', 'publishDate'];
+  const updateableFields = ['name', 'type', 'ingredients', 'supplies','instructions', 'author', 'series', 'category', 'prepTime', 'cookTime', 'serving', 'estimated calories per serving', 'AdaptedFromURL', 'publishDate'];
 
   updateableFields.forEach(field => {
     if(field in req.body) {
