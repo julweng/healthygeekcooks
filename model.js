@@ -9,13 +9,13 @@ const recipeSchema = mongoose.Schema({
   supplies: [String],
   instructions: {type: [String], required: true},
   author: {type: String, default: 'anonymous'},
-  series: {type: String, required: true}
+  series: {type: String, required: true},
   category: String,
   prepTime: String,
   cookTime: String,
   serving: Number,
-  estimated calories per serving: Number,
-  AdaptedFromURL: String,
+  calories: Number,
+  adaptedFromURL: String,
   publishDate: {type: Date, default: Date.now},
   user_id: String
 });
@@ -35,6 +35,7 @@ recipeSchema.methods.apiRepr = function() {
     prepTime: this.prepTime,
     cookTime: this.cookTime,
     serving: this.serving,
+    calories: this.calories,
     adaptedFromURL: this.AdaptedFromURL,
     publishDate: this.publishDate,
     rating: this.rating,

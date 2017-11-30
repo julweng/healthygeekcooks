@@ -41,7 +41,7 @@ function generateRecipeData() {
     prepTime: `${faker.random.number()} hour(s) ${faker.random.number()}        minutes`,
     cookTime: `${faker.random.number()} hour(s) ${faker.random.number()} minutes`,
     serving: faker.random.number(),
-    estimated calories per serving: faker.random.number(),
+    calories: faker.random.number(),
     adaptedFromURL: faker.lorem.word(),
     publishDate: faker.date.recent(),
     user_id: faker.random.alphanumeric()
@@ -90,7 +90,7 @@ describe('healthy geek cooks API resources', function() {
           res.body.should.have.length.of.at.least(1);
           return Recipe.count();
         })
-        .then(function(count)) {
+        .then(function(count) {
           res.body.should.have.length.of(count);
         });
     });
@@ -207,4 +207,4 @@ describe('healthy geek cooks API resources', function() {
           });
       });
     });
-}
+});
