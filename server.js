@@ -36,7 +36,6 @@ app.get('/recipes/:id', (req, res) => {
       console.error(err);
       res.status(500).json({message: 'Internal Server Error'});
     });
-  });
 });
 
 app.post('/recipes', (req, res) => {
