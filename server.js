@@ -1,18 +1,52 @@
 'use strict';
-
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
-const bodyparser = require('body-parser');
+const bodyParser = require('body-parser');
+const passport = require('passport');
 
 mongoose.Promise = global.Promise;
 
 const {PORT, DATABASE_URL} = require('./config');
 const {Recipe} = require('./model');
+const {router: authRouter, localStrategy, jwtStrategy } = require('./auth');
+const app = express();
 
 app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use(morgan('common'));
+
+// CORS
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE');
+  if (req.method === 'OPTIONS') {
+    return res.send(204);
+  }
+  next();
+});
+
+passport.use(localStrategy);
+passport.use(jwtStrategy);
+
+app.use('/api/users/', usersRouter);
+app.use('/api/auth/', authRouter);
+
+const jwtAuth = passport.authenticate('jwt', { session: false });
+
+// A protected endpoint which needs a valid JWT to access it
+// if no valid JWT is provided, 401 Unauthorized would have been returned
+app.get('/api/protected', jwtAuth, (req, res) => {
+  return res.json({
+    data: 'rosebud'
+  });
+});
+
+app.use('*', (req, res) => {
+  return res.status(404).json({ message: 'Not Found' });
+});
 
 // GET requests to /recipes
 app.get('/recipes', (req, res) => {
