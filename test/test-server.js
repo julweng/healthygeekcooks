@@ -25,7 +25,7 @@ function seedRecipeData() {
 }
 
 function generateType() {
-  const types = ['low fat', 'low carb', 'low sugar', 'gluten free'];
+  const types = ["low fat", "low carb", "low sugar", "gluten free"];
   return types[Math.floor(Math.random() * types.length)];
 }
 
@@ -33,19 +33,19 @@ function generateRecipeData() {
   return {
     name:faker.lorem.words(),
     type: generateType(),
-    ingredients: faker.lorem.words(),
+    ingredients: faker.lorem.words().trim(),
     supplies: faker.lorem.words(),
     instructions: faker.lorem.sentences(),
     author: faker.lorem.word(),
     series: faker.lorem.word(),
     category: faker.lorem.word(),
-    prepTime: `${faker.random.number()} hour(s) ${faker.random.number()}        minutes`,
+    prepTime: `${faker.random.number()} hour(s) ${faker.random.number()}   minutes`,
     cookTime: `${faker.random.number()} hour(s) ${faker.random.number()} minutes`,
     serving: faker.random.number(),
     calories: faker.random.number(),
     adaptedFromURL: faker.lorem.word(),
     publishDate: faker.date.recent(),
-    user_id: faker.random.alphanumeric()
+    rating: faker.random.number()
   };
 }
 
@@ -59,7 +59,6 @@ function generateUser() {
 function tearDownDb() {
   console.warn('Deleting database');
   return mongoose.connection.dropDatabase();
-  // try/catch error
 }
 
 describe('healthy geek cooks API resources', function() {
@@ -92,7 +91,7 @@ describe('healthy geek cooks API resources', function() {
           return Recipe.count();
         })
         .then(function(count) {
-          res.body.should.have.length.of(count);
+          res.body.should.have.lengthOf(count);
         });
     });
 
@@ -104,17 +103,16 @@ describe('healthy geek cooks API resources', function() {
           res.should.have.status(200);
           res.should.be.json;
           res.body.should.be.a('array');
-          res.body.sould.have.length.of.at.least(1);
+          res.body.should.have.length.of.at.least(1);
           res.body.forEach(function(recipe) {
             recipe.should.be.a('object');
             recipe.should.include.keys(
-              'id', 'name', 'type', 'ingredients', 'instructions', 'author', 'series', 'category', 'publishDate');
+              'id', 'name', 'type', 'ingredients', 'instructions', 'author', 'series', 'publishDate');
           });
           resRecipe = res.body[0];
           return Recipe.findById(resRecipe.id);
           })
           .then(function(recipe) {
-            resRecipe.id.should.equal(recipe.id);
             resRecipe.name.should.equal(recipe.name);
             resRecipe.type.should.equal(recipe.type);
             resRecipe.ingredients.should.equal(recipe.ingredients);
@@ -138,26 +136,18 @@ describe('healthy geek cooks API resources', function() {
             res.should.be.json;
             res.body.should.be.a('object');
             res.body.should.include.keys(
-              'id', 'name', 'type', 'ingredients', 'instructions', 'author', 'series', 'category', 'publishDate');
-            res.body.name.should.equal(newRecipe.name);
-            res.body.id.should.not.be.null;
-            res.body.type.should.equal(newRecipe.type);
-            res.body.ingredients.should.equal(newRecipe.type);
-            res.body.instructions.should.equal(newRecipe.instructions);
-            res.body.author.should.equal(newRecipe.author);
-            res.body.series.should.equal(newRecipe.series);
-            res.body.category.should.equal(newRecipe.category);
-            res.body.publishDate.should.equal(newRecipe.publishDate);
+              'id', 'name', 'type', 'supplies','ingredients', 'instructions', 'author', 'series', 'category', 'publishDate');
+            res.body.should.deep.equal(newRecipe);
             return Recipe.findById(res.body.id);
           })
           .then(function(recipe) {
             recipe.name.should.equal(newRecipe.name);
             recipe.type.should.equal(newRecipe.type);
+            recipe.category.should.equal(newRecipe.category);
             recipe.ingredients.should.equal(newRecipe.ingredients);
             recipe.instructions.should.equal(newRecipe.instructions);
             recipe.author.should.equal(newRecipe.author);
             recipe.series.should.equal(newRecipe.series);
-            recipe.category.should.equal(newRecipe.category);
             recipe.publishDate.should.equal(newRecipe.publishDate);
           });
       });
@@ -167,9 +157,8 @@ describe('healthy geek cooks API resources', function() {
       it('should update fields sent over by user', function() {
         const updateData = {
           name: 'Kaldorei Spider Kabob',
-          ingredients: 'Small Spider Leg'
+          ingredients: ['Small Spider Leg']
         };
-
         return Recipe
           .findOne()
           .then(function(recipe) {

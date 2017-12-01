@@ -14,25 +14,26 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  recipes: {
+    type: Array,
+  }
 });
 
 UserSchema.methods.apiRepr = function() {
   return {
     id: this._id,
     username: this.username || '',
+    password: this.password || '',
+    recipes: this.recipes || ''
   };
 };
 
 UserSchema.methods.validatePassword = function(password) {
-  return bcrypt
-    .compare(password, this.password)
-    .then(isValid => isValid);
+  return bcrypt.compare(password, this.password);
 };
 
 UserSchema.statics.hashPassword = function(password) {
-  return bcrypt
-    .hash(password, 10)
-    .then(has => hash);
+  return bcrypt.hash(password, 10);
 };
 
 const User = mongoose.model('User', UserSchema);

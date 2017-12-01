@@ -10,6 +10,7 @@ mongoose.Promise = global.Promise;
 
 const {PORT, DATABASE_URL} = require('./config');
 const {Recipe} = require('./model');
+const {router: usersRouter} = require('./users');
 const {router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 const app = express();
 
@@ -44,9 +45,7 @@ app.get('/api/protected', jwtAuth, (req, res) => {
   });
 });
 
-app.use('*', (req, res) => {
-  return res.status(404).json({ message: 'Not Found' });
-});
+
 
 // GET requests to /recipes
 app.get('/recipes', (req, res) => {
@@ -88,7 +87,7 @@ app.post('/recipes', (req, res) => {
       type: req.body.type,
       ingredients: req.body.ingredients,
       instructions: req.body.instructions,
-      series: req.body.series
+      series: req.body.series,
     })
     .then(recipe => res.status(201).json(recipe.apiRepr()))
     .catch(err => {

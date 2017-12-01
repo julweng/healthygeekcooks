@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 
 const recipeSchema = mongoose.Schema({
-  Name: {type: String, required: true},
+  name: {type: String, required: true},
   type: {type: [String], required: true},
   ingredients: {type: [String], required: true},
   supplies: [String],
@@ -16,8 +16,7 @@ const recipeSchema = mongoose.Schema({
   serving: Number,
   calories: Number,
   adaptedFromURL: String,
-  publishDate: {type: Date, default: Date.now},
-  user_id: String
+  publishDate: {type: Date, default: Date.now}
 });
 
 recipeSchema.methods.apiRepr = function() {
@@ -37,9 +36,7 @@ recipeSchema.methods.apiRepr = function() {
     serving: this.serving,
     calories: this.calories,
     adaptedFromURL: this.AdaptedFromURL,
-    publishDate: this.publishDate,
-    rating: this.rating,
-    user_id: this.user_id,
+    publishDate: this.publishDate
   };
 }
 
