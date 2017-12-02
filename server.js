@@ -1,18 +1,49 @@
 'use strict';
-
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
-const bodyparser = require('body-parser');
+const bodyParser = require('body-parser');
+const passport = require('passport');
 
 mongoose.Promise = global.Promise;
 
 const {PORT, DATABASE_URL} = require('./config');
 const {Recipe} = require('./model');
+const {router: usersRouter} = require('./users');
+const {router: authRouter, localStrategy, jwtStrategy } = require('./auth');
+const app = express();
 
 app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use(morgan('common'));
+
+// CORS
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE');
+  if (req.method === 'OPTIONS') {
+    return res.send(204);
+  }
+  next();
+});
+
+passport.use(localStrategy);
+passport.use(jwtStrategy);
+
+app.use('/api/users/', usersRouter);
+app.use('/api/auth/', authRouter);
+
+const jwtAuth = passport.authenticate('jwt', { session: false });
+
+// A protected endpoint which needs a valid JWT to access it
+// if no valid JWT is provided, 401 Unauthorized would have been returned
+app.get('/api/protected', jwtAuth, (req, res) => {
+  return res.json({
+    data: 'rosebud'
+  });
+});
 
 // GET requests to /recipes
 app.get('/recipes', (req, res) => {
@@ -36,7 +67,6 @@ app.get('/recipes/:id', (req, res) => {
       console.error(err);
       res.status(500).json({message: 'Internal Server Error'});
     });
-  });
 });
 
 app.post('/recipes', (req, res) => {
@@ -55,7 +85,7 @@ app.post('/recipes', (req, res) => {
       type: req.body.type,
       ingredients: req.body.ingredients,
       instructions: req.body.instructions,
-      series: req.body.series
+      series: req.body.series,
     })
     .then(recipe => res.status(201).json(recipe.apiRepr()))
     .catch(err => {
@@ -72,7 +102,7 @@ app.put('/recipes/:id', (req, res) => {
   }
 
   const toUpdate = {};
-  const updateableFields = ['name', 'type', 'ingredients', 'supplies','instructions', 'author', 'series', 'category', 'prepTime', 'cookTime', 'serving', 'AdaptedFromURL', 'publishDate'];
+  const updateableFields = ['name', 'type', 'ingredients', 'supplies','instructions', 'author', 'series', 'category', 'prepTime', 'cookTime', 'serving', 'estimated calories per serving', 'AdaptedFromURL', 'publishDate'];
 
   updateableFields.forEach(field => {
     if(field in req.body) {

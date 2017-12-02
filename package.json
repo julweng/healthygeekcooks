@@ -18,7 +18,20 @@
   },
   "homepage": "https://github.com/julweng/healthygeekcooks#readme",
   "dependencies": {
-    "express": "^4.16.2"
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.2",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "faker": "^4.1.0",
+    "hash": "^0.2.0",
+    "install": "^0.10.2",
+    "jsonwebtoken": "^8.1.0",
+    "mongoose": "^4.13.5",
+    "morgan": "^1.9.0",
+    "npm": "^5.5.1",
+    "passport": "^0.4.0",
+    "passport-jwt": "^3.0.1",
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
     "chai": "^4.1.2",
