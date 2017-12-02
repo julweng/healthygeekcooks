@@ -45,8 +45,6 @@ app.get('/api/protected', jwtAuth, (req, res) => {
   });
 });
 
-
-
 // GET requests to /recipes
 app.get('/recipes', (req, res) => {
   Recipe

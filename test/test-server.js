@@ -25,16 +25,18 @@ function seedRecipeData() {
 }
 
 function generateType() {
+  let typeArray = [];
   const types = ["low fat", "low carb", "low sugar", "gluten free"];
-  return types[Math.floor(Math.random() * types.length)];
+  typeArray.push(types[Math.floor(Math.random() * types.length)]);
+  return typeArray;
 }
 
 function generateRecipeData() {
   return {
     name:faker.lorem.words(),
     type: generateType(),
-    ingredients: faker.lorem.words().trim(),
-    supplies: faker.lorem.words(),
+    ingredients: [faker.lorem.words()],
+    supplies: [faker.lorem.words()],
     instructions: faker.lorem.sentences(),
     author: faker.lorem.word(),
     series: faker.lorem.word(),
@@ -136,14 +138,20 @@ describe('healthy geek cooks API resources', function() {
             res.should.be.json;
             res.body.should.be.a('object');
             res.body.should.include.keys(
-              'id', 'name', 'type', 'supplies','ingredients', 'instructions', 'author', 'series', 'category', 'publishDate');
-            res.body.should.deep.equal(newRecipe);
+              'id', 'name', 'type', 'supplies','ingredients', 'instructions', 'author', 'series', 'publishDate');
+            res.body.name.should.equal(newRecipe.name);
+            res.body.type.should.equal(newRecipe.type);
+            res.body.supplies.should.equal(newRecipe.supplies);
+            res.body.ingredients.should.equal(newRecipe.ingredients);
+            res.body.instructions.should.equal(newRecipe.instructions);
+            res.body.author.should.equal(newRecipe.author);
+            res.body.series.should.equal(newRecipe.series);
+            res.body.publishDate.should.equal(newRecipe.publishDate);
             return Recipe.findById(res.body.id);
           })
           .then(function(recipe) {
             recipe.name.should.equal(newRecipe.name);
             recipe.type.should.equal(newRecipe.type);
-            recipe.category.should.equal(newRecipe.category);
             recipe.ingredients.should.equal(newRecipe.ingredients);
             recipe.instructions.should.equal(newRecipe.instructions);
             recipe.author.should.equal(newRecipe.author);
@@ -157,7 +165,7 @@ describe('healthy geek cooks API resources', function() {
       it('should update fields sent over by user', function() {
         const updateData = {
           name: 'Kaldorei Spider Kabob',
-          ingredients: ['Small Spider Leg']
+          ingredients: ["Small Spider Leg"]
         };
         return Recipe
           .findOne()

@@ -13,7 +13,6 @@ chai.use(chaiHttp);
 describe('/api/user', function() {
   const username = 'exampleUser';
   const password = 'examplePass';
-  const recipes = ['exampleRecipe'];
   const usernameB = 'exampleUserB';
   const passwordB = 'examplePassB';
 
@@ -288,13 +287,12 @@ describe('/api/user', function() {
           .post('/api/users')
           .send({
             username,
-            password,
-            recipes,
+            password
           })
           .then(res => {
             expect(res).to.have.status(201);
             expect(res.body).to.be.an('object');
-            expect(res.body).to.have.keys('username', 'id', 'password', 'recipes');
+            expect(res.body).to.have.keys('username', 'id', 'password');
             expect(res.body.username).to.equal(username);
             return User.findOne({username});
           })

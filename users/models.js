@@ -14,17 +14,15 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  recipes: {
-    type: Array,
-  }
+  resetPassword: String,
+  recipes: []
 });
 
 UserSchema.methods.apiRepr = function() {
   return {
-    id: this._id,
     username: this.username || '',
     password: this.password || '',
-    recipes: this.recipes || ''
+    recipes: this.recipes || '',
   };
 };
 
