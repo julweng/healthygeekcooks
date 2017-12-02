@@ -9,13 +9,14 @@ const recipeSchema = mongoose.Schema({
   supplies: [String],
   instructions: {type: [String], required: true},
   author: {type: String, default: 'anonymous'},
-  series: {type: String, required: true}
+  series: {type: String, required: true},
   category: String,
   prepTime: String,
   cookTime: String,
   serving: Number,
-  AdaptedFromURL: String,
-  publishDate: {type: Date, default: Date.now},
+  calories: Number,
+  adaptedFromURL: String,
+  publishDate: {type: Date, default: Date.now}
 });
 
 recipeSchema.methods.apiRepr = function() {
@@ -33,12 +34,12 @@ recipeSchema.methods.apiRepr = function() {
     prepTime: this.prepTime,
     cookTime: this.cookTime,
     serving: this.serving,
-    AdaptedFromURL: this.AdaptedFromURL,
-    publishDate: this.publishDate,
-    rating: this.rating
+    calories: this.calories,
+    adaptedFromURL: this.AdaptedFromURL,
+    publishDate: this.publishDate
   };
 }
 
-const Recipe = mongoose.model('Recipes', recipeSchema);
+const Recipe = mongoose.model('Recipe', recipeSchema);
 
 module.exports = {Recipe};
