@@ -1,4 +1,87 @@
+/******* modal events *******/
+function modalClose() {
+	$(".modal").addClass("hidden");
+}
 
+function modalOpen() {
+	$(".modal").removeClass("hidden");
+}
+
+function handleLogInClick() {
+	$('#login1').on("click", e => {
+		e.preventDefault();
+		modalOpen();
+	})
+}
+
+function handleSignupClick() {
+	$('#signup1').on("click", e => {
+		e.preventDefault();
+		modalOpen();
+	})
+}
+
+function handleCloseClick() {
+	$('.close').on("click", e => {
+		modalClose();
+	})
+}
+
+function handleWindowClick() {
+	$(window).on("click", e => {
+		if(e.target.className == "modal") {
+			modalClose();
+		}
+	})
+}
+
+function handleModalEvent() {
+	handleLogInClick();
+	handleSignupClick();
+	handleCloseClick();
+	handleWindowClick();
+}
+
+/******* handle signup *******/
+function addUser(username, password, callback) {
+  $.ajax({
+    url: "/users",
+    contentType: 'application/json',
+    type: 'POST',
+    dataType: 'json',
+    data: JSON.stringify(
+      {
+      firstName: firstName,
+      lastName: lastName,
+      username: username,
+      password: password
+      }
+    ),
+    success: function(data) {
+      callback();
+    },
+    error: function(error) {
+      let errorString = error.responseText.split(':')[1];
+      let errorStringEdit = errorString.substring(1).slice(0, errorString.length -3)
+      alert(errorStringEdit);
+    }
+  });
+}
+/*
+$('#signup').submit(function(event) {
+  const username = $('#signup2').find('#username').val();
+  const password = $('#signup2').find('#password').val();
+  addUser(username, password);
+  return false;
+});
+*/
+
+$(handleModalEvent());
+
+
+
+
+/*
 function getRecentRecipeUpdates(callbackFn) {
     // we use a `setTimeout` to make this asynchronous
     // as it would be with a real AJAX call.
@@ -30,3 +113,6 @@ function getAndDisplayRecipeUpdates() {
 $(function() {
 	getAndDisplayRecipeUpdates();
 })
+// Get the modal
+var modal = document.getElementById('myModal');
+*/

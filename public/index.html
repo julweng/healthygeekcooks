@@ -1,10 +1,100 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    <p>Hello World</p>
-  </body>
+<head>
+  <title>Healthy Geek Cooks | Healthy and Geeky Recipes</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Healthy and geeky recipes">
+  <!-- Normalize.css, a cross-browser reset file -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="index.css">
+  <link rel="stylesheet" type="text/css" href="grid.css">
+</head>
+
+<body class="black-background">
+  <!--navigation-->
+  <header class="black-background">
+    <nav class="row black-background" role="navigation">
+      <div class="col-12 black-background">
+        <a href="#index" class="float-left  text-white" id="home">HOME</a>
+        <a href="#login" class="float-right  text-white" id="login1">LOG IN</a>
+      </div>
+    </nav>
+  </header>
+  <div class="row landing-img" role="landing">
+    <div class="col-12" id="pitch">
+      <br><br><br>
+      <h1>HEALTHY GEEK COOKS</h1>
+      <h2>BROWSE and SHARE</h2>
+      <h2>HEALTHY GEEKY RECIPES</h2>
+      <button class="sign-up-button center text-white" id="signup1">Join the Geeky Community</button>
+    </div>
+  </div>
+
+  <!--explain what app does-->
+  <main role="main" class="white-background">
+    <div class="row">
+      <div class="col-4 icon-block white-background">
+        <h2 class="center icon-red"><i class="fa fa-search fa-2x" aria-hidden="true"></i></h2>
+        <h2 class="center text-black">Search</h2>
+        <p class="center text-balck">Browse through healthy recipes inspired by fantasy novels and games such as Game of Thrones and World of Warcraft.</p>
+      </div>
+        <div class="col-4 icon-block white-background">
+          <h2 class="center icon-red"><i class="fa fa-users fa-2x" aria-hidden="true"></i></h2>
+          <h2 class="center text-black">Share</h2>
+          <p class="center text-balck">Post your creative, gluten-free, low-fat, low-sugar, or low-carb recipes and share with the community</p>
+        </div>
+          <div class="col-4 icon-block white-background">
+            <h2 class="center icon-red"><i class="fa fa-file fa-2x" aria-hidden="true"></i></h2>
+            <h2 class="center text-black">Collect</h2>
+            <p class="center text-balck">Sign up to build a collection of healthy recipes inspired by your favorite TV series, movies, and games</p>
+          </div>
+        </div>
+
+    <!--sign-up/login modal-->
+    <!--<button id="myBtn">Open Modal</button>-->
+    <div class="modal hidden">
+    <!-- Modal content -->
+      <div class="modal-content rose-background">
+        <div class="modal-header rose-background text-black center">
+          <span class="close text-black float-right">&times;</span>
+          <h2>Welcome to Healthy Geek Cooks</h2>
+        </div>
+        <div class="modal-body white-background text-black center">
+          <form role="form" action="/recipes" accept-charset="UTF-8" method="post" class="signup-form">
+            <fieldset>
+              <label for="username" class="left">Username: </label>
+              <input type="text" class="left" placeholder="demo: healthygeek" name="username" id="username" required/>
+              <label for="password" class="left">Password: </label>
+              <input type="password" class="left" placeholder="demo: healthygeek" name="password" id="password" required/>
+              <button type="submit" class="sign-up-button center text-white" id="signup2">Sign up</button>
+              <button type="submit" class="sign-in-button center text-white" id="login2">Log in</button>
+            </fieldset>
+          </form>
+        </div>
+        <div class="modal-footer rose-background text-black center">
+          <h3>Celebrate geekiness with healthy ideas </h3>
+        </div>
+      </div>
+    </div>
+
+  </main>
+  <footer>
+    <div class="row">
+      <div class="col-12">
+        <p class="center text-white">Built By Julia Tzu-Ya Weng</p>
+      </div>
+    </div>
+  </footer>
+
+
+<script type="text/javascript"
+  src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
+  crossorigin="anonymous"></script>
+  <script type="text/javascript" src="index.js">
+</script>
+</body>
 </html>
