@@ -1,0 +1,229 @@
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
+.black-background {
+  background-color: #020202;
+}
+
+.white-background {
+  background-color: #F5F5F5;
+}
+
+.rose-background {
+  background-color: #F2CCC3;
+}
+
+header, nav {
+  z-index: 10;
+  right: 0;
+}
+
+header, nav, .modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+header {
+  overflow: hidden;
+  height: 3.125rem;
+}
+
+nav {
+  line-height: 3.125rem;
+  vertical-align: middle;
+}
+
+nav a, #pitch, .close {
+  color: #FFF;
+  font-weight: bold;
+}
+
+nav a, .close, .close:hover, .close:focus, .sign-up-button, .sign-in-button {
+  text-decoration: none;
+  font-size: 1.3rem;
+}
+
+.sign-up-button, .sign-in-button, .close:hover,.close:focus {
+    cursor: pointer;
+}
+
+nav a {
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
+nav a:hover {
+  background-color: #E78F8E;
+}
+
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
+}
+
+.hidden {
+  display: none;
+}
+
+.landing-img, fieldset {
+  border: 0;
+}
+
+.landing-img {
+  width: 100%;
+  height: 36rem;
+  background-image: url("img/landing.png");
+  background-size: 100% 100%;
+  margin-top: 0;
+}
+
+#pitch > h1 {
+  font-size: 3.6rem;
+}
+
+#pitch > h2 {
+  font-size: 2.2rem;
+}
+
+#pitch, form {
+  padding: 2rem;
+}
+
+
+.sign-up-button {
+  background-color: #EE6352;
+}
+
+.sign-in-button {
+  background-color: #A31621;
+}
+
+.sign-up-button:hover {
+  background-color: #C35244;
+}
+
+.sign-in-button:hover {
+  background-color: #E78F8E;
+}
+
+.icon-block {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+  padding: 2rem;
+}
+
+.center {
+  text-align: center;
+}
+
+.left {
+  text-align: left;
+}
+
+.icon-red {
+  color: #E78F8E;
+}
+
+.text-black {
+  color: #020202;
+}
+
+.text-white {
+  color: #F5F5F5
+}
+
+.transition {
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+}
+
+/* The Modal background */
+.modal {
+  padding-top: 5rem; /* Location of the box */
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+
+/* Modal Content */
+.modal-content, fieldset {
+  padding: 0;
+}
+
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    width: 40%;
+    box-shadow: 0 0.25rem 0.5rem 0 rgba(0,0,0,0.2),0 0.375rem 1.25rem 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-18.75rem; opacity:0}
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-18.75rem; opacity:0}
+    to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close:hover,.close:focus {
+    color: #EE6352;
+    font-size: 1.6rem;
+}
+.modal-header, .modal-body, .modal-footer {
+  padding: 0.125rem 1rem;
+}
+
+fieldset {
+  margin: 0;
+}
+
+input[type="text"], input[type="password"] {
+  width: 70%;
+  display: inline-block;
+  background: #fcfcfc;
+  font-size: 1rem;
+  padding: 0.5rem;
+  border: 0.125rem solid #e7e7e7;
+  border-radius: 0.188rem;
+  height: auto;
+}
+
+input[type="text"], input[type="password"], button[type="button"] {
+  height: auto;
+  margin: 0.5rem auto 0.5rem;
+}
+
+button[type="button"] {
+  display: inline-block;
+  width: 40%;
+  border: none;
+  padding: 0.6rem 1.2rem;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+button[type="button"]:focus {
+ /* Restore desirable focus behavior
+ in non-webkit browsers like Firefox */
+ outline: auto 0.125rem #E78F8E;
+ /* Preseve default focus behavior in webkit browsers */
+ outline: auto 0.25rem -webkit-focus-ring-color;
+ box-shadow: 0;
+}
