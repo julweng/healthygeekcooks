@@ -18,8 +18,9 @@
   <header class="black-background">
     <nav class="row black-background" role="navigation">
       <div class="col-12 black-background">
-        <a href="#index" class="float-left  text-white" id="home">HOME</a>
-        <a href="#login" class="float-right  text-white" id="login1">LOG IN</a>
+        <a href="#" class="float-left  text-white" id="home">HOME</a>
+        <a href="#" class="float-right  text-white " id="login1">LOG IN</a>
+        <a href="#" class="float-right  text-white hidden transition" id="logout">LOG OUT</a>
       </div>
     </nav>
   </header>
@@ -29,7 +30,7 @@
       <h1>HEALTHY GEEK COOKS</h1>
       <h2>BROWSE and SHARE</h2>
       <h2>HEALTHY GEEKY RECIPES</h2>
-      <button class="sign-up-button center text-white" id="signup1">Join the Geeky Community</button>
+      <button class="sign-up-button center text-white" id="signup1" type="button">Join the Geeky Community</button>
     </div>
   </div>
 
@@ -63,19 +64,20 @@
           <h2>Welcome to Healthy Geek Cooks</h2>
         </div>
         <div class="modal-body white-background text-black center">
-          <form role="form" action="/recipes" accept-charset="UTF-8" method="post" class="signup-form">
+          <form role="form" action="/recipes.html" accept-charset="UTF-8" method="post" class="signup-form">
             <fieldset>
-              <label for="username" class="left">Username: </label>
-              <input type="text" class="left" placeholder="demo: healthygeek" name="username" id="username" required/>
-              <label for="password" class="left">Password: </label>
-              <input type="password" class="left" placeholder="demo: healthygeek" name="password" id="password" required/>
-              <button type="submit" class="sign-up-button center text-white" id="signup2">Sign up</button>
-              <button type="submit" class="sign-in-button center text-white" id="login2">Log in</button>
+              <label for="username" class="left">Username </label>
+              <input type="text" class="left transition" placeholder="demo: geeky" name="username" id="username" pattern=".{5,}" required/>
+              <label for="password" class="left">Password </label>
+              <input type="password" class="left transition" placeholder="demo: healthyrecipes" name="password" id="password" pattern=".{10,}" required/>
+              <button type="button" class="sign-up-button center text-white transition" id="signup2">Sign up</button>
+              <button type="button" class="sign-in-button center text-white transition" id="login2">Log in</button>
             </fieldset>
           </form>
         </div>
         <div class="modal-footer rose-background text-black center">
-          <h3>Celebrate geekiness with healthy ideas </h3>
+          <p>username: min. 5 characters/numbers</p>
+          <p>password: min. 8 characters/numbers</p>
         </div>
       </div>
     </div>
@@ -90,10 +92,10 @@
   </footer>
 
 
-<script type="text/javascript"
-  src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-  integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
-  crossorigin="anonymous"></script>
+  <script
+    src="https://code.jquery.com/jquery-3.2.1.js"
+    integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+    crossorigin="anonymous"></script>
   <script type="text/javascript" src="index.js">
 </script>
 </body>

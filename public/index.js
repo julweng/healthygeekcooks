@@ -1,36 +1,45 @@
+/******* delcare global variables *******/
+let token = '';
+const modal = $(".modal");
+const logout = $("#logout");
+const login1 = $("#login1");
+
+/******* toggle hidden/show *******/
+function hide(element) {
+	element.addClass("hidden");
+}
+
+function show(element) {
+	element.removeClass("hidden")
+}
+
 /******* modal events *******/
-function modalClose() {
-	$(".modal").addClass("hidden");
-}
-
-function modalOpen() {
-	$(".modal").removeClass("hidden");
-}
-
 function handleLogInClick() {
-	$('#login1').on("click", e => {
+	login1.on("click", e => {
 		e.preventDefault();
-		modalOpen();
+		show(modal);
 	})
 }
 
 function handleSignupClick() {
 	$('#signup1').on("click", e => {
 		e.preventDefault();
-		modalOpen();
+		show(modal);
 	})
 }
 
 function handleCloseClick() {
 	$('.close').on("click", e => {
-		modalClose();
+		e.preventDefault();
+		hide(modal);
 	})
 }
 
 function handleWindowClick() {
 	$(window).on("click", e => {
-		if(e.target.className == "modal") {
-			modalClose();
+		e.preventDefault();
+		if(e.target.className === "modal") {
+			hide(modal);
 		}
 	})
 }
@@ -42,41 +51,96 @@ function handleModalEvent() {
 	handleWindowClick();
 }
 
-/******* handle signup *******/
-function addUser(username, password, callback) {
-  $.ajax({
-    url: "/users",
-    contentType: 'application/json',
-    type: 'POST',
-    dataType: 'json',
-    data: JSON.stringify(
-      {
-      firstName: firstName,
-      lastName: lastName,
-      username: username,
-      password: password
-      }
-    ),
-    success: function(data) {
-      callback();
-    },
-    error: function(error) {
-      let errorString = error.responseText.split(':')[1];
-      let errorStringEdit = errorString.substring(1).slice(0, errorString.length -3)
-      alert(errorStringEdit);
-    }
-  });
+function api(url, type, data) {
+	return $.ajax({
+			url,
+			type,
+			data,
+    	contentType: "application/json",
+    	dataType: 'json',
+		})
+		.done(handleSuccess)
+		.fail(handleError);
 }
-/*
-$('#signup').submit(function(event) {
-  const username = $('#signup2').find('#username').val();
-  const password = $('#signup2').find('#password').val();
-  addUser(username, password);
-  return false;
-});
-*/
 
-$(handleModalEvent());
+/******* handle ajax error *******/
+function handleError(xhr) {
+	let err = xhr.status;
+	console.log(err);
+	// for log in
+	if(err === 401) {
+		alert(`incorrect username or password`);
+	}
+	// for sign up
+	else {
+		alert(JSON.parse(xhr.responseText).message);
+	}
+}
+
+/******* handle ajax done *******/
+function handleSuccess(data, statusText, xhr) {
+	// for successful signup
+	const status = xhr.status;
+	if (status === 201) {
+		// successful signup
+		alert('Thank you for signing up. Please log in.');
+	} else if (status === 200) {
+		// successful authentication
+		let res = JSON.parse(xhr.responseText);
+		token = res.authToken;
+		// show log out link on navigation bar
+		show(logout);
+		hide(login1);
+		// direct to recipes.html
+		setTimeout(function() {
+  	window.location.href = "recipes.html";
+	}, 300);
+	}
+}
+
+/******* handle login *******/
+function login(username, password) {
+	api("api/auth/login", "POST", JSON.stringify({
+		username,
+		password,
+	}));
+}
+
+/******* handle signup *******/
+function signup(username, password) {
+	return api("api/users", "POST", JSON.stringify({
+		username,
+		password,
+	}));
+}
+
+function getForm() {
+	const username = $('form #username').val();
+	const password = $('form #password').val();
+	return [username, password];
+}
+
+function handleSignUpSubmit() {
+	$("#signup2").click(e => {
+		e.preventDefault();
+		const formInfo = [...getForm()];
+		signup(formInfo[0], formInfo[1]);
+	})
+}
+
+function handleLogInSubmit() {
+	$('#login2').click(e => {
+		e.preventDefault();
+		const formInfo = [...getForm()];
+		login(formInfo[0], formInfo[1]);
+	})
+}
+
+$(function() {
+	handleModalEvent();
+	handleSignUpSubmit();
+	handleLogInSubmit();
+});
 
 
 
