@@ -32,7 +32,7 @@
   clear: both;
 }
 
-.col-3, .col-4, .col-6, .col-12 {
+.col-1, .col-2, .col-3, .col-4, .col-6, .col-8, .col-10, .col-12 {
   float: left;
 
   /* Gutters:
@@ -46,13 +46,25 @@
 }
 
 /* Mobile defaults */
-.col-3, .col-4, .col-6, .col-12 {
+.col-2, .col-3, .col-4, .col-6, .col-8, .col-10, .col-12 {
   width: 100%;
+}
+.col-1 {
+  width: 50%;
 }
 
 
 /* Non-mobile, grid */
 @media only screen and (min-width: 640px) {
+  /* 1 column, 1/12 in % */
+  .col-1 {
+    width: calc(1/12 * 100%);
+  }
+
+  /* 2 columns, 2/12 in % */
+  .col-2 {
+    width: calc(2/12 * 100%);
+  }
   /* 3 columns, 3/12 in % */
   .col-3 {
     width: 25%;
@@ -66,6 +78,16 @@
   /* 6 columns, 6/12 in % */
   .col-6 {
     width: 50%;
+  }
+
+  /* 8 columns, 8/12 in % */
+  .col-8 {
+    width: calc(8/12 * 100%);
+  }
+
+  /* 10 columns, 10/12 in % */
+  .col-10 {
+    width: calc(10/12 * 100%);
   }
 
   /* 12 columns, 12/12 in % */

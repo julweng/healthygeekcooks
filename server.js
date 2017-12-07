@@ -69,6 +69,50 @@ app.get('/recipes/:id', (req, res) => {
     });
 });
 
+// get by recipe name
+app.get('/recipes', (req, res) => {
+  Recipe
+    .findByName({name: res.query.name})
+    .then(recipe => res.json(recipe.apiRepr()))
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({message: 'Internal Server Error'});
+    });
+});
+
+// get by series name
+app.get('/recipes', (req, res) => {
+  Recipe
+    .findBySeries({name: res.query.seires})
+    .then(recipe => res.json(recipe.apiRepr()))
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({message: 'Internal Server Error'});
+    });
+});
+
+// get by Author name (username)
+app.get('/recipes', (req, res) => {
+  Recipe
+    .findByAuthor({name: res.query.author})
+    .then(recipe => res.json(recipe.apiRepr()))
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({message: 'Internal Server Error'});
+    });
+});
+
+// get by type
+app.get('/recipes', (req, res) => {
+  Recipe
+    .findByType({name: res.query.type})
+    .then(recipe => res.json(recipe.apiRepr()))
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({message: 'Internal Server Error'});
+    });
+});
+
 app.post('/recipes', (req, res) => {
   const requiredFields = ['name', 'type', 'ingredients', 'instructions', 'series'];
   for(let i = 0; i < requiredFields.length; i++) {

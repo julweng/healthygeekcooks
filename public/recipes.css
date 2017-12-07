@@ -1,0 +1,78 @@
+#search-form {
+  margin-top: 3rem;
+}
+
+.search-label, #search-button, #search-input {
+  display: inline-block;
+  height: auto;
+}
+
+.search-label, {
+  margin-bottom: 0.5rem;
+}
+
+#search-input, #searchsubmit, {
+  border: 0.15rem solid #E78F8E;
+  border-radius: 0.188rem;
+}
+
+.icon-block a, .icon-block:hover {
+  cursor: pointer;
+}
+
+.padding-right {
+  padding-right: 1.5rem;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+#searchsubmit {
+font-family: 'FontAwesome';
+font-size: 2rem;
+border-color: #A31621;
+vertical-align: sub;
+margin-left: 0;
+margin: 0;
+}
+
+span, #search-input {
+  font-size: 1.3rem;
+}
+
+/* Style the buttons that are used to open and close the accordion panel */
+button.accordion {
+    padding: 1rem;
+    width: 100%;
+
+    transition: 0.4s;
+    border-style: solid;
+    outline: none;
+    border-radius: 2rem;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+button.accordion.active, button.accordion:hover {
+    background-color: #A31621;
+    color: #F5F5F5;
+}
+
+button.accordion > span {
+  padding-left: 40rem;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+.panel {
+  padding: 0 1rem;
+}
+
+button > i {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+button[type="button"].upload-publish-button, button[type="button"].save-button, button[type="button"].clear-button {
+  padding: 0.3rem 0.3rem;
+  margin-top: 1rem;
+}

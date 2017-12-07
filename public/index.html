@@ -18,9 +18,9 @@
   <header class="black-background">
     <nav class="row black-background" role="navigation">
       <div class="col-12 black-background">
-        <a href="#" class="float-left  text-white" id="home">HOME</a>
-        <a href="#" class="float-right  text-white " id="login1">LOG IN</a>
-        <a href="#" class="float-right  text-white hidden transition" id="logout">LOG OUT</a>
+        <a href="#" class="col-2 center text-white hidden" id="icon">&#9776;</a>
+        <a href="/" class="col-2 center text-white" id="home">HOME</a>
+        <a href="#login" class="col-2 center text-white" id="login1">LOG IN</a>
       </div>
     </nav>
   </header>
@@ -61,15 +61,15 @@
       <div class="modal-content rose-background">
         <div class="modal-header rose-background text-black center">
           <span class="close text-black float-right">&times;</span>
-          <h2>Welcome to Healthy Geek Cooks</h2>
+          <h3>Welcome to Healthy Geek Cooks</h3>
         </div>
         <div class="modal-body white-background text-black center">
-          <form role="form" action="/recipes.html" accept-charset="UTF-8" method="post" class="signup-form">
+          <form role="form" action="#" accept-charset="UTF-8" method="post" class="signup-form">
             <fieldset>
               <label for="username" class="left">Username </label>
-              <input type="text" class="left transition" placeholder="demo: geeky" name="username" id="username" pattern=".{5,}" required/>
+              <input type="text" class="left transition" placeholder="demo: geeky" name="username" id="username" pattern=".{5,}" required />
               <label for="password" class="left">Password </label>
-              <input type="password" class="left transition" placeholder="demo: healthyrecipes" name="password" id="password" pattern=".{10,}" required/>
+              <input type="password" class="left transition" placeholder="demo: healthyrecipes" name="password" id="password" pattern=".{10,}" required />
               <button type="button" class="sign-up-button center text-white transition" id="signup2">Sign up</button>
               <button type="button" class="sign-in-button center text-white transition" id="login2">Log in</button>
             </fieldset>
@@ -83,7 +83,7 @@
     </div>
 
   </main>
-  <footer>
+  <footer class="black-background">
     <div class="row">
       <div class="col-12">
         <p class="center text-white">Built By Julia Tzu-Ya Weng</p>
@@ -93,10 +93,9 @@
 
 
   <script
-    src="https://code.jquery.com/jquery-3.2.1.js"
+    type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.js"
     integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
     crossorigin="anonymous"></script>
-  <script type="text/javascript" src="index.js">
-</script>
+  <script type="text/javascript" src="index.js"></script>
 </body>
 </html>

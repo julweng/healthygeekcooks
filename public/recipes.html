@@ -1,14 +1,144 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Example of client with mock API data</title>
-	<meta charset="utf-8">
+  <title>Healthy Geek Cooks | Healthy and Geeky Recipes</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Healthy and geeky recipes">
+  <!-- Normalize.css, a cross-browser reset file -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="index.css">
+	<link rel="stylesheet" type="text/css" href="recipes.css">
+  <link rel="stylesheet" type="text/css" href="grid.css">
 </head>
-<body>
-	<h1>Hello world</h1>
-	<p>Demo of how you can use mock data to build your client when you don't have a live API to call yet.</p>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-	<script type="text/javascript" src="index.js"></script>
+<body class="white-background">
+  <!--navigation-->
+  <header class="black-background">
+    <nav class="row black-background" role="navigation">
+			<div class="col-12 black-background">
+				<a href="#" class="col-2 center text-white hidden" id="icon">&#9776;</a>
+				<a href="/" class="col-2 text-white center col-1-margin-right" id="home">HOME</a>
+				<a href="#search" class="col-2 text-white center" id="search">SEARCH</a>
+				<a href="#create" class="col-2 text-white center" id="create">CREATE</a>
+				<a href="#edit" class="col-2 text-white center" id="edit">EDIT</a>
+				<a href="/api/auth/logout" class="col-2 text-white center" id="logout">LOG OUT</a>
+
+			</div>
+    </nav>
+  </header>
+	<main role="main" class="white-background">
+		<!--explain available functionalities-->
+	  <section class="row" id="intro-section">
+	    <div class="col-4 icon-block white-background">
+	      <a href="#search-recipes"><h2 class="center icon-red"><i class="fa fa-search-plus fa-2x" aria-hidden="true"></i></h2></a>
+	      <h2 class="center text-black">Search</h2>
+	      <p class="center text-balck">Search and add recipes to youcollections</p>
+	    </div>
+	      <div class="col-4 icon-block white-background">
+	        <a href="#create"><h2 class="center icon-red"><i class="fa fa-file-text-o fa-2x" aria-hidden="true"></i></h2></a>
+	        <h2 class="center text-black">Create</h2>
+	        <p class="center text-balck">Create and publish recipes</p>
+	      </div>
+	        <div class="col-4 icon-block white-background">
+	          <a href="#edit"><h2 class="center icon-red"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></h2></a>
+	          <h2 class="center text-black">EDIT</h2>
+	          <p class="center text-balck">EDIT your recipe box </p>
+	        </div>
+	      </div>
+	  </section>
+
+		<!--search section-->
+		<section class="row" id="search-section" role="search">
+    <form action="#" role="form" accept-charset="UTF-8" method="get" class="col-12" id="search-form">
+      <div class="row">
+        <label class="text-red search-label col-12 center" for="search"><span id="search-span">Search:</span>
+        <input type="text" id="search-input" placeholder="milk of the poppy, butterbeer..." required />
+        <input class="pointer red-background text-white" type="submit" id="searchsubmit" value="&#xf002;">
+        </label>
+      </div>
+      <div class="row">
+        <div class="col-12 center">
+        <label class="pointer padding-right"><span class="left padding-right text-red">By:</span>
+          <input type="radio" checked="checked" name="radio" role="checkbox">
+          Name</label>
+        <label class="pointer padding-right">
+          <input type="radio" checked="checked" name="radio" role="checkbox">
+          Series</label>
+        <label class="pointer padding-right">
+          <input type="radio" checked="checked" name="radio" role="checkbox">
+          Type</label>
+        </div>
+      </div>
+    </form>
+    </section>
+
+    <!-- create section -->
+    <section class="row" id="create-section">
+      <h2 class="col-12 center">Create Recipes</h2>
+      <button class="col-12 accordion rose-background text-black pointer left" type="click" role="button"><i class="fa fa-caret-down fa-lg" aria-hidden="true"></i> Basic Recipe Info</button>
+      <div class="col-12 panel white-background center hidden">
+          <form class="col-12">
+            <div class="col-12 center">
+              <div class="col-6"><label for="title">Title:</label>
+                <input type="text" class="create-recipes" placeholder="butterbeer..." required/>
+              </div>
+              <div class="col-6">
+                <label for="serving">serve:</label>
+                <input type="text" class="create-recipes" placeholder="2"/></div>
+            </div>
+            <div class="col-12 center">
+              <div class="col-6">
+                <label for="prep">prep:</label>
+                <input type="text" class="create-recipes" placeholder="1 hr 15min"/>
+              </div>
+              <div class="col-6">
+                <label for="cook">cook:</label>
+                <input type="text" class="create-recipes" placeholder="2 hr"/></div>
+            </div>
+            <div class="col-12">
+            <div class="col-4 right">
+              <button type="button" class="upload-publish-button">Image</button>
+            </div>
+            <div class="col-4 center">
+              <button type="button" class="save-button">Save</button>
+            </div>
+            <div class="col-4 left">
+              <button type="button" class="clear-button">Clear</button>
+            </div>
+        </div>
+            </div>
+
+        </form>
+
+      </div>
+      <button class="col-12 accordion rose-background text-black pointer left" type="click" role="button"><i class="fa fa-caret-down fa-lg" aria-hidden="true"></i> Ingredients and Supplies</button>
+      <div class="col-12 panel white-background hidden">
+        <p>Lorem ipsum...</p>
+      </div>
+      <button class="col-12 accordion rose-background text-black pointer left" type="click" role="button"><i class="fa fa-caret-down fa-lg" aria-hidden="true"></i> Instructions</button>
+        <div class="col-12 panel white-background hidden">
+          <p>Lorem ipsum...</p>
+        </div>
+    </section>
+
+  </main>
+
+  <footer class="black-background">
+    <div class="row">
+      <div class="col-12">
+        <p class="center text-white">Built By Julia Tzu-Ya Weng</p>
+      </div>
+    </div>
+  </footer>
+
+
+  <script
+    type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.js"
+    integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+    crossorigin="anonymous"></script>
+  <script type="text/javascript" src="recipes.js"></script>
 </body>
 </html>

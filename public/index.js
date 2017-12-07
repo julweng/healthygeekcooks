@@ -1,37 +1,54 @@
-/******* delcare global variables *******/
-let token = '';
+'use strict';
+/******* delcare constant variables *******/
+const home = $("#home");
 const modal = $(".modal");
-const logout = $("#logout");
 const login1 = $("#login1");
-
-/******* toggle hidden/show *******/
-function hide(element) {
-	element.addClass("hidden");
+const indexNavLinks = $("#home, #login1");
+/******* responsive nav bar *******/
+function responsiveNavBar() {
+  $(window).on('resize', function(){
+		if($(window).innerWidth() <= 640) {
+      $("#icon").removeClass("hidden");
+      navLinks.addClass("hidden");
+    }
+    else {
+      $("#icon").addClass("hidden");
+      navLinks.removeClass("hidden");
+    }
+  })
 }
 
-function show(element) {
-	element.removeClass("hidden")
+function handleHamburgerClick() {
+  $("#icon").on("click", e => {
+    e.preventDefault();
+    if(navLinks.hasClass("hidden")) {
+      navLinks.removeClass("hidden");
+    }
+    else {
+      navLinks.addClass("hidden");
+    }
+  });
 }
 
 /******* modal events *******/
 function handleLogInClick() {
 	login1.on("click", e => {
 		e.preventDefault();
-		show(modal);
+		modal.removeClass("hidden");
 	})
 }
 
 function handleSignupClick() {
-	$('#signup1').on("click", e => {
+	$("#signup1").on("click", e => {
 		e.preventDefault();
-		show(modal);
+		modal.removeClass("hidden");
 	})
 }
 
 function handleCloseClick() {
-	$('.close').on("click", e => {
+	$(".close").on("click", e => {
 		e.preventDefault();
-		hide(modal);
+		modal.addClass("hidden");
 	})
 }
 
@@ -39,7 +56,7 @@ function handleWindowClick() {
 	$(window).on("click", e => {
 		e.preventDefault();
 		if(e.target.className === "modal") {
-			hide(modal);
+			modal.addClass("hidden");
 		}
 	})
 }
@@ -51,6 +68,7 @@ function handleModalEvent() {
 	handleWindowClick();
 }
 
+/******* make ajax call to server via api ******/
 function api(url, type, data) {
 	return $.ajax({
 			url,
@@ -83,14 +101,9 @@ function handleSuccess(data, statusText, xhr) {
 	const status = xhr.status;
 	if (status === 201) {
 		// successful signup
-		alert('Thank you for signing up. Please log in.');
+		alert("Thank you for signing up. Please log in.");
 	} else if (status === 200) {
 		// successful authentication
-		let res = JSON.parse(xhr.responseText);
-		token = res.authToken;
-		// show log out link on navigation bar
-		show(logout);
-		hide(login1);
 		// direct to recipes.html
 		setTimeout(function() {
   	window.location.href = "recipes.html";
@@ -115,8 +128,8 @@ function signup(username, password) {
 }
 
 function getForm() {
-	const username = $('form #username').val();
-	const password = $('form #password').val();
+	const username = $("form #username").val();
+	const password = $("form #password").val();
 	return [username, password];
 }
 
@@ -129,54 +142,20 @@ function handleSignUpSubmit() {
 }
 
 function handleLogInSubmit() {
-	$('#login2').click(e => {
+	$("#login2").click(e => {
 		e.preventDefault();
 		const formInfo = [...getForm()];
 		login(formInfo[0], formInfo[1]);
+    let username = formInfo[0];
+    // set username to localStorage
+    localStorage.setItem('username', username);
 	})
 }
 
 $(function() {
+	responsiveNavBar();
 	handleModalEvent();
 	handleSignUpSubmit();
 	handleLogInSubmit();
+  handleHamburgerClick();
 });
-
-
-
-
-/*
-function getRecentRecipeUpdates(callbackFn) {
-    // we use a `setTimeout` to make this asynchronous
-    // as it would be with a real AJAX call.
-	setTimeout(function(){callbackFn(MOCK_RECIPE_UPDATES)}, 1);
-}
-
-// this function stays the same when we connect
-// to real API later
-function displayRecipeUpdates(data) {
-    for (index in data.recipeUpdates) {
-	   $('body').append(
-        `<ul>
-          <li>
-          <h3>${data.recipeUpdates[index].name} by <span>${data.recipeUpdates[index].author}</span></h3>
-          <p>${data.recipeUpdates[index].type}</p>
-          </li>
-        </ul>`);
-    }
-}
-
-// this function can stay the same even when we
-// are connecting to real API
-function getAndDisplayRecipeUpdates() {
-	getRecentRecipeUpdates(displayRecipeUpdates);
-  getRecentRecipeUpdates(displayIngredients)
-}
-
-//  on page load do this
-$(function() {
-	getAndDisplayRecipeUpdates();
-})
-// Get the modal
-var modal = document.getElementById('myModal');
-*/

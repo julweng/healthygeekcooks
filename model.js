@@ -24,7 +24,6 @@ recipeSchema.methods.apiRepr = function() {
     id: this._id,
     name: this.name,
     type: this.type,
-    title: this.title,
     ingredients: this.ingredients,
     supplies: this.supplies,
     instructions: this.instructions,
@@ -39,6 +38,22 @@ recipeSchema.methods.apiRepr = function() {
     publishDate: this.publishDate
   };
 }
+
+recipeSchema.query.findByName = function(name) {
+  return this.find({name: new RegExp('^'+this.name+'$', "i")});
+};
+
+recipeSchema.query.findBySeries = function(series) {
+  return this.find({series: new RegExp('^'+this.series+'$', "i")});
+};
+
+recipeSchema.query.findByType = function(type) {
+  return this.find({type: new RegExp('^'+this.type+'$', "i")});
+};
+
+recipeSchema.query.findByAuthor = function(type) {
+  return this.find({type: new RegExp('^'+this.author+'$', "i")});
+};
 
 const Recipe = mongoose.model('Recipe', recipeSchema);
 
