@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const passport = require('passport');
-
+const upload = require('jquery-file-upload-middleware')
 mongoose.Promise = global.Promise;
 
 const {PORT, DATABASE_URL} = require('./config');
@@ -14,7 +14,13 @@ const {searchFormTemplate} = require('./viewTemplates');
 const {router: usersRouter} = require('./users');
 const {router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 const app = express();
+upload.configure({
+    uploadDir: __dirname + '/public/uploads/',
+    uploadUrl: '/uploads'
+});
 
+
+app.use('/upload', upload.fileHandler());
 app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use(morgan('common'));
@@ -33,6 +39,34 @@ app.use(function (req, res, next) {
 
 passport.use(localStrategy);
 passport.use(jwtStrategy);
+
+/// Redirect all to home except post
+app.get('/upload', function( req, res ){
+	res.redirect('/');
+});
+
+app.put('/upload', function( req, res ){
+	res.redirect('/');
+});
+
+app.delete('/upload', function( req, res ){
+	res.redirect('/');
+});
+
+app.use('/upload', function(req, res, next){
+    upload.fileHandler({
+        uploadDir: function () {
+            return __dirname + '/public/uploads/'
+        },
+        uploadUrl: function () {
+            return '/uploads'
+        }
+    })(req, res, next);
+});
+app.post('/images', (req, res) => {
+  console.log(req);
+  res.send({});
+});
 
 app.use('/api/users/', usersRouter);
 app.use('/api/auth/', authRouter);
