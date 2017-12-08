@@ -10,6 +10,7 @@ mongoose.Promise = global.Promise;
 
 const {PORT, DATABASE_URL} = require('./config');
 const {Recipe} = require('./model');
+const {searchFormTemplate} = require('./viewTemplates');
 const {router: usersRouter} = require('./users');
 const {router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 const app = express();
@@ -17,6 +18,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use(morgan('common'));
+
 
 // CORS
 app.use(function (req, res, next) {
@@ -44,6 +46,11 @@ app.get('/api/protected', jwtAuth, (req, res) => {
     data: 'rosebud'
   });
 });
+// GET requests to render search clearForm
+app.get('/recipes/search', (req, res) => {
+  res.contentType('string');
+  return res.send(searchFormTemplate);
+})
 
 // GET requests to /recipes
 app.get('/recipes', (req, res) => {
@@ -83,7 +90,7 @@ app.get('/recipes', (req, res) => {
 // get by series name
 app.get('/recipes', (req, res) => {
   Recipe
-    .findBySeries({name: res.query.seires})
+    .findBySeries({series: res.query.seires})
     .then(recipe => res.json(recipe.apiRepr()))
     .catch(err => {
       console.error(err);
@@ -94,7 +101,7 @@ app.get('/recipes', (req, res) => {
 // get by Author name (username)
 app.get('/recipes', (req, res) => {
   Recipe
-    .findByAuthor({name: res.query.author})
+    .findByAuthor({author: res.query.author})
     .then(recipe => res.json(recipe.apiRepr()))
     .catch(err => {
       console.error(err);
@@ -105,7 +112,7 @@ app.get('/recipes', (req, res) => {
 // get by type
 app.get('/recipes', (req, res) => {
   Recipe
-    .findByType({name: res.query.type})
+    .findByType({type: res.query.type})
     .then(recipe => res.json(recipe.apiRepr()))
     .catch(err => {
       console.error(err);
@@ -113,7 +120,7 @@ app.get('/recipes', (req, res) => {
     });
 });
 
-app.post('/recipes', (req, res) => {
+app.post('/recipes/post', (req, res) => {
   const requiredFields = ['name', 'type', 'ingredients', 'instructions', 'series'];
   for(let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i];
@@ -130,6 +137,10 @@ app.post('/recipes', (req, res) => {
       ingredients: req.body.ingredients,
       instructions: req.body.instructions,
       series: req.body.series,
+      author: req.body.author,
+      cookTime: req.body.cook,
+      prepTime: req.body.prep,
+
     })
     .then(recipe => res.status(201).json(recipe.apiRepr()))
     .catch(err => {
@@ -146,7 +157,7 @@ app.put('/recipes/:id', (req, res) => {
   }
 
   const toUpdate = {};
-  const updateableFields = ['name', 'type', 'ingredients', 'supplies','instructions', 'author', 'series', 'category', 'prepTime', 'cookTime', 'serving', 'estimated calories per serving', 'AdaptedFromURL', 'publishDate'];
+  const updateableFields = ['name', 'type', 'ingredients', 'supplies','instructions', 'author', 'series', 'prepTime', 'cookTime', 'serving', 'publishDate'];
 
   updateableFields.forEach(field => {
     if(field in req.body) {
@@ -155,16 +166,28 @@ app.put('/recipes/:id', (req, res) => {
   });
 
   Recipe
-    .findByIdAndUpdate(req.params.id, {$set: toUpdate})
+    .findOneAndUpdate(req.params.id, {$set: toUpdate})
     .then(recipe => res.status(204).end())
     .catch(err => res.status(500).json({message: 'Internal Server Error'}));
 });
 
+
+// delete by id
 app.delete('/recipes/:id', (req, res) => {
   Recipe
     .findByIdAndRemove(req.params.id)
     .then(recipe => res.status(204).end())
     .catch(err => res.status(500).json({message: 'Internal Server Error'}));
+});
+
+// delete by Name
+app.delete('/recipes', (req, res) => {
+  Recipe
+    .findOneAndRemove({name: res.query.name})
+    .then(recipe => res.status(204).end())
+    .catch(err => {
+      res.status(500).json({message: 'Internal Server Error'});
+    });
 });
 
 app.use('*', function(req, res) {

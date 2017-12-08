@@ -9,6 +9,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" rel="stylesheet" type="text/css">
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel"stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.19.2/css/jquery.fileupload-noscript.css">
   <link rel="stylesheet" type="text/css" href="index.css">
 	<link rel="stylesheet" type="text/css" href="recipes.css">
   <link rel="stylesheet" type="text/css" href="grid.css">
@@ -78,50 +79,121 @@
     <!-- create section -->
     <section class="row" id="create-section">
       <h2 class="col-12 center">Create Recipes</h2>
-      <button class="col-12 accordion rose-background text-black pointer left" type="click" role="button"><i class="fa fa-caret-down fa-lg" aria-hidden="true"></i> Basic Recipe Info</button>
-      <div class="col-12 panel white-background center hidden">
-          <form class="col-12">
-            <div class="col-12 center">
-              <div class="col-6"><label for="title">Title:</label>
-                <input type="text" class="create-recipes" placeholder="butterbeer..." required/>
-              </div>
-              <div class="col-6">
-                <label for="serving">serve:</label>
-                <input type="text" class="create-recipes" placeholder="2"/></div>
+      <!-- basic recipe info -->
+      <button class="col-12 accordion rose-background text-black pointer left" type="button" role="button"><i class="fa fa-caret-down fa-lg" aria-hidden="true"></i>Basic Recipe Info</button>
+      <div class="row panel white-background hidden">
+        <form class="col-12">
+          <div class="row center">
+            <div class="col-6">
+              <label for="title">Title</label>
+              <input type="text" class="create-recipes" placeholder="butterbeer" id="title" required/>
             </div>
-            <div class="col-12 center">
-              <div class="col-6">
-                <label for="prep">prep:</label>
-                <input type="text" class="create-recipes" placeholder="1 hr 15min"/>
-              </div>
-              <div class="col-6">
-                <label for="cook">cook:</label>
-                <input type="text" class="create-recipes" placeholder="2 hr"/></div>
+            <div class="col-3">
+              <label for="serving">Serve</label>
+              <input type="text" class="create-recipes" placeholder="2" id="serve" />
             </div>
-            <div class="col-12">
-            <div class="col-4 right">
-              <button type="button" class="upload-publish-button">Image</button>
+            <div class="col-3">
+              <label for="type">Type</label>
+              <input type="text" class="create-recipes" placeholder="low sugar" id="type"/>
             </div>
-            <div class="col-4 center">
-              <button type="button" class="save-button">Save</button>
+          </div>
+          <div class="row center">
+            <div class="col-6">
+              <label for="series">Series</label>
+              <input type="text" class="create-recipes" placeholder="harry potter" id="series" required/>
             </div>
-            <div class="col-4 left">
-              <button type="button" class="clear-button">Clear</button>
+            <div class="col-3">
+              <label for="prep">Prep</label>
+              <input type="text" class="create-recipes" placeholder="1 hr 15min"  id="prep"/>
             </div>
-        </div>
+            <div class="col-3">
+              <label for="cook">Cook</label>
+              <input type="text" class="create-recipes" placeholder="2 hr" id="cook"/>
             </div>
-
+          </div>
+          <div class="row right">
+            <div class="col-12 right">
+              <button type="button" role="button" class="create-recipe-buttons terracotta-background text-white pointer" id="image">Image</button>
+              <button type="button" role="button" class="create-recipe-buttons coffee-background text-white pointer" id="basic-save">Save</button>
+              <button type="button" role="button" class="create-recipe-buttons burgundy-background text-white pointer" id="basic-clear">Clear</button>
+            </div>
+          </div>
         </form>
+      </div>
+        <input id="fileupload" type="file" name="files[]" data-url="../uploads" accept=".png" multiple>
+      <!-- modal content -->
+      <div class="modal col-12 hidden">
+      <!-- Modal content -->
+        <div class="modal-content rose-background" id="image-upload">
+          <div class="modal-header rose-background text-black center">
+            <span class="close text-black float-right">&times;</span>
+            <h3>Share an image of your recipe</h3>
+          </div>
+          <div class="modal-body white-background text-black center">
+            <form method="post" enctype="multipart/form-data">
+              <fieldset>
+              <div class="left">
+                <!--<input type="file" id="file" accept=".png"name="file">-->
 
-      </div>
-      <button class="col-12 accordion rose-background text-black pointer left" type="click" role="button"><i class="fa fa-caret-down fa-lg" aria-hidden="true"></i> Ingredients and Supplies</button>
-      <div class="col-12 panel white-background hidden">
-        <p>Lorem ipsum...</p>
-      </div>
-      <button class="col-12 accordion rose-background text-black pointer left" type="click" role="button"><i class="fa fa-caret-down fa-lg" aria-hidden="true"></i> Instructions</button>
-        <div class="col-12 panel white-background hidden">
-          <p>Lorem ipsum...</p>
+              </div>
+
+
+
+              <div class="center">
+                <button type="submit" class="terracotta-background text-white" role="button">Submit</button>
+              </div>
+              </fieldset>
+            </form>
+          </div>
+          <div class="modal-footer rose-background text-black center">
+            <p>Note: only .png format is accepted</p>
+          </div>
         </div>
+      </div>
+      <!-- ingredients and supplies -->
+      <button class="col-12 accordion rose-background text-black pointer left" type="button" role="button"><i class="fa fa-caret-down fa-lg" aria-hidden="true"></i>Ingredients and Supplies</button>
+      <div class="col-12 panel white-background hidden">
+        <form class="row">
+          <div class="col-12 center ing-sup-container">
+            <label class="col-12 left" for="supplies">Supplies</label>
+            <textarea class="col-12 low-textarea" name="supplies" form="ingreidents-supplies" wrap="hard" placeholder="4 (16-ounce) glasses,1 blender...(separated by commas)" id="supplies"></textarea>
+          </div>
+          <div class="col-12 center ing-sup-container">
+            <label class="col-12 left" for="ingredients">Ingredients</label>
+            <textarea class="col-12 high-textarea" name="ingredients" form="ingreidents-supplies" wrap="hard" placeholder="1 quartreduced fat vanilla ice cream, 100 ml Butterscotch syrup...(separated by commas)" id="ingredients" required /></textarea>
+          </div>
+          <div class="row right">
+            <div class="col-12 right">
+              <button type="button" role="button" class="create-recipe-buttons terracotta-background text-white pointer" id="ingredients-save">Save</button>
+              <button type="button" role="button" class="create-recipe-buttons coffee-background text-white pointer" id="ingredients-clear">Clear</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- instructions -->
+      <button class="col-12 accordion rose-background text-black pointer left" type="button" role="button"><i class="fa fa-caret-down fa-lg" aria-hidden="true"></i>Instructions</button>
+        <div class="col-12 panel white-background hidden">
+          <form class="row">
+            <div class="col-12 center ing-sup-container">
+              <label class="col-12 left" for="ingredients"></label>
+              <textarea class="col-12 high-textarea" name="ingredients" form="ingreidents-supplies" wrap="hard" placeholder="Chill glasses in fridge for at least half an hour.,Mix ice cream and root bear in a blender.,Pour into chilled glasses.,Optional: top with whipped cream...(separated by commas)" required /></textarea>
+            </div>
+            <div class="row right">
+              <div class="col-12 right">
+                <button type="button" role="button" class="create-recipe-buttons terracotta-background text-white pointer" id="save-instructions">Save</button>
+                <button type="button" role="button" class="create-recipe-buttons coffee-background text-white pointer" id="clear-instructions">Clear</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      <div class="row">
+        <div class="col-12 right">
+          <button type="button" role="button" class="create-recipe-buttons terracotta-background text-white pointer">Preview</button>
+          <button type="button" role="button" class="create-recipe-buttons coffee-background text-white pointer">Submit</button>
+          <button type="button" role="button" class="create-recipe-buttons burgundy-background text-white pointer" id="cancel">Cancel</button>
+        </div>
+      </div>
     </section>
 
   </main>
@@ -139,6 +211,9 @@
     type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.js"
     integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
     crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.19.2/js/vendor/jquery.ui.widget.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.19.2/js/jquery.fileupload.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.19.2/js/jquery.iframe-transport.js"></script>
   <script type="text/javascript" src="recipes.js"></script>
 </body>
 </html>

@@ -2,7 +2,11 @@
   margin-top: 3rem;
 }
 
-.search-label, #search-button, #search-input {
+#create-section label{
+  display: block
+}
+
+.search-label, #search-input {
   display: inline-block;
   height: auto;
 }
@@ -45,17 +49,20 @@ span, #search-input {
 button.accordion {
     padding: 1rem;
     width: 100%;
-
     transition: 0.4s;
-    border-style: solid;
     outline: none;
+    border-right: 0.5rem;
+    border-bottom: 0.5rem;
+    border: 0 0.5rem 0.5rem 0 solid #A31621;
     border-radius: 2rem;
+    margin: 0.05rem;
 }
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-button.accordion.active, button.accordion:hover {
+button.accordion:hover, button.accordion:focus {
     background-color: #A31621;
     color: #F5F5F5;
+    outline: none;
 }
 
 button.accordion > span {
@@ -76,3 +83,51 @@ button[type="button"].upload-publish-button, button[type="button"].save-button, 
   padding: 0.3rem 0.3rem;
   margin-top: 1rem;
 }
+
+textarea {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  resize: none;
+  outline: none;
+  margin: 0.5rem 0;
+}
+
+.low-textarea {
+  height: 5rem;
+}
+
+.high-textarea {
+  height: 10rem;
+}
+
+.ing-sup-container{
+  margin: 0.5rem;
+}
+
+.create-recipe-buttons {
+  width: 27% !important;
+}
+
+#searchsubmit:hover, .create-recipe-buttons:hover {
+  box-shadow: 0 0.8rem 1rem 0 rgba(0,0,0,0.24), 0 1rem 3rem 0 rgba(0,0,0,0.19);
+}
+.terracotta-background {
+  background-color: #E26D5C;
+}
+
+.coffee-background {
+  background-color: #723D46;
+}
+
+.burgundy-background {
+  background-color: #472D30;
+}
+
+#image-upload {
+  width: 60%;
+}
+
+/*
+input[type='file'] {
+  color: transparent;
+}*/

@@ -107,7 +107,8 @@ function handleSuccess(data, statusText, xhr) {
 		// direct to recipes.html
 		setTimeout(function() {
   	window.location.href = "recipes.html";
-	}, 300);
+	  }, 300);
+    return false;
 	}
 }
 
