@@ -145,22 +145,6 @@ function saveBasicInfo() {
 }
 
 function handleImageClick() {
-  /*$("#create-section").on("click", "#image", e => {
-    e.preventDefault();
-    console.log('image clicked');
-    if($(".modal").hasClass("hidden")) {
-      $(".modal").removeClass("hidden")
-    }*/
-    /*window.setTimeout(function() {
-      $('#fileupload').fileupload({
-            dataType: 'json',
-            done: function (e, data) {
-              console.log(arguments);
-            }
-        });
-      }, 0);*/
-    //});
-
 }
 
 function handleCloseClick() {
@@ -224,7 +208,7 @@ function cancelCreateClick() {
 $(function() {
   //handleSearchClick();
   responsiveMenuBar();
-  handleModalEvent();
+  //handleModalEvent();
   handleSearchClick();
   handleMenuBarClicks();
   handleAccordionClicks();
@@ -233,4 +217,21 @@ $(function() {
   cancelCreateClick();
   clearIngredientsSupplies();
   saveIngredientsSupplies();
+  $('#fileupload').fileupload({
+    url: 'http://localhost:8080/upload',
+    dataType: 'json',
+    done: function (e, data) {
+        $.each(data.result.files, function (index, file) {
+            $('<p/>').text(file.name).appendTo('#files');
+        });
+    },
+    progressall: function (e, data) {
+        var progress = parseInt(data.loaded / data.total * 100, 10);
+        $('#progress .progress-bar').css(
+            'width',
+            progress + '%'
+        );
+    }
+    }).prop('disabled', !$.support.fileInput)
+        .parent().addClass($.support.fileInput ? undefined : 'disabled');
 })
