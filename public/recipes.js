@@ -151,14 +151,14 @@ function handleImageClick() {
     if($(".modal").hasClass("hidden")) {
       $(".modal").removeClass("hidden")
     }*/
-    window.setTimeout(function() {
+    /*window.setTimeout(function() {
       $('#fileupload').fileupload({
             dataType: 'json',
             done: function (e, data) {
               console.log(arguments);
             }
         });
-      }, 0);
+      }, 0);*/
     //});
 
 }
@@ -233,12 +233,4 @@ $(function() {
   cancelCreateClick();
   clearIngredientsSupplies();
   saveIngredientsSupplies();
-
-    $('#fileupload').fileupload({
-          dataType: 'json',
-          done: function (e, data) {
-            console.log(arguments);
-          }
-      });
-
 })
