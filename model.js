@@ -14,7 +14,7 @@ const recipeSchema = mongoose.Schema({
   cookTime: String,
   serving: Number,
   publishDate: {type: Date, default: Date.now},
-//  img: {data: Buffer, contentType: String}
+  img: {type: String, default: '/img/nopic.png'}
 });
 
 recipeSchema.methods.apiRepr = function() {
@@ -33,24 +33,24 @@ recipeSchema.methods.apiRepr = function() {
     serving: this.serving,
     calories: this.calories,
     adaptedFromURL: this.AdaptedFromURL,
-    publishDate: this.publishDate
-//    img: this.img.data
+    publishDate: this.publishDate,
+    img: this.img
   };
 }
 
-recipeSchema.query.findByName = function(name) {
+recipeSchema.query.byName = function(name) {
   return this.find({name: new RegExp('^'+this.name+'$', "i")});
 };
 
-recipeSchema.query.findBySeries = function(series) {
+recipeSchema.query.bySeries = function(series) {
   return this.find({series: new RegExp('^'+this.series+'$', "i")});
 };
 
-recipeSchema.query.findByType = function(type) {
+recipeSchema.query.byType = function(type) {
   return this.find({type: new RegExp('^'+this.type+'$', "i")});
 };
 
-recipeSchema.query.findByAuthor = function(type) {
+recipeSchema.query.byAuthor = function(author) {
   return this.find({type: new RegExp('^'+this.author+'$', "i")});
 };
 

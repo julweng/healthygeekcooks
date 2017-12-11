@@ -5,16 +5,21 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const passport = require('passport');
-
+const upload = require('jquery-file-upload-middleware')
 mongoose.Promise = global.Promise;
 
 const {PORT, DATABASE_URL} = require('./config');
 const {Recipe} = require('./model');
-const {searchFormTemplate} = require('./viewTemplates');
 const {router: usersRouter} = require('./users');
 const {router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 const app = express();
+upload.configure({
+    uploadDir: __dirname + '/public/uploads/',
+    uploadUrl: '/uploads'
+});
 
+
+app.use('/upload', upload.fileHandler());
 app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use(morgan('common'));
@@ -34,6 +39,34 @@ app.use(function (req, res, next) {
 passport.use(localStrategy);
 passport.use(jwtStrategy);
 
+/// Redirect all to home except post
+app.get('/uploads', function( req, res ){
+	res.redirect('/');
+});
+
+app.put('/uploads', function( req, res ){
+	res.redirect('/');
+});
+
+app.delete('/uploads', function( req, res ){
+	res.redirect('/');
+});
+
+app.use('/uploads', function(req, res, next){
+    upload.fileHandler({
+        uploadDir: function () {
+            return __dirname + '/public/uploads/'
+        },
+        uploadUrl: function () {
+            return '/uploads'
+        }
+    })(req, res, next);
+});
+app.post('/images', (req, res) => {
+  console.log(req);
+  res.send({});
+});
+
 app.use('/api/users/', usersRouter);
 app.use('/api/auth/', authRouter);
 
@@ -46,11 +79,6 @@ app.get('/api/protected', jwtAuth, (req, res) => {
     data: 'rosebud'
   });
 });
-// GET requests to render search clearForm
-app.get('/recipes/search', (req, res) => {
-  res.contentType('string');
-  return res.send(searchFormTemplate);
-})
 
 // GET requests to /recipes
 app.get('/recipes', (req, res) => {
@@ -77,20 +105,34 @@ app.get('/recipes/:id', (req, res) => {
 });
 
 // get by recipe name
+app.get('/recipes/name', (req, res) => {
+  let filter = {};
+  for (let k in req.query.filter) {
+    filter[k] = req.query.filter[k];
+  }
+  return Recipe.find(filter, function(error, recipe){
+    return res.json(recipe.apiRepr());
+  });
+});
+
+// get by recipe Name
 app.get('/recipes', (req, res) => {
-  Recipe
-    .findByName({name: res.query.name})
-    .then(recipe => res.json(recipe.apiRepr()))
-    .catch(err => {
-      console.error(err);
+Recipe
+    .find()
+    .byName(req.query.name)
+    .exec(function(err, recipe) {
+      res.json(recipe.apiRepr());
+    if(err) {
+      console.log(err);
       res.status(500).json({message: 'Internal Server Error'});
-    });
+    }
+  });
 });
 
 // get by series name
 app.get('/recipes', (req, res) => {
-  Recipe
-    .findBySeries({series: res.query.seires})
+  Recipe.find()
+    .bySeries(req.query.series)
     .then(recipe => res.json(recipe.apiRepr()))
     .catch(err => {
       console.error(err);
@@ -100,8 +142,8 @@ app.get('/recipes', (req, res) => {
 
 // get by Author name (username)
 app.get('/recipes', (req, res) => {
-  Recipe
-    .findByAuthor({author: res.query.author})
+  Recipe.find()
+    .byAuthor(req.query.author)
     .then(recipe => res.json(recipe.apiRepr()))
     .catch(err => {
       console.error(err);
@@ -111,8 +153,8 @@ app.get('/recipes', (req, res) => {
 
 // get by type
 app.get('/recipes', (req, res) => {
-  Recipe
-    .findByType({type: res.query.type})
+  Recipe.find()
+    .byType(req.query.type)
     .then(recipe => res.json(recipe.apiRepr()))
     .catch(err => {
       console.error(err);
