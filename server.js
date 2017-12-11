@@ -40,19 +40,19 @@ passport.use(localStrategy);
 passport.use(jwtStrategy);
 
 /// Redirect all to home except post
-app.get('/uploads', function( req, res ){
+app.get('/upload', function( req, res ){
 	res.redirect('/');
 });
 
-app.put('/uploads', function( req, res ){
+app.put('/upload', function( req, res ){
 	res.redirect('/');
 });
 
-app.delete('/uploads', function( req, res ){
+app.delete('/upload', function( req, res ){
 	res.redirect('/');
 });
 
-app.use('/uploads', function(req, res, next){
+app.use('/upload', function(req, res, next){
     upload.fileHandler({
         uploadDir: function () {
             return __dirname + '/public/uploads/'

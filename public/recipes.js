@@ -374,7 +374,6 @@ function cancelCreateClick() {
 
 /****** handle file upload *******/
 function fileUpload(){
-  $()
   $('#fileupload').fileupload({
     url: 'http://localhost:8080/upload',
     dataType: 'json',
@@ -506,6 +505,7 @@ function createForm() {
   clearInstructions();
   saveInstructions();
   cancelCreateClick();
+  fileUpload();
 }
 
 $(function() {
@@ -516,5 +516,5 @@ $(function() {
   handleCardClick()
   handleMenuBarClicks();
   createForm();
-  fileUpload();
+
 });

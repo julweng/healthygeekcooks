@@ -127,6 +127,7 @@ textarea {
   width: 60%;
 }
 
+<<<<<<< HEAD
 input[type="file"], input[type="file"]:focus, input[type="file"]:active {
   color: transparent;
   outline: none;
@@ -206,3 +207,5 @@ div.tab button:hover {
 #instructions ul li {
   list-style: none;
 }
+=======
+>>>>>>> e839d58a2640f4b3fbeb10f296de2f073a586f6c
