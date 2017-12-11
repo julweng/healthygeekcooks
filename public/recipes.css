@@ -1,0 +1,129 @@
+#search-form {
+  margin-top: 3rem;
+}
+
+#create-section label{
+  display: block
+}
+
+.search-label, #search-input {
+  display: inline-block;
+  height: auto;
+}
+
+.search-label, {
+  margin-bottom: 0.5rem;
+}
+
+#search-input, #searchsubmit, {
+  border: 0.15rem solid #E78F8E;
+  border-radius: 0.188rem;
+}
+
+.icon-block a, .icon-block:hover {
+  cursor: pointer;
+}
+
+.padding-right {
+  padding-right: 1.5rem;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+#searchsubmit {
+font-family: 'FontAwesome';
+font-size: 2rem;
+border-color: #A31621;
+vertical-align: sub;
+margin-left: 0;
+margin: 0;
+}
+
+span, #search-input {
+  font-size: 1.3rem;
+}
+
+/* Style the buttons that are used to open and close the accordion panel */
+button.accordion {
+    padding: 1rem;
+    width: 100%;
+    transition: 0.4s;
+    outline: none;
+    border-right: 0.5rem;
+    border-bottom: 0.5rem;
+    border: 0 0.5rem 0.5rem 0 solid #A31621;
+    border-radius: 2rem;
+    margin: 0.05rem;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+button.accordion:hover, button.accordion:focus {
+    background-color: #A31621;
+    color: #F5F5F5;
+    outline: none;
+}
+
+button.accordion > span {
+  padding-left: 40rem;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+.panel {
+  padding: 0 1rem;
+}
+
+button > i {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+button[type="button"].upload-publish-button, button[type="button"].save-button, button[type="button"].clear-button {
+  padding: 0.3rem 0.3rem;
+  margin-top: 1rem;
+}
+
+textarea {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  resize: none;
+  outline: none;
+  margin: 0.5rem 0;
+}
+
+.low-textarea {
+  height: 5rem;
+}
+
+.high-textarea {
+  height: 10rem;
+}
+
+.ing-sup-container{
+  margin: 0.5rem;
+}
+
+.create-recipe-buttons {
+  width: 27% !important;
+}
+
+#searchsubmit:hover, .create-recipe-buttons:hover {
+  box-shadow: 0 0.8rem 1rem 0 rgba(0,0,0,0.24), 0 1rem 3rem 0 rgba(0,0,0,0.19);
+}
+.terracotta-background {
+  background-color: #E26D5C;
+}
+
+.coffee-background {
+  background-color: #723D46;
+}
+
+.burgundy-background {
+  background-color: #472D30;
+}
+
+#image-upload {
+  width: 60%;
+}
+

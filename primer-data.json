@@ -1,4 +1,4 @@
-{"id": "111", "name": "Hot Pie's Kidney Pie", "type": ["gluten free"], "ingredients": ["180g gluten–free self–raising flour","150g coconut oil","2 eggs","150-180 ml milk","1/2 tsp salt (optional)","1 tsp sugar (optional)","1/2 tsp baking powder (optional)","1/2 tsp black pepper (optional)","6 crushed juniper berries","1 onion, finely sliced","1 tbsp olive oil","450g stewing beef, diced","50g ox kidneys, chopped","150ml medium sweet sherry","120ml beef stock","100g baby carrots, trimmed", "3 open cap mushrooms, quartered", "1 tbsp cornflour"],
+{"name": "Hot Pie's Kidney Pie", "type": ["gluten free"], "ingredients": ["180g gluten–free self–raising flour","150g coconut oil","2 eggs","150-180 ml milk","1/2 tsp salt (optional)","1 tsp sugar (optional)","1/2 tsp baking powder (optional)","1/2 tsp black pepper (optional)","6 crushed juniper berries","1 onion, finely sliced","1 tbsp olive oil","450g stewing beef, diced","50g ox kidneys, chopped","150ml medium sweet sherry","120ml beef stock","100g baby carrots, trimmed", "3 open cap mushrooms, quartered", "1 tbsp cornflour"],
   	"supplies": [
   	  "1 pie tin (8 inch)",
   	  "1 frying pan",
@@ -30,8 +30,8 @@
     "author": "Dorris Targaryen",
   	"series": "Game of Thrones",
   	"category": "entree",
-  	"prepTime": "40 minutes",
-  	"cookTime": "4 hours, 15 minutes",
+  	"prepTime": "40 min",
+  	"cookTime": "4 hr, 15 min",
   	"serving": 4,
     "calories": 368,
     "adaptedFromURL": "https://www.glutafin.co.uk/recipes/pastry/gluten-free-select-steak-and-kidney-pie/",
@@ -39,7 +39,6 @@
     "rating": 4
   }
   {
-  	"id": "222",
     "name": "Barbecued Buzzard Wings",
     "type": ["low fat"],
     "ingredients": [
@@ -70,8 +69,8 @@
     "author": "Shado-Pan",
   	"series": "World of Warcraft",
   	"category": "appetizer",
-  	"prepTime": "15 minutes",
-  	"cookTime": "1 hour",
+  	"prepTime": "15 min",
+  	"cookTime": "1 hr",
   	"serving": 4,
     "calories": 250,
     "adaptedFromURL": "http://www.geniuskitchen.com/recipe/barbecued-buzzard-wings-346660",
@@ -79,10 +78,9 @@
     "rating": 4.5
   }
   {
-  	"id": "333",
-  	  "name": "Curiously Tasty Omelet",
-  	  "type": ["low fat", "low carb", "gluten free"],
-  	  "ingredients": [
+  	"name": "Curiously Tasty Omelet",
+  	"type": ["low fat", "low carb", "gluten free"],
+  	"ingredients": [
   	 	"2 eggs",
   		"1 tbsp water",
   		"1 tbsp butter",
@@ -105,8 +103,8 @@
   	"author": "Jenna Proudmoore",
     "series": "World of Warcraft",
     "category": "breakfast",
-    "prepTime": "10 minutes",
-    "cookTime": "10 minutes",
+    "prepTime": "10 min",
+    "cookTime": "10 min",
     "serving": 1,
     "calories": 180,
     "adaptedFromURL": "https://www.ibreatheimhungry.com/cheesy-italian-omelette-low-carb-andten-free/",
@@ -114,10 +112,9 @@
     "rating": 3.5
   }
   {
-  	"id": "444",
-  	  "name": "Golden Dragon Noodles",
-  	  "type": ["low fat"],
-  	  "ingredients": [
+  	"name": "Golden Dragon Noodles",
+  	"type": ["low fat"],
+  	"ingredients": [
       "1 tsp sesame oil",
       "1 shoot of green onion, finely chopped",
       "1 garlic clove, finely chopped",
@@ -139,8 +136,8 @@
   	"author": "Ella Ironpaw",
   	"series": "World of Warcraft",
   	"category": "entree",
-  	"prepTime": "10 minutes",
-  	"cookTime": "15 minutes",
+  	"prepTime": "10 min",
+  	"cookTime": "15 min",
   	"serving": 1,
     "calories": 160,
     "adaptedFromURL": "",
@@ -148,7 +145,6 @@
     "rating": 3
   }
   {
-    "id": "555",
     "name": "Butterbeer",
     "type": ["low sugar", "low fat"],
     "ingredients": [
@@ -167,8 +163,8 @@
     "author": "Sevon Snape",
     "series": "Harry Potter",
     "category": "beverage",
-    "prepTime": "5 minutes",
-    "cookTime": "5 minutes",
+    "prepTime": "5 mins",
+    "cookTime": "5 min",
     "serving": 4,
     "adaptedFromURL": "",
     "publishDate": "2017-11-28",

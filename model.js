@@ -10,13 +10,11 @@ const recipeSchema = mongoose.Schema({
   instructions: {type: [String], required: true},
   author: {type: String, default: 'anonymous'},
   series: {type: String, required: true},
-  category: String,
   prepTime: String,
   cookTime: String,
   serving: Number,
-  calories: Number,
-  adaptedFromURL: String,
-  publishDate: {type: Date, default: Date.now}
+  publishDate: {type: Date, default: Date.now},
+//  img: {data: Buffer, contentType: String}
 });
 
 recipeSchema.methods.apiRepr = function() {
@@ -24,7 +22,6 @@ recipeSchema.methods.apiRepr = function() {
     id: this._id,
     name: this.name,
     type: this.type,
-    title: this.title,
     ingredients: this.ingredients,
     supplies: this.supplies,
     instructions: this.instructions,
@@ -37,8 +34,25 @@ recipeSchema.methods.apiRepr = function() {
     calories: this.calories,
     adaptedFromURL: this.AdaptedFromURL,
     publishDate: this.publishDate
+//    img: this.img.data
   };
 }
+
+recipeSchema.query.findByName = function(name) {
+  return this.find({name: new RegExp('^'+this.name+'$', "i")});
+};
+
+recipeSchema.query.findBySeries = function(series) {
+  return this.find({series: new RegExp('^'+this.series+'$', "i")});
+};
+
+recipeSchema.query.findByType = function(type) {
+  return this.find({type: new RegExp('^'+this.type+'$', "i")});
+};
+
+recipeSchema.query.findByAuthor = function(type) {
+  return this.find({type: new RegExp('^'+this.author+'$', "i")});
+};
 
 const Recipe = mongoose.model('Recipe', recipeSchema);
 

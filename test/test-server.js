@@ -40,14 +40,10 @@ function generateRecipeData() {
     instructions: faker.lorem.sentences(),
     author: faker.lorem.word(),
     series: faker.lorem.word(),
-    category: faker.lorem.word(),
-    prepTime: `${faker.random.number()} hour(s) ${faker.random.number()}   minutes`,
-    cookTime: `${faker.random.number()} hour(s) ${faker.random.number()} minutes`,
+    prepTime: `${faker.random.number()} hr ${faker.random.number()} min`,
+    cookTime: `${faker.random.number()} hr(s) ${faker.random.number()} min`,
     serving: faker.random.number(),
-    calories: faker.random.number(),
-    adaptedFromURL: faker.lorem.word(),
     publishDate: faker.date.recent(),
-    rating: faker.random.number()
   };
 }
 
@@ -121,7 +117,6 @@ describe('healthy geek cooks API resources', function() {
             resRecipe.instructions.should.equal(recipe.instructions);
             resRecipe.author.should.equal(recipe.author);
             resRecipe.series.should.equal(recipe.series);
-            resRecipe.category.should.equal(recipe.category);
             resRecipe.publishDate.should.equal(recipe.publishDate);
           });
         });

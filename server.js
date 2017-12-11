@@ -5,18 +5,26 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const passport = require('passport');
-
+const upload = require('jquery-file-upload-middleware')
 mongoose.Promise = global.Promise;
 
 const {PORT, DATABASE_URL} = require('./config');
 const {Recipe} = require('./model');
+const {searchFormTemplate} = require('./viewTemplates');
 const {router: usersRouter} = require('./users');
 const {router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 const app = express();
+upload.configure({
+    uploadDir: __dirname + '/public/uploads/',
+    uploadUrl: '/uploads'
+});
 
+
+app.use('/upload', upload.fileHandler());
 app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use(morgan('common'));
+
 
 // CORS
 app.use(function (req, res, next) {
@@ -32,6 +40,34 @@ app.use(function (req, res, next) {
 passport.use(localStrategy);
 passport.use(jwtStrategy);
 
+/// Redirect all to home except post
+app.get('/upload', function( req, res ){
+	res.redirect('/');
+});
+
+app.put('/upload', function( req, res ){
+	res.redirect('/');
+});
+
+app.delete('/upload', function( req, res ){
+	res.redirect('/');
+});
+
+app.use('/upload', function(req, res, next){
+    upload.fileHandler({
+        uploadDir: function () {
+            return __dirname + '/public/uploads/'
+        },
+        uploadUrl: function () {
+            return '/uploads'
+        }
+    })(req, res, next);
+});
+app.post('/images', (req, res) => {
+  console.log(req);
+  res.send({});
+});
+
 app.use('/api/users/', usersRouter);
 app.use('/api/auth/', authRouter);
 
@@ -44,6 +80,11 @@ app.get('/api/protected', jwtAuth, (req, res) => {
     data: 'rosebud'
   });
 });
+// GET requests to render search clearForm
+app.get('/recipes/search', (req, res) => {
+  res.contentType('string');
+  return res.send(searchFormTemplate);
+})
 
 // GET requests to /recipes
 app.get('/recipes', (req, res) => {
@@ -69,7 +110,51 @@ app.get('/recipes/:id', (req, res) => {
     });
 });
 
-app.post('/recipes', (req, res) => {
+// get by recipe name
+app.get('/recipes', (req, res) => {
+  Recipe
+    .findByName({name: res.query.name})
+    .then(recipe => res.json(recipe.apiRepr()))
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({message: 'Internal Server Error'});
+    });
+});
+
+// get by series name
+app.get('/recipes', (req, res) => {
+  Recipe
+    .findBySeries({series: res.query.seires})
+    .then(recipe => res.json(recipe.apiRepr()))
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({message: 'Internal Server Error'});
+    });
+});
+
+// get by Author name (username)
+app.get('/recipes', (req, res) => {
+  Recipe
+    .findByAuthor({author: res.query.author})
+    .then(recipe => res.json(recipe.apiRepr()))
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({message: 'Internal Server Error'});
+    });
+});
+
+// get by type
+app.get('/recipes', (req, res) => {
+  Recipe
+    .findByType({type: res.query.type})
+    .then(recipe => res.json(recipe.apiRepr()))
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({message: 'Internal Server Error'});
+    });
+});
+
+app.post('/recipes/post', (req, res) => {
   const requiredFields = ['name', 'type', 'ingredients', 'instructions', 'series'];
   for(let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i];
@@ -86,6 +171,10 @@ app.post('/recipes', (req, res) => {
       ingredients: req.body.ingredients,
       instructions: req.body.instructions,
       series: req.body.series,
+      author: req.body.author,
+      cookTime: req.body.cook,
+      prepTime: req.body.prep,
+
     })
     .then(recipe => res.status(201).json(recipe.apiRepr()))
     .catch(err => {
@@ -102,7 +191,7 @@ app.put('/recipes/:id', (req, res) => {
   }
 
   const toUpdate = {};
-  const updateableFields = ['name', 'type', 'ingredients', 'supplies','instructions', 'author', 'series', 'category', 'prepTime', 'cookTime', 'serving', 'estimated calories per serving', 'AdaptedFromURL', 'publishDate'];
+  const updateableFields = ['name', 'type', 'ingredients', 'supplies','instructions', 'author', 'series', 'prepTime', 'cookTime', 'serving', 'publishDate'];
 
   updateableFields.forEach(field => {
     if(field in req.body) {
@@ -111,16 +200,28 @@ app.put('/recipes/:id', (req, res) => {
   });
 
   Recipe
-    .findByIdAndUpdate(req.params.id, {$set: toUpdate})
+    .findOneAndUpdate(req.params.id, {$set: toUpdate})
     .then(recipe => res.status(204).end())
     .catch(err => res.status(500).json({message: 'Internal Server Error'}));
 });
 
+
+// delete by id
 app.delete('/recipes/:id', (req, res) => {
   Recipe
     .findByIdAndRemove(req.params.id)
     .then(recipe => res.status(204).end())
     .catch(err => res.status(500).json({message: 'Internal Server Error'}));
+});
+
+// delete by Name
+app.delete('/recipes', (req, res) => {
+  Recipe
+    .findOneAndRemove({name: res.query.name})
+    .then(recipe => res.status(204).end())
+    .catch(err => {
+      res.status(500).json({message: 'Internal Server Error'});
+    });
 });
 
 app.use('*', function(req, res) {
