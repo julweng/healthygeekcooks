@@ -35,7 +35,7 @@
 	    <div class="col-4 icon-block white-background">
 	      <a href="#search-recipes"><h2 class="center icon-red"><i class="fa fa-search-plus fa-2x" aria-hidden="true"></i></h2></a>
 	      <h2 class="center text-black">Search</h2>
-	      <p class="center text-balck">Search and add recipes to your collections</p>
+	      <p class="center text-balck">Search recipes for inspirations</p>
 	    </div>
 	      <div class="col-4 icon-block white-background">
 	        <a href="#create"><h2 class="center icon-red"><i class="fa fa-file-text-o fa-2x" aria-hidden="true"></i></h2></a>
@@ -51,53 +51,22 @@
 	  </section>
 
 		<!--search section-->
-		<section class="row" id="search-section" role="search">
-    </section>
+		<section class="row" id="search-section" role="search"></section>
 
-
-    <!-- create section -->
-    <section class="row" id="create-section"></section>
     <!-- search result -->
     <section class="row" id="search-result"></section>
-    <section id="page" class="row"></section>
+    <section class="row" id="page"></section>
 
     <!-- browse section -->
-    <section class="row" id="browse-recipes">
-      <div class="tab col-12 left rose-background">
-        <button class="tablinks rose-background pointer" id="basic-tab">Basic Info</button>
-        <button class="tablinks rose-background pointer" id="ingredient-tab">Ingredients </button>
-        <button class="tablinks rose-background pointer" id="instruction tab">Instructions</button>
-      </div>
+    <section class="row" id="browse-section"></section>
 
-      <div id="basic-info" class="tabcontent col-12">
-        <h4 class="col-12 center"><b>${item.name}</b> from <b>${item.series}<b></h4>
-        <p class="col-12 center"> by <b>${item.author}</b></p>
-        <p class="col-3 center"><b>Type: </b> ${item.type}</p>
-        <p class="col-3 center"><b>Serving: </b> ${item.serving}</p>
-        <p class="col-3 center"><b>Prep: </b> ${item.prepTime}</p>
-        <p class="col-3 center"><b>Cook: </b> ${item.cookTime}</p>
-      </div>
-
-      <div id="Ingred-supp" class="tabcontent col-12 hidden">
-        <p class="col-4 center"><b>Supplies: </b> ${item.supplies}</p>
-        <p class="col-4 center"><b>Ingredients: </b> ${item.ingredients}</p>
-        <div class="col-4 center">img</div>
-      </div>
-
-      <div id="instructions" class="tabcontent col-12 hidden">
-        <h4 class="col-12 left">Instructions</h4>
-        <ul class="col-6 center">
-          <li class="left">1</li>
-          <li class="left">2</li>
-        </ul>
-        <ul class = "col-6 center">
-          <li class="left">3</li>
-          <li class="left">4</li>
-        </ul>
-      </div>
-    </section>
     <!-- create section -->
     <section class="row" id="create-section"></section>
+
+    <!-- edit section -->
+    <section class="row" id="edit-section"></section>
+    <section class="row" id="edit-search"></section>
+    <section class="row" id="edit-page"></section>
 
   </main>
 

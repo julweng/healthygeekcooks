@@ -82,7 +82,7 @@
   }
   {
   	"name": "Curiously Tasty Omelet",
-  	"type": ["low fat", "low carb", "gluten free"],
+  	"type": ["gluten free"],
   	"ingredients": [
   	 	"2 eggs",
   		"1 tbsp water",
@@ -147,7 +147,7 @@
     "adaptedFromURL": "",
     "publishDate": "2017-11-27",
     "rating": 3,
-    "img": "/img/gold-dragon-noodle1.png"
+    "img": "/img/gold-dragon-noodle1.jpeg"
   }
   {
     "name": "Butterbeer",

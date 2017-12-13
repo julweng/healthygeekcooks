@@ -1,9 +1,9 @@
 'use strict';
 /******* delcare constant variables *******/
-const home = $("#home");
 const modal = $(".modal");
 const login1 = $("#login1");
-const indexNavLinks = $("#home, #login1");
+const navLinks = $("#home, #login1");
+
 /******* responsive nav bar *******/
 function responsiveNavBar() {
   $(window).on('resize', function(){
@@ -30,14 +30,46 @@ function handleHamburgerClick() {
   });
 }
 
-/******* modal events *******/
+function handleDiffWindowSize() {
+  if($(window).innerWidth() <= 640) {
+    $("#icon").removeClass("hidden");
+    navLinks.addClass("hidden");
+  }
+  else {
+    $("#icon").addClass("hidden");
+    navLinks.removeClass("hidden");
+  }
+}
+
+function handleHomeClick() {
+  $("#home").on("click", e => {
+    e.preventDefault();
+    console.log('home clicked');
+    if($(window).innerWidth() <= 640) {
+      navLinks.addClass("hidden");
+    }
+  })
+}
+
 function handleLogInClick() {
 	login1.on("click", e => {
 		e.preventDefault();
+    if($(window).innerWidth() <= 640) {
+      navLinks.addClass("hidden");
+    }
 		modal.removeClass("hidden");
 	})
 }
 
+function handleNavBarClicks() {
+  responsiveNavBar();
+  handleHamburgerClick();
+  handleHomeClick();
+  handleLogInClick();
+  handleDiffWindowSize();
+}
+
+/******* modal events *******/
 function handleSignupClick() {
 	$("#signup1").on("click", e => {
 		e.preventDefault();
@@ -154,9 +186,8 @@ function handleLogInSubmit() {
 }
 
 $(function() {
-	responsiveNavBar();
+	handleNavBarClicks();
 	handleModalEvent();
 	handleSignUpSubmit();
 	handleLogInSubmit();
-  handleHamburgerClick();
 });

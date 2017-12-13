@@ -127,7 +127,6 @@ textarea {
   width: 60%;
 }
 
-<<<<<<< HEAD
 input[type="file"], input[type="file"]:focus, input[type="file"]:active {
   color: transparent;
   outline: none;
@@ -142,7 +141,7 @@ input[type="file"], input[type="file"]:focus, input[type="file"]:active {
 .card {
   box-shadow: 0 0.25rem 0.5rem 0 rgba(0,0,0,0.2);
   transition: 0.3s;
-  height: 21rem;
+  height: 22rem;
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
 }
@@ -192,7 +191,7 @@ div.tab button {
 }
 
 /* Change background color of buttons on hover */
-div.tab button:hover {
+div.tab button:hover, .active{
     background-color: #723D46;
     color: #F5F5F5;
 }
@@ -204,8 +203,12 @@ div.tab button:hover {
     box-shadow:  0 0.2rem 0.3rem 0.35rem rgba(0, 0, 0, 0.4);
 }
 
-#instructions ul li {
+#browse-section ul li {
   list-style: none;
 }
-=======
->>>>>>> e839d58a2640f4b3fbeb10f296de2f073a586f6c
+
+#ingred-supp img {
+  width: 60%;
+  height: 15rem;
+  padding: 1rem;
+}

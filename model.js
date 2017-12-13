@@ -27,32 +27,36 @@ recipeSchema.methods.apiRepr = function() {
     instructions: this.instructions,
     author: this.author,
     series: this.series,
-    category: this.category,
     prepTime: this.prepTime,
     cookTime: this.cookTime,
     serving: this.serving,
-    calories: this.calories,
-    adaptedFromURL: this.AdaptedFromURL,
     publishDate: this.publishDate,
     img: this.img
   };
 }
 
 recipeSchema.query.byName = function(name) {
-  return this.find({name: new RegExp('^'+this.name+'$', "i")});
+  return this.find({name: new RegExp('^'+name+'$', "i")});
 };
 
 recipeSchema.query.bySeries = function(series) {
-  return this.find({series: new RegExp('^'+this.series+'$', "i")});
+  return this.find({series: new RegExp('^'+series+'$', "i")});
 };
 
 recipeSchema.query.byType = function(type) {
-  return this.find({type: new RegExp('^'+this.type+'$', "i")});
+  return this.find({type: new RegExp('^'+type+'$', "i")});
 };
 
 recipeSchema.query.byAuthor = function(author) {
-  return this.find({type: new RegExp('^'+this.author+'$', "i")});
+  return this.find({author: new RegExp('^'+author+'$', "i")});
 };
+
+recipeSchema.query.byNameAndAuthor = function(name, author) {
+  return this.find({
+    name: new RegExp('^'+name+'$', "i"),
+    author: new RegExp('^'+author+'$', "i")
+  })
+}
 
 const Recipe = mongoose.model('Recipe', recipeSchema);
 
