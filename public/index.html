@@ -18,9 +18,9 @@
   <header class="black-background">
     <nav class="row black-background" role="navigation">
       <div class="col-12 black-background">
-        <a href="#" class="col-2 center text-white hidden" id="icon">&#9776;</a>
+        <a href="#" class="col-2 center text-white hidden" id="icon" aria-hidden="true">&#9776;</a>
         <a href="/" class="col-2 center text-white" id="home">HOME</a>
-        <a href="#login" class="col-2 center text-white" id="login1">LOG IN</a>
+        <a href="#login" class="col-2 center text-white" id="login1" aria-label="log in">LOG IN</a>
       </div>
     </nav>
   </header>
@@ -30,7 +30,7 @@
       <h1>HEALTHY GEEK COOKS</h1>
       <h2>BROWSE and SHARE</h2>
       <h2>HEALTHY GEEKY RECIPES</h2>
-      <button class="sign-up-button center text-white" id="signup1" type="button">Join the Geeky Community</button>
+      <button class="sign-up-button center text-white" id="signup1" type="button" aria-label="sign up">Join the Geeky Community</button>
     </div>
   </div>
 
@@ -55,28 +55,28 @@
       </div>
 
     <!--sign-up/login modal-->
-    <div class="modal hidden col-12">
+    <div class="modal hidden col-12" aria-live="assertive">
     <!-- Modal content -->
-      <div class="modal-content rose-background">
+      <div class="modal-content rose-background" aria-label="user authentication">
         <div class="modal-header rose-background text-black center col-12">
           <span class="close text-black float-right">&times;</span>
           <h3>Welcome to Healthy Geek Cooks</h3>
         </div>
         <div class="modal-body white-background text-black center">
-          <form role="form" action="#" accept-charset="UTF-8" method="post" class="signup-form">
+          <form role="form" action="#" accept-charset="UTF-8" method="post" class="signup-form" aria-label="user authentication">
             <fieldset>
               <label for="username" class="left">Username </label>
-              <input type="text" class="left transition" placeholder="demo: geeky" name="username" id="username" pattern=".{5,}" required />
+              <input type="text" class="left transition" placeholder="demo: geeky" name="username" id="username" pattern=".{5,}" aira-labelledby="username" required />
               <label for="password" class="left">Password </label>
-              <input type="password" class="left transition" placeholder="demo: healthyrecipes" name="password" id="password" pattern=".{10,}" required />
-              <button type="button" class="sign-up-button center text-white transition" id="signup2">Sign up</button>
-              <button type="button" class="sign-in-button center text-white transition" id="login2">Log in</button>
+              <input type="password" class="left transition" placeholder="demo: healthyrecipes" name="password" id="password" pattern=".{5,}" aira-labelledby="password" required />
+              <button type="button" class="sign-up-button center text-white transition" id="signup2" aria-role="sign up" role="submit">Sign up</button>
+              <button type="button" class="sign-in-button center text-white transition" id="login2" aria-role="sign up" role="submit">Log in</button>
             </fieldset>
           </form>
         </div>
         <div class="modal-footer rose-background text-black center">
-          <p>username: min. 5 characters/numbers</p>
-          <p>password: min. 8 characters/numbers</p>
+          <p>username and password</p>
+          <p>min. 5 characters/numbers</p>
         </div>
       </div>
     </div>

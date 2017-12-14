@@ -108,22 +108,22 @@ function handleSearchClick() {
 function renderSearchForm() {
   $('#search-section').empty();
   const searchForm = `
-    <form action="#" role="form" accept-charset="UTF-8" method="get" class="col-12" id="search-form">
+    <form action="#" role="form" accept-charset="UTF-8" method="get" class="col-12" id="search-form" aria-live="assertive">
       <div class="row">
         <label class="text-red search-label col-12 center" for="search"><span id="search-span">Search:</span>
-        <input type="text" id="search-input" placeholder="butterbeer" required />
-        <input class="pointer red-background text-white" type="submit" id="searchsubmit" value="&#xf002;">
+        <input type="text" id="search-input" placeholder="butterbeer" required aria-labelledby="search" />
+        <input class="pointer red-background text-white" type="submit" id="searchsubmit" value="&#xf002;" role="submit" aria-label="search">
         </label>
       </div>
       <div class="row">
         <div class="col-12 center">
           <span class="text-red">By: </span>
-          <input type="radio" id="byName" name="search-filter" value="name" role="checkbox" checked>
+          <input type="radio" id="byName" name="search-filter" value="name" role="checkbox" aria-labelledby="name" checked>
           <label for="byName">Name</label>
-          <input type="radio" id="bySeries" name="search-filter" value="series" role="checkbox">
+          <input type="radio" id="bySeries" name="search-filter" value="series" role="checkbox" aria-labelledby="series">
           <label for="bySeries">Series</label>
           <input type="radio" id="byType" name="search-filter" value="type">
-          <label for="byType">Type</label>
+          <label for="byType" aria-labelledby="series">Type</label>
         </div>
       </div>
     </form>`;
@@ -156,7 +156,7 @@ function handleSearchSubmit() {
 /***** display search result *****/
 function displaySearchResult(selector, item) {
   selector.append(`
-    <div class="col-3 card">
+    <div class="col-3 card" aria-live="assertive" aria-labelledby="search results">
       <img src="${item.img}" alt="${item.name}" data-id="${item._id}" class="card-img pointer">
       <div class="center card-container">
         <p class="text-red"><b>${item.name}</b></p>
@@ -171,7 +171,7 @@ function displaySearchResult(selector, item) {
 function renderSearchResult(data) {
   if(data.length === 0) {
     $("#search-result").append(
-      `<div class="col-12 center">
+      `<div class="col-12 center" aria-live="assertive">
         <p>The recipe does not exist in the database.</p>
         <p>Check your spelling and try again.</p>
         <p>Or, Create one of your own!</p>
@@ -234,10 +234,10 @@ function handleSearchCardClick() {
 }
 
 function renderRecipe(item) {
-  let recipe = `<div class="tab col-12 left rose-background">
-    <button class="tablinks rose-background pointer active" id="basic-tab">Basic Info</button>
-    <button class="tablinks rose-background pointer" id="ingredient-tab">Ingredients </button>
-    <button class="tablinks rose-background pointer" id="instruction-tab">Instructions</button>
+  let recipe = `<div class="tab col-12 left rose-background" aria-live="assertive" aria-labelledby="recipe">
+    <button class="tablinks rose-background pointer active" id="basic-tab" role="button">Basic Info</button>
+    <button class="tablinks rose-background pointer" id="ingredient-tab" role="button">Ingredients </button>
+    <button class="tablinks rose-background pointer" id="instruction-tab" role="button">Instructions</button>
   </div>
 
   <div id="basic-info" class="tabcontent col-12">
@@ -248,7 +248,7 @@ function renderRecipe(item) {
     <p class="col-3 center"><b>Prep: </b> ${item.prepTime}</p>
     <p class="col-3 center"><b>Cook: </b> ${item.cookTime}</p>
   </div>
-  <div id="ingred-supp" class="tabcontent col-12 hidden">
+  <div id="ingred-supp" class="tabcontent col-12 hidden" aria-assertive="live">
     <div class="col-6 left">
       <p><span class="text-red"><b>Supplies: </span></b> ${item.supplies}</p>
       <p><span class="text-red"><b>Ingredients: </span></b></p>
@@ -256,7 +256,7 @@ function renderRecipe(item) {
     </div>
     <div class="col-6 center"><img src="${item.img}" alt="${item.name}"></div>
   </div>
-  <div id="instructions" class="tabcontent col-12 hidden">`;
+  <div id="instructions" class="tabcontent col-12 hidden" aria-live="assertive">`;
 
   const instructions = item.instructions;
   let leftInstruction = `<h3 class="col-12 left text-red">Instructions</h3>
@@ -349,38 +349,38 @@ function fileUpload() {
 /****** handle create click *******/
 function renderCreateForm(selector) {
   const createForm = `
-  <h2 class="col-12 center">Create Recipes</h2>
+  <h2 class="col-12 center" aria-live="assertive">Create Recipes</h2>
     <p class="col-12 center">(<sup> *</sup> = required fields)</p>
     <!-- basic recipe info -->
     <button class="col-12 accordion rose-background text-black pointer left" type="button" role="button"><i class="fa fa-caret-down fa-lg" aria-hidden="true"></i>Basic Recipe Info</button>
     <div class="row panel white-background hidden">
-      <form class="col-12" id="basic-info-form" data-id="" data-img="">
+      <form class="col-12" id="basic-info-form" role="form" data-id="" data-img="">
         <div class="row center">
           <div class="col-6">
             <label for="title">Title<sup>*</sup></label>
-            <input type="text" class="create-recipes" name="title" placeholder="butterbeer" id="title" required/>
+            <input type="text" class="create-recipes" name="title" placeholder="butterbeer" id="title" aria-labelledby="title" required/>
           </div>
           <div class="col-3">
             <label for="serving">Serve</label>
-            <input type="text" class="create-recipes" placeholder="2" name="serving" id="serve" />
+            <input type="text" class="create-recipes" placeholder="2" name="serving" aria-labelledby="serve" id="serving" />
           </div>
           <div class="col-3">
             <label for="type">Type<sup>*</sup></label>
-            <input type="text" class="create-recipes" name="type" placeholder="low fat" id="type" required/>
+            <input type="text" class="create-recipes" name="type" placeholder="low fat" id="type" aria-labelledby="type" required/>
           </div>
         </div>
         <div class="row center">
           <div class="col-6">
             <label for="series">Series<sup>*</sup></label>
-            <input type="text" class="create-recipes" name="series" placeholder="harry potter" id="series" required/>
+            <input type="text" class="create-recipes" name="series" placeholder="harry potter" id="series" aria-labelledby="series" required/>
           </div>
           <div class="col-3">
             <label for="prep">Prep</label>
-            <input type="text" class="create-recipes" name="prep" placeholder="1 hr 15min" id="prep"/>
+            <input type="text" class="create-recipes" name="prep" placeholder="1 hr 15min" aria-labelledby="prep time" id="prep"/>
           </div>
           <div class="col-3">
             <label for="cook">Cook</label>
-            <input type="text" class="create-recipes" name="cook" placeholder="2 hr" id="cook"/>
+            <input type="text" class="create-recipes" name="cook" placeholder="2 hr" aria-labelledby="cook time" id="cook"/>
           </div>
         </div>
         <div class="row right">
@@ -393,15 +393,15 @@ function renderCreateForm(selector) {
 
     <!-- ingredients and supplies -->
     <button class="col-12 accordion rose-background text-black pointer left" type="button" role="button"><i class="fa fa-caret-down fa-lg" aria-hidden="true"></i>Ingredients and Supplies</button>
-    <div class="col-12 panel white-background hidden">
+    <div class="col-12 panel white-background hidden" aria-live="assertive">
       <form class="row" id="ing-sup-form">
         <div class="col-12 center ing-sup-container">
           <label class="col-12 left" for="supplies">Supplies</label>
-          <textarea class="col-12 low-textarea" name="supplies" form="ingreidents-supplies" wrap="hard" placeholder="4 (16-ounce) glasses,1 blender...(separated by commas)" id="supplies" required></textarea>
+          <textarea class="col-12 low-textarea" name="supplies" form="ingreidents-supplies" wrap="hard" placeholder="4 (16-ounce) glasses,1 blender...(separated by commas)" id="supplies" role="textbox" contenteditable="true" aria-multiline="true"></textarea>
         </div>
         <div class="col-12 center ing-sup-container">
           <label class="col-12 left" for="ingredients">Ingredients<sup>*</sup></label>
-          <textarea class="col-12 high-textarea" name="ingredients" form="ingreidents-supplies" wrap="hard" placeholder="1 quartreduced fat vanilla ice cream, 100 ml Butterscotch syrup...(separated by commas)" id="ingredients" required></textarea>
+          <textarea class="col-12 high-textarea" name="ingredients" form="ingreidents-supplies" wrap="hard" placeholder="1 quartreduced fat vanilla ice cream, 100 ml Butterscotch syrup...(separated by commas)" id="ingredients" role="textbox" contenteditable="true" aria-multiline="true" required></textarea>
         </div>
         <div class="col-12" id="fileupload">
           <p>Optional: Share a picture of your recipe. Only .png < 500kb is accepted</p>
@@ -417,11 +417,11 @@ function renderCreateForm(selector) {
 
     <!-- instructions -->
     <button class="col-12 accordion rose-background text-black pointer left" type="button" role="button"><i class="fa fa-caret-down fa-lg" aria-hidden="true"></i>Instructions</button>
-      <div class="col-12 panel white-background hidden">
+      <div class="col-12 panel white-background hidden" aria-live="assertive">
         <form class="row">
           <div class="col-12 center ing-sup-container">
             <label class="col-12 left" for="instructions">Instructions<sup>*</sup></label>
-            <textarea class="col-12 high-textarea" name="instructions" form="instructions" wrap="hard" placeholder="Chill glasses in fridge for at least half an hour.,Mix ice cream and root bear in a blender.,Pour into chilled glasses.,Optional: top with whipped cream...(separated by periods)" id="instructions" required /></textarea>
+            <textarea class="col-12 high-textarea" name="instructions" form="instructions" wrap="hard" placeholder="Chill glasses in fridge for at least half an hour.,Mix ice cream and root bear in a blender.,Pour into chilled glasses.,Optional: top with whipped cream...(separated by periods)" id="instructions" role="textbox" contenteditable="true" aria-multiline="true" required /></textarea>
           </div>
           <div class="row right">
             <div class="col-12 right">

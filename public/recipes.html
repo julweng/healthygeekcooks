@@ -19,12 +19,12 @@
   <header class="black-background">
     <nav class="row black-background" role="navigation">
 			<div class="col-12 black-background">
-				<a href="#" class="col-2 center text-white hidden" id="icon">&#9776;</a>
-				<a href="/" class="col-2 text-white center col-1-margin-right" id="home">HOME</a>
-				<a href="#search-recipes" class="col-2 text-white center" id="search">SEARCH</a>
-				<a href="#create" class="col-2 text-white center" id="create">CREATE</a>
-				<a href="#edit" class="col-2 text-white center" id="edit">EDIT</a>
-				<a href="/api/auth/logout" class="col-2 text-white center" id="logout">LOG OUT</a>
+				<a href="#" class="col-2 center text-white hidden" id="icon" aria-hidden="true">&#9776;</a>
+				<a href="/" class="col-2 text-white center col-1-margin-right" id="home" aria-label="home">HOME</a>
+				<a href="#search-recipes" class="col-2 text-white center" id="search" aria-label="search recipes">SEARCH</a>
+				<a href="#create" class="col-2 text-white center" id="create" aria-label="create recipes">CREATE</a>
+				<a href="#edit" class="col-2 text-white center" id="edit" aria-label="edit recipes">EDIT</a>
+				<a href="/api/auth/logout" class="col-2 text-white center" id="logout" aria-label="log out">LOG OUT</a>
 
 			</div>
     </nav>
@@ -51,19 +51,19 @@
 	  </section>
 
 		<!--search section-->
-		<section class="row" id="search-section" role="search"></section>
+		<section class="row" id="search-section" role="search" aria-label="search"></section>
 
     <!-- search result -->
-    <section class="row" id="search-result"></section>
+    <section class="row" id="search-result" aria-label="search results"></section>
 
     <!-- browse section -->
-    <section class="row" id="browse-section"></section>
+    <section class="row" id="browse-section" aria-label="browse search results"></section>
 
     <!-- create section -->
-    <section class="row" id="create-section"></section>
+    <section class="row" id="create-section" aria-label="create recipes"></section>
 
     <!-- edit section -->
-    <section class="row" id="edit-section"></section>
+    <section class="row" id="edit-section" aria-label="edit recipes"></section>
 
   </main>
 
