@@ -480,12 +480,12 @@ function handleSubmitCreateClick(url, httpMethod) {
       const name = $("#create-section #title").val().trim();
       const series = $("#create-section #series").val().trim();
       const serving = parseInt($("#create-section #serve").val());
-      const type = trimStringArray($("#create-section #type").val());
+      const type = trimStringArray($("#create-section #type").val(), ",");
       const prepTime = $("#create-section #prep").val().trim();
       const cookTime = $("#create-section #cook").val().trim();
-      const supplies = trimStringArray($("#create-section #supplies").val());
-      const ingredients = trimStringArray($("#create-section #ingredients").val());
-      const instructions = trimStringArray($("#create-section textarea#instructions").val());
+      const supplies = trimStringArray($("#create-section #supplies").val(), ",");
+      const ingredients = trimStringArray($("#create-section #ingredients").val(), ",");
+      const instructions = trimStringArray($("#create-section textarea#instructions").val(), ".");
       const author = username;
       console.log(name, series, serving, type, prepTime, cookTime, supplies, ingredients, instructions, author, img);
       if(!(name && series && type && ingredients && instructions)) {
@@ -699,15 +699,15 @@ function handleSubmitEditClick() {
       let id = $("#edit-section #basic-info-form").attr("data-id");
       console.log(id);
 
-      const name = $("#title").val().trim();
-      const series = $("#series").val().trim();
-      const serving = parseInt($("#serve").val());
-      const type = trimStringArray($("#type").val());
-      const prepTime = $("#prep").val().trim();
-      const cookTime = $("#cook").val().trim();
-      const supplies = trimStringArray($("#supplies").val());
-      const ingredients = trimStringArray($("#ingredients").val());
-      const instructions = trimStringArray($("textarea#instructions").val());
+      const name = $("#edit-section #title").val().trim();
+      const series = $("#edit-section #series").val().trim();
+      const serving = parseInt($("#edit-section #serve").val());
+      const type = trimStringArray($("#edit-section #type").val(), ",");
+      const prepTime = $("#edit-section #prep").val().trim();
+      const cookTime = $("#edit-section #cook").val().trim();
+      const supplies = trimStringArray($("#edit-section #supplies").val(), ",");
+      const ingredients = trimStringArray($("#edit-section #ingredients").val(), ",");
+      const instructions = trimStringArray($("#edit-section #instructions").val(), ".");
       const author = username;
 
       if(!(name && series && type && ingredients && instructions)) {
