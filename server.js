@@ -207,7 +207,7 @@ app.put('/recipes/:id', (req, res) => {
     }
   });
 
-  Recipe.findOneAndUpdate(ObjectId(req.params.id), {$set: toUpdate})
+  Recipe.findOneAndUpdate(ObjectId(req.params.id), {$set: toUpdate}, {returnOriginal:false, returnNewDocument: true, upsert: true, new: true})
     .then(recipe => res.status(204).end())
     .catch(err => res.status(500).json({message: 'Internal Server Error'}));
 });

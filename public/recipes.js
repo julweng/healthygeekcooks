@@ -714,6 +714,7 @@ function handleSubmitEditClick() {
         alert('missing required fields')
       }
       else {
+        console.log(id);
         ajaxPostOrPut(`/recipes/${id}`, "PUT", JSON.stringify({
           id,
           name,
