@@ -2,8 +2,8 @@
   margin-top: 3rem;
 }
 
-#create-section label{
-  display: block
+#create-section label {
+  display: block;
 }
 
 .search-label, #search-input {
@@ -20,16 +20,12 @@
   border-radius: 0.188rem;
 }
 
-.icon-block a, .icon-block:hover {
+.icon-block a, .icon-block:hover, .pointer {
   cursor: pointer;
 }
 
 .padding-right {
   padding-right: 1.5rem;
-}
-
-.pointer {
-  cursor: pointer;
 }
 
 #searchsubmit {
@@ -45,31 +41,36 @@ span, #search-input {
   font-size: 1.3rem;
 }
 
+button.accordion, div.tab button, .card,  {
+  transition: 0.3s;
+}
+
+button.accordion,button.accordion:hover, button.accordion:focus, textarea, input[type="file"], input[type="file"]:focus, input[type="file"]:active, div.tab button  {
+  outline: none;
+}
+
+
 /* Style the buttons that are used to open and close the accordion panel */
 button.accordion {
-    padding: 1rem;
-    width: 100%;
-    transition: 0.4s;
-    outline: none;
-    border-right: 0.5rem;
-    border-bottom: 0.5rem;
-    border: 0 0.5rem 0.5rem 0 solid #A31621;
-    border-radius: 2rem;
-    margin: 0.05rem;
+  width: 100%;
+  border-right: 0.5rem;
+  border-bottom: 0.5rem;
+  border: 0 0.5rem 0.5rem 0 solid #A31621;
+  border-radius: 2rem;
+  margin: 0.05rem;
 }
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 button.accordion:hover, button.accordion:focus {
-    background-color: #A31621;
-    color: #F5F5F5;
-    outline: none;
+  background-color: #A31621;
+  color: #F5F5F5;
 }
 
 button.accordion > span {
   padding-left: 40rem;
 }
 
-/* Style the accordion panel. Note: hidden by default */
+/* Style the accordion panel, hidden by default */
 .panel {
   padding: 0 1rem;
 }
@@ -88,7 +89,6 @@ textarea {
   overflow-y: scroll;
   overflow-x: hidden;
   resize: none;
-  outline: none;
   margin: 0.5rem 0;
 }
 
@@ -123,15 +123,13 @@ textarea {
   background-color: #472D30;
 }
 
-#image-upload {
+#image-upload, #ingred-supp img {
   width: 60%;
 }
 
 input[type="file"], input[type="file"]:focus, input[type="file"]:active {
   color: transparent;
-  outline: none;
   margin: 0 auto;
-  padding: 1rem;
 }
 
 .button-container {
@@ -140,7 +138,6 @@ input[type="file"], input[type="file"]:focus, input[type="file"]:active {
 
 .card {
   box-shadow: 0 0.25rem 0.5rem 0 rgba(0,0,0,0.2);
-  transition: 0.3s;
   height: 22rem;
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
@@ -156,59 +153,41 @@ input[type="file"], input[type="file"]:focus, input[type="file"]:active {
 
 .card-img {
   width: 100%;
-  height: 15rem;
   padding-bottom: 0.25rem;
-}
-
-#page {
-  margin: 2rem;
-}
-
-.pagination a {
-  padding: 0.5rem 1rem;
-  text-decoration: none;
-  transition: 0.3s;
-  font-weight: bold;
-}
-
-.pagination a:hover {
-  background-color: #F2CCC3;
 }
 
 /* Style the tab */
 div.tab {
-    overflow: hidden;
-    border: none;
+  overflow: hidden;
 }
 
-/* Style the buttons inside the tab */
+div.tab, div.tab button, .tabcontent {
+  border: none;
+}
+
 div.tab button {
-    border: none;
-    outline: none;
-
-    padding: 0.6rem 0.8rem;
-    transition: 0.3s;
+  padding: 0.6rem 0.8rem;
 }
 
-/* Change background color of buttons on hover */
 div.tab button:hover, .active{
-    background-color: #723D46;
-    color: #F5F5F5;
+  background-color: #723D46;
+  color: #F5F5F5;
 }
 
 /* Style the tab content */
 .tabcontent {
-    padding: 0.25rem 0.75rem;
-    border: none;
-    box-shadow:  0 0.2rem 0.3rem 0.35rem rgba(0, 0, 0, 0.4);
+  padding: 0.25rem 0.75rem;
+  box-shadow:  0 0.2rem 0.3rem 0.35rem rgba(0, 0, 0, 0.4);
 }
 
 #browse-section ul li {
   list-style: none;
 }
 
-#ingred-supp img {
-  width: 60%;
-  height: 15rem;
+#ingred-supp img, button.accordion, input[type="file"], input[type="file"]:focus, input[type="file"]:active {
   padding: 1rem;
+}
+
+#ingred-supp img, .card img {
+  height: 15rem;
 }
