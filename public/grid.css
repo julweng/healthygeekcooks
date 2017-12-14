@@ -54,10 +54,6 @@
   width: 50%;
 }
 
-#search-span {
-  display: none;
-}
-
 /* Non-mobile, grid */
 @media only screen and (min-width: 640px) {
   /* 1 column, 1/12 in % */
@@ -92,13 +88,5 @@
   /* 12 columns, 12/12 in % */
   .col-12 {
     width: 100%;
-  }
-
-  #signup1, .modal-content {
-    width: 45%;
-  }
-
-  #search-span {
-    display: inline-block;
   }
 }

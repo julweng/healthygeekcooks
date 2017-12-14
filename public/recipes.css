@@ -80,11 +80,6 @@ button > i {
   padding-right: 1rem;
 }
 
-button[type="button"].upload-publish-button, button[type="button"].save-button, button[type="button"].clear-button {
-  padding: 0.3rem 0.3rem;
-  margin-top: 1rem;
-}
-
 textarea {
   overflow-y: scroll;
   overflow-x: hidden;
@@ -190,10 +185,31 @@ div.tab button:hover, .active{
   margin: 0;
 }
 
-#ingred-supp img, button.accordion, input[type="file"], input[type="file"]:focus, input[type="file"]:active {
+#ingred-supp img, input[type="file"], input[type="file"]:focus, input[type="file"]:active {
   padding: 1rem;
 }
 
 #ingred-supp img, .card img {
   height: 15rem;
+}
+
+#search-span {
+  display: none;
+}
+
+@media only screen and (min-width: 640px) {
+  #signup1, .modal-content {
+    width: 45%;
+  }
+
+  #search-span {
+    display: inline-block;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  #basic-clear, #ingredients-clear, #clear-instructions, #submit-create, #cancel-create, #delete-recipe {
+    padding: 0.2rem;
+    font-size: 90%
+  }
 }
