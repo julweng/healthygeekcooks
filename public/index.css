@@ -34,6 +34,10 @@ header, footer > div {
   height: 3.125rem;
 }
 
+button:focus, button:hover, button:active {
+  outline: none !important;
+}
+
 nav {
   line-height: 3.1rem;
   vertical-align: middle;
@@ -164,6 +168,7 @@ main {
   padding-top: 5rem; /* Location of the box */
   width: 100%; /* Full width */
   height: 100%; /* Full height */
+  margin: auto;
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
@@ -222,12 +227,12 @@ input[type="text"], input[type="password"] {
   height: auto;
 }
 
-input[type="text"], input[type="password"], button[type="button"] {
+input[type="text"], input[type="password"], button[type="button"], button[type="submit"] {
   height: auto;
   margin: 0.5rem auto 0.5rem;
 }
 
-button[type="button"] {
+button[type="button"], button[type="submit"] {
   display: inline-block;
   width: 40%;
   border: none;
@@ -236,7 +241,8 @@ button[type="button"] {
 
 input[type="text"]:focus,
 input[type="password"]:focus,
-button[type="button"]:focus {
+button[type="button"]:focus,
+button[type="submit"]:focus {
  /* Restore desirable focus behavior
  in non-webkit browsers like Firefox */
  outline: auto 0.125rem #E78F8E;

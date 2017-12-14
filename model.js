@@ -14,7 +14,7 @@ const recipeSchema = mongoose.Schema({
   cookTime: String,
   serving: Number,
   publishDate: {type: Date, default: Date.now},
-//  img: {data: Buffer, contentType: String}
+  img: {type: String, default: '/img/nopic.png'}
 });
 
 recipeSchema.methods.apiRepr = function() {
@@ -27,32 +27,36 @@ recipeSchema.methods.apiRepr = function() {
     instructions: this.instructions,
     author: this.author,
     series: this.series,
-    category: this.category,
     prepTime: this.prepTime,
     cookTime: this.cookTime,
     serving: this.serving,
-    calories: this.calories,
-    adaptedFromURL: this.AdaptedFromURL,
-    publishDate: this.publishDate
-//    img: this.img.data
+    publishDate: this.publishDate,
+    img: this.img
   };
 }
 
-recipeSchema.query.findByName = function(name) {
-  return this.find({name: new RegExp('^'+this.name+'$', "i")});
+recipeSchema.query.byName = function(name) {
+  return this.find({name: new RegExp('^'+name+'$', "i")});
 };
 
-recipeSchema.query.findBySeries = function(series) {
-  return this.find({series: new RegExp('^'+this.series+'$', "i")});
+recipeSchema.query.bySeries = function(series) {
+  return this.find({series: new RegExp('^'+series+'$', "i")});
 };
 
-recipeSchema.query.findByType = function(type) {
-  return this.find({type: new RegExp('^'+this.type+'$', "i")});
+recipeSchema.query.byType = function(type) {
+  return this.find({type: new RegExp('^'+type+'$', "i")});
 };
 
-recipeSchema.query.findByAuthor = function(type) {
-  return this.find({type: new RegExp('^'+this.author+'$', "i")});
+recipeSchema.query.byAuthor = function(author) {
+  return this.find({author: new RegExp('^'+author+'$', "i")});
 };
+
+recipeSchema.query.byNameAndAuthor = function(name, author) {
+  return this.find({
+    name: new RegExp('^'+name+'$', "i"),
+    author: new RegExp('^'+author+'$', "i")
+  })
+}
 
 const Recipe = mongoose.model('Recipe', recipeSchema);
 

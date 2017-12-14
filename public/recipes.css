@@ -127,3 +127,88 @@ textarea {
   width: 60%;
 }
 
+input[type="file"], input[type="file"]:focus, input[type="file"]:active {
+  color: transparent;
+  outline: none;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.button-container {
+  margin: 1rem 0;
+}
+
+.card {
+  box-shadow: 0 0.25rem 0.5rem 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  height: 22rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.card:hover {
+  box-shadow: 0 0.5rem 1rem 0 rgba(0,0,0,0.2);
+}
+
+.card-container p {
+  margin: 0 0.25rem;
+}
+
+.card-img {
+  width: 100%;
+  height: 15rem;
+  padding-bottom: 0.25rem;
+}
+
+#page {
+  margin: 2rem;
+}
+
+.pagination a {
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  transition: 0.3s;
+  font-weight: bold;
+}
+
+.pagination a:hover {
+  background-color: #F2CCC3;
+}
+
+/* Style the tab */
+div.tab {
+    overflow: hidden;
+    border: none;
+}
+
+/* Style the buttons inside the tab */
+div.tab button {
+    border: none;
+    outline: none;
+
+    padding: 0.6rem 0.8rem;
+    transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+div.tab button:hover, .active{
+    background-color: #723D46;
+    color: #F5F5F5;
+}
+
+/* Style the tab content */
+.tabcontent {
+    padding: 0.25rem 0.75rem;
+    border: none;
+    box-shadow:  0 0.2rem 0.3rem 0.35rem rgba(0, 0, 0, 0.4);
+}
+
+#browse-section ul li {
+  list-style: none;
+}
+
+#ingred-supp img {
+  width: 60%;
+  height: 15rem;
+  padding: 1rem;
+}

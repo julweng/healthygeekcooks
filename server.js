@@ -8,9 +8,9 @@ const passport = require('passport');
 const upload = require('jquery-file-upload-middleware')
 mongoose.Promise = global.Promise;
 
+const ObjectId = mongoose.Schema.Types.ObjectId;
 const {PORT, DATABASE_URL} = require('./config');
 const {Recipe} = require('./model');
-const {searchFormTemplate} = require('./viewTemplates');
 const {router: usersRouter} = require('./users');
 const {router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 const app = express();
@@ -22,6 +22,7 @@ upload.configure({
 
 app.use('/upload', upload.fileHandler());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(morgan('common'));
 
@@ -80,11 +81,6 @@ app.get('/api/protected', jwtAuth, (req, res) => {
     data: 'rosebud'
   });
 });
-// GET requests to render search clearForm
-app.get('/recipes/search', (req, res) => {
-  res.contentType('string');
-  return res.send(searchFormTemplate);
-})
 
 // GET requests to /recipes
 app.get('/recipes', (req, res) => {
@@ -105,52 +101,61 @@ app.get('/recipes/:id', (req, res) => {
     .findById(req.params.id)
     .then(recipe => res.json(recipe.apiRepr()))
     .catch(err => {
-      console.error(err);
-      res.status(500).json({message: 'Internal Server Error'});
+    console.error(err);
+    res.status(500).json({message: 'Internal Server Error'});
     });
 });
 
 // get by recipe name
-app.get('/recipes', (req, res) => {
+app.get('/recipename', (req, res) => {
+  console.log(req.query.name);
   Recipe
-    .findByName({name: res.query.name})
-    .then(recipe => res.json(recipe.apiRepr()))
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({message: 'Internal Server Error'});
-    });
+    .find()
+    .byName(req.query.name)
+    .sort({author: 1})
+    .exec(function(err, recipe) {
+      res.send(recipe);
+  });
 });
 
 // get by series name
-app.get('/recipes', (req, res) => {
+app.get('/recipeseries', (req, res) => {
   Recipe
-    .findBySeries({series: res.query.seires})
-    .then(recipe => res.json(recipe.apiRepr()))
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({message: 'Internal Server Error'});
-    });
+    .find()
+    .bySeries(req.query.series)
+    .sort({name: 1})
+    .exec(function(err, recipe) {
+      res.send(recipe);
+  });
 });
 
 // get by Author name (username)
-app.get('/recipes', (req, res) => {
+app.get('/recipeauthor', (req, res) => {
   Recipe
-    .findByAuthor({author: res.query.author})
-    .then(recipe => res.json(recipe.apiRepr()))
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({message: 'Internal Server Error'});
+    .find()
+    .byAuthor(req.query.author)
+    .sort({name: 1})
+    .exec(function(err, recipe) {
+      res.send(recipe);
     });
 });
 
 // get by type
-app.get('/recipes', (req, res) => {
-  Recipe
-    .findByType({type: res.query.type})
-    .then(recipe => res.json(recipe.apiRepr()))
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({message: 'Internal Server Error'});
+app.get('/recipetype', (req, res) => {
+  Recipe.find()
+    .byType(req.query.type)
+    .sort({name: 1})
+    .exec(function(err, recipe) {
+      res.send(recipe);
+    });
+});
+
+// get by author and name
+app.get('/recipe/user/name', (req, res) => {
+  Recipe.find()
+    .byNameAndAuthor(req.query.name, req.query.author)
+    .exec(function(err, recipe) {
+      res.send(recipe);
     });
 });
 
@@ -170,11 +175,14 @@ app.post('/recipes/post', (req, res) => {
       type: req.body.type,
       ingredients: req.body.ingredients,
       instructions: req.body.instructions,
+      supplies: req.body.supplies,
       series: req.body.series,
       author: req.body.author,
       cookTime: req.body.cook,
       prepTime: req.body.prep,
-
+      serving: req.body.serving,
+      img: req.body.img,
+      publishDate: req.body.date
     })
     .then(recipe => res.status(201).json(recipe.apiRepr()))
     .catch(err => {
@@ -191,7 +199,7 @@ app.put('/recipes/:id', (req, res) => {
   }
 
   const toUpdate = {};
-  const updateableFields = ['name', 'type', 'ingredients', 'supplies','instructions', 'author', 'series', 'prepTime', 'cookTime', 'serving', 'publishDate'];
+  const updateableFields = ['name', 'type', 'ingredients', 'supplies','instructions', 'author', 'series', 'prepTime', 'cookTime', 'serving', 'publishDate', 'img'];
 
   updateableFields.forEach(field => {
     if(field in req.body) {
@@ -199,12 +207,10 @@ app.put('/recipes/:id', (req, res) => {
     }
   });
 
-  Recipe
-    .findOneAndUpdate(req.params.id, {$set: toUpdate})
+  Recipe.findOneAndUpdate(ObjectId(req.params.id), {$set: toUpdate})
     .then(recipe => res.status(204).end())
     .catch(err => res.status(500).json({message: 'Internal Server Error'}));
 });
-
 
 // delete by id
 app.delete('/recipes/:id', (req, res) => {

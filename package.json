@@ -25,6 +25,7 @@
     "faker": "^4.1.0",
     "hash": "^0.2.0",
     "install": "^0.10.2",
+    "jquery-file-upload-middleware": "^0.1.8",
     "jsonwebtoken": "^8.1.0",
     "mongoose": "^4.13.5",
     "morgan": "^1.9.0",
