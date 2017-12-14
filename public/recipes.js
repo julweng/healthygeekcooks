@@ -364,7 +364,7 @@ function renderCreateForm(selector) {
     <!-- basic recipe info -->
     <button class="col-12 accordion rose-background text-black pointer left" type="button" role="button"><i class="fa fa-caret-down fa-lg" aria-hidden="true"></i>Basic Recipe Info</button>
     <div class="row panel white-background hidden">
-      <form class="col-12" id="basic-info-form" data-id="">
+      <form class="col-12" id="basic-info-form" data-id="" data-img="">
         <div class="row center">
           <div class="col-6">
             <label for="title">Title<sup>*</sup></label>
@@ -640,13 +640,19 @@ function handleEditCardClick() {
   $("#edit-section").on("click", ".card img", function(e) {
     e.preventDefault();
     e.stopPropagation();
+    const selector = $("#edit-section");
     const id = $(this).attr("data-id");
-    console.log(id);
     const img = $(this).attr("src");
-    console.log(img);
-    $("edit-search").empty();
-    $("section.row").not("#edit-search").empty()
+    console.log(id);
+    $("#edit-section").empty();
+    $("section.row").not("#edit-section").empty();
     ajaxGetDelete(`/recipes/${id}`, "GET", renderEditForm);
+    handleAccordionClicks(selector);
+    clearBasicInfo(selector);
+    clearIngredientsSupplies(selector);
+    clearInstructions(selector);
+    console.log(img);
+    handleSubmitEditClick(selector, `/recipes/${id}`, "PUT", id, img);
   })
 }
 
@@ -682,27 +688,16 @@ function renderEditForm(item) {
     supplies,
     ingredients,
     instructions,
+    img
   } = item;
   const selector = $("#edit-section");
   renderCreateForm(selector);
   $("#edit-section h2").empty().text("Edit Recipe");
   $("#edit-section #basic-info-form").attr("data-id", item.id);
-  window.setTimeout(() => {
-    selector.on("click", "button.accordion", function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      const panel = $(e.target).next();
-      if(panel.hasClass("hidden")) {
-        panel.removeClass("hidden");
-        setEditInput(item);
-      }
-      else {
-        panel.addClass("hidden");
-      }
-    });
-    $("#edit-section #options").append(`
-      <button type="button" role="button" class="create-recipe-buttons coffee-background text-white pointer" id="delete-recipe">Delete</button>`)
-    window.setTimeout(() => {
+  $("#edit-section #basic-info-form").attr("data-img", item.img);
+  $("#edit-section #options").append(`
+    <button type="button" role="button" class="create-recipe-buttons coffee-background text-white pointer" id="delete-recipe">Delete</button>`);
+    /*window.setTimeout(() => {
       clearBasicInfo(selector);
       clearIngredientsSupplies(selector);
       clearInstructions(selector);
@@ -710,8 +705,7 @@ function renderEditForm(item) {
       handleSubmitEditClick(selector, `/recipes/${item.id}`, "PUT", item.id);
       handleCancelEditClick(selector);
       handleDeleteEditClick();
-    }, 0);
-  }, 0);
+    }, 0);*/
 }
 
 function handleCancelEditClick(selector) {
@@ -723,7 +717,7 @@ function handleCancelEditClick(selector) {
   });
 }
 
-function handleSubmitEditClick(selector, url, httpMethod, id, image) {
+function handleSubmitEditClick(selector, url, httpMethod, id, img) {
   selector.on("click", "#submit-create", e => {
     e.preventDefault();
     e.stopPropagation();
@@ -732,8 +726,9 @@ function handleSubmitEditClick(selector, url, httpMethod, id, image) {
         imgFile = `/uploads/` + $("#fileupload p:nth-child(3)").text();
       }
       else {
-        imgFile = image;
+        imgFile = img;
       }
+      console.log(imgFile);
       const name = $("#title").val().trim();
       const series = $("#series").val().trim();
       const serving = parseInt($("#serve").val());
@@ -744,7 +739,6 @@ function handleSubmitEditClick(selector, url, httpMethod, id, image) {
       const ingredients = trimStringArray($("#ingredients").val());
       const instructions = trimStringArray($("textarea#instructions").val());
       const author = username;
-      const img = imgFile;
 
       if(!(name && series && type && ingredients && instructions)) {
         alert('missing required fields')
@@ -760,7 +754,7 @@ function handleSubmitEditClick(selector, url, httpMethod, id, image) {
           cookTime,
           supplies,
           ingredients,
-          img,
+          img: imgFile,
           instructions,
           author,
       	}), createSuccess(`recipe updated`));
