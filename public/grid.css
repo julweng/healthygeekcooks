@@ -46,7 +46,7 @@
 }
 
 /* Mobile defaults */
-.col-2, .col-3, .col-4, .col-5, .col-6, .col-12, .modal-content, #signup1 {
+.col-2, .col-3, .col-4, .col-5, .col-6, .col-12 {
   width: 100%;
 }
 

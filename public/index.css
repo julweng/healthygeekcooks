@@ -220,8 +220,8 @@ main {
   padding: 0.125rem 1rem;
 }
 
-fieldset {
-  margin: 0;
+.modal-header {
+  margin-bottom: 1rem;
 }
 
 input[type="text"], input[type="password"] {
@@ -262,4 +262,14 @@ button[type="submit"]:focus {
 footer {
   bottom: 0;
   height: 3.75rem;
+}
+
+#signup1 {
+  width: 50%;
+}
+
+@media only screen and (max-width: 680px) {
+  #signup1, .modal, .modal-content {
+    width: 80%;
+  }
 }

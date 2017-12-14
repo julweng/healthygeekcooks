@@ -197,19 +197,15 @@ div.tab button:hover, .active{
   display: none;
 }
 
-@media only screen and (min-width: 640px) {
-  #signup1, .modal-content {
-    width: 45%;
-  }
-
-  #search-span {
-    display: inline-block;
-  }
-}
-
 @media only screen and (max-width: 500px) {
   #basic-clear, #ingredients-clear, #clear-instructions, #submit-create, #cancel-create, #delete-recipe {
     padding: 0.2rem;
     font-size: 90%
+  }
+}
+
+@media only screen and (min-width: 640px) {
+  #search-span {
+    display: inline-block;
   }
 }
