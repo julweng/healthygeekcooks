@@ -58,13 +58,6 @@ function handleHamburgerClick() {
   });
 }
 
-function responsiveMenuBar() {
-  handleDiffWindowSize();
-  responsiveMenuBarButton();
-  handleHamburgerClick();
-  handleSearchClick();
-}
-
 /****** seasrch bar placeholder *****/
 function setPlaceholder() {
   $("#search-section").on("change", "input[type=radio]", function(e) {
@@ -107,9 +100,8 @@ function handleSearchClick() {
     if($(window).innerWidth() <= 640) {
       navLinks.addClass("hidden");
     }
-    $("#intro-section, #search-section, #create-section, #edit-section").empty();
+    $("section.row").empty();
     renderSearchForm();
-    setPlaceholder();
   });
 }
 
@@ -136,33 +128,34 @@ function renderSearchForm() {
       </div>
     </form>`;
   $('#search-section').append(searchForm);
+  window.setTimeout(() => {
+    setPlaceholder();
+  }, 0);
 }
 
 /****** handle search result ******/
 function handleSearchSubmit() {
   $("#search-section").on("submit", e => {
     e.preventDefault();
-    $("#search-result, #browse-section").empty();
-    $("#page").empty();
-    let name, type, series = '';
-    let search = $("input[type=radio]:checked").val();
+    $("section.row").not("#search-section").empty();
+    let search = $("#search-section input[type=radio]:checked").val();
     let query = $("#search-input").val();
     $("#search-input").val('');
     if(search === "name") {
-      ajaxGetDelete(`/recipename?name=${query}`, "GET", renderSearchResult);
+      ajaxGetOrDelete(`/recipename?name=${query}`, "GET", renderSearchResult);
     }
     else if(search === "type") {
-      ajaxGetDelete(`/recipetype?type=${query}`, "GET", renderSearchResult);
+      ajaxGetOrDelete(`/recipetype?type=${query}`, "GET", renderSearchResult);
     }
     else if(search === "series") {
-      ajaxGetDelete(`/recipeseries?series=${query}`, "GET", renderSearchResult);
+      ajaxGetOrDelete(`/recipeseries?series=${query}`, "GET", renderSearchResult);
     }
   });
 }
 
 /***** display search result *****/
-function displaySearchResult(item) {
-  $("#search-result").append(`
+function displaySearchResult(selector, item) {
+  selector.append(`
     <div class="col-3 card">
       <img src="${item.img}" alt="${item.name}" data-id="${item._id}" class="card-img pointer">
       <div class="center card-container">
@@ -171,47 +164,36 @@ function displaySearchResult(item) {
         <p><b>type:</b> ${item.type}</p>
         <p><b>by:</b> ${item.author}</p>
       </div>
-    </div>
-    `);
-}
-
-/****** display pagination ******/
-function displayPagination(selector) {
-  selector.append(`
-    <div class="pagination text-red col-12 center">
-      <div class="center">
-      <a href="#" class="text-black">PREV</a>
-      <a href="#" class="text-black">NEXT</a>
-      </div>
     </div>`);
 }
 
 /***** render search result *****/
 function renderSearchResult(data) {
-  const selector = $("#page");
-  data.forEach((item, index) => {
-    const {
-      _id,
-      name,
-      author,
-      series,
-      type,
-      img,
-    } = item;
-    displaySearchResult(item)
-  });
-  if(data.length >= 19) {
-    displayPagination(selector);
+  if(data.length === 0) {
+    $("#search-result").append(
+      `<div class="col-12 center">
+        <p>The recipe does not exist in the database.</p>
+        <p>Check your spelling and try again.</p>
+        <p>Or, Create one of your own!</p>
+      </div>`);
+  }
+  else {
+    data.forEach((item, index) => {
+      const {
+        _id,
+        name,
+        author,
+        series,
+        type,
+        img,
+      } = item;
+      displaySearchResult($("#search-result"),item)
+    });
   }
 }
 
-function handleSearch() {
-  handleSearchSubmit();
-  handleSearchCardClick();
-}
-
 /***** ajax call *****/
-function ajaxGetDelete(url, type, callback) {
+function ajaxGetOrDelete(url, type, callback) {
   return $.ajax({
     url,
     type,
@@ -221,7 +203,7 @@ function ajaxGetDelete(url, type, callback) {
   .fail(handleError);
 }
 
-function ajaxPostPut(url, type, data, callback) {
+function ajaxPostOrPut(url, type, data, callback) {
 	return $.ajax({
 			url,
 			type,
@@ -234,23 +216,20 @@ function ajaxPostPut(url, type, data, callback) {
 }
 
 /******* handle ajax error *******/
-function handleError(err) {
-  const status = err.status;
-  const statusText = err.statusText;
-  console.log(err);
-  if(status !== 200 || statusText !== 200) {
-    alert(`status code: ${status}, ${statusText}`);
-  }
+function handleError(xhr) {
+	let err = xhr.status;
+	if(err !== 204) {
+		alert(JSON.parse(xhr.responseText).message);
+	}
 }
 
 /****** handle card click ********/
 function handleSearchCardClick() {
-  $("#search-result").on("click", ".card img", e => {
+  $("#search-result").on("click", ".card img", function(e) {
     e.preventDefault();
-    const id = $(".card img").attr("data-id");
+    const id = $(this).attr("data-id");
     $("#search-result").empty();
-    $("#page").empty();
-    ajaxGetDelete(`/recipes/${id}`, "GET", renderRecipe);
+    ajaxGetOrDelete(`/recipes/${id}`, "GET", renderRecipe);
   })
 }
 
@@ -298,7 +277,6 @@ function renderRecipe(item) {
 }
 
 /******* handle create recipes *******/
-/***** clear recipe create form *****/
 function clearForm(selector) {
   selector.val('');
 }
@@ -347,14 +325,26 @@ function fileUpload() {
   $('#fileupload').fileupload({
     url: 'http://localhost:8080/upload',
     dataType: 'json',
+    add: function(e, data) {
+        let uploadErrors = [];
+        console.log(data.originalFiles[0]['size']) ;
+        if (data.originalFiles[0]['size'] > 500000) {
+          uploadErrors.push('Filesize too big');
+        }
+        if(uploadErrors.length > 0) {
+          alert(uploadErrors.join("\n"));
+        }
+        else {
+          data.submit();
+        }
+    },
     done: function (e, data) {
         $.each(data.result.files, function (index, file) {
           $('<p/>').text(file.name).appendTo('#fileupload');
-      });
-    },
-  })
+      })
+    }
+  });
 }
-
 
 /****** handle create click *******/
 function renderCreateForm(selector) {
@@ -414,8 +404,8 @@ function renderCreateForm(selector) {
           <textarea class="col-12 high-textarea" name="ingredients" form="ingreidents-supplies" wrap="hard" placeholder="1 quartreduced fat vanilla ice cream, 100 ml Butterscotch syrup...(separated by commas)" id="ingredients" required></textarea>
         </div>
         <div class="col-12" id="fileupload">
-          <p>Share a picture of your recipe. Note: only .png format is accepted</p>
-          <input class="center" type="file" id="file" accept=".png" name="file">
+          <p>Optional: Share a picture of your recipe. Only .png < 500kb is accepted</p>
+          <input class="center" type="file" id="file" accept=".png" name="files[]">
         </div>
         <div class="row right">
           <div class="col-12 right">
@@ -456,18 +446,19 @@ function handleCreateClick() {
   $("#create, .fa-file-text-o").on("click", e => {
     e.preventDefault();
     e.stopPropagation();
-    const selector = $("#create-section")
     if($(window).innerWidth() <= 640) {
       navLinks.addClass("hidden");
     }
-    $('section.row').not('#create-section').empty();
-    renderCreateForm(selector);
-    handleSubmitCreateClick($("#create-section"), "/recipes/post", "POST", ajaxPostPut);
-    handleAccordionClicks($("#create-section"));
-    clearBasicInfo($("#create-section"));
-    clearIngredientsSupplies($("#create-section"));
-    clearInstructions($("#create-section"));
-    handleCancelCreateClick($("#create-section"));
+    $('section.row').empty();
+    renderCreateForm($("#create-section"));
+    window.setTimeout(() => {
+      handleSubmitCreateClick("/recipes/post", "POST");
+      handleAccordionClicks($("#create-section"));
+      clearBasicInfo($("#create-section"));
+      clearIngredientsSupplies($("#create-section"));
+      clearInstructions($("#create-section"));
+      handleCancelCreateClick($("#create-section"));
+    }, 0);
   });
 }
 
@@ -475,32 +466,33 @@ function createSuccess(message) {
   alert(message)
 }
 
-function handleSubmitCreateClick(selector, url, httpMethod) {
-  selector.on("click", "#submit-create", e => {
+function handleSubmitCreateClick(url, httpMethod) {
+  $("#create-section").on("click", "#submit-create", e => {
     e.preventDefault();
+    e.stopPropagation();
       let img = '';
-      if($("#fileupload p:nth-child(3)").text()) {
-        img = `/uploads/` + $("#fileupload p:nth-child(3)").text();
+      if($("#create-section #fileupload p:nth-child(3)").text()) {
+        img = `/uploads/` + $("#create-section #fileupload p:nth-child(3)").text();
       }
       else {
         img = 'img/nopic.png';
       }
-      const name = $("#title").val().trim();
-      const series = $("#series").val().trim();
-      const serving = parseInt($("#serve").val());
-      const type = trimStringArray($("#type").val());
-      const prepTime = $("#prep").val().trim();
-      const cookTime = $("#cook").val().trim();
-      const supplies = trimStringArray($("#supplies").val());
-      const ingredients = trimStringArray($("#ingredients").val());
-      const instructions = trimStringArray($("textarea#instructions").val());
+      const name = $("#create-section #title").val().trim();
+      const series = $("#create-section #series").val().trim();
+      const serving = parseInt($("#create-section #serve").val());
+      const type = trimStringArray($("#create-section #type").val());
+      const prepTime = $("#create-section #prep").val().trim();
+      const cookTime = $("#create-section #cook").val().trim();
+      const supplies = trimStringArray($("#create-section #supplies").val());
+      const ingredients = trimStringArray($("#create-section #ingredients").val());
+      const instructions = trimStringArray($("#create-section textarea#instructions").val());
       const author = username;
-
+      console.log(name, series, serving, type, prepTime, cookTime, supplies, ingredients, instructions, author, img);
       if(!(name && series && type && ingredients && instructions)) {
         alert('missing required fields')
       }
       else {
-      ajaxPostPut(url, httpMethod, JSON.stringify({
+      ajaxPostOrPut(url, httpMethod, JSON.stringify({
     		name,
         series,
         serving,
@@ -513,7 +505,9 @@ function handleSubmitCreateClick(selector, url, httpMethod) {
         instructions,
         author,
     	}), createSuccess(`recipe created`));
-      window.location.href = "recipes.html";
+      window.setTimeout(() => {
+        window.location.href = "recipes.html";
+      }, 0)
     }
   });
 }
@@ -522,17 +516,17 @@ function handleSubmitCreateClick(selector, url, httpMethod) {
 function handleBasicTabClick() {
   $("#browse-section").on("click", "#basic-tab", e => {
     e.preventDefault();
-    if($("#ingredient-tab").hasClass("active") || $("#instruction-tab").hasClass("active")) {
-      $("#ingredient-tab, #instruction-tab").removeClass("active");
+    if($("#browse-section #ingredient-tab").hasClass("active") || $("#browse-section #instruction-tab").hasClass("active")) {
+      $("#browse-section #ingredient-tab, #browse-section #instruction-tab").removeClass("active");
     }
-    if(!$("#ingred-supp").hasClass("hidden") || !$("#instructions").hasClass("hidden")) {
-      $("#ingred-supp, #instructions").addClass("hidden");
+    if(!$("#browse-section #ingred-supp").hasClass("hidden") || !$("#browse-section #instructions").hasClass("hidden")) {
+      $("#browse-section #ingred-supp, #browse-section #instructions").addClass("hidden");
     }
-    if(!$("#basic-tab").hasClass("active")) {
-      $("#basic-tab").addClass("active");
+    if(!$("#browse-section #basic-tab").hasClass("active")) {
+      $("#browse-section #basic-tab").addClass("active");
     }
-    if($("#basic-info").hasClass("hidden")) {
-      $("#basic-info").removeClass("hidden");
+    if($("#browse-section #basic-info").hasClass("hidden")) {
+      $("#browse-section #basic-info").removeClass("hidden");
     }
   });
 }
@@ -540,17 +534,17 @@ function handleBasicTabClick() {
 function handleIngredientTabClick() {
   $("#browse-section").on("click", "#ingredient-tab", e => {
     e.preventDefault();
-    if($("#basic-tab").hasClass("active") || $("#instruction-tab").hasClass("active")) {
-      $("#basic-tab, #instruction-tab").removeClass("active");
+    if($("#browse-section #basic-tab").hasClass("active") || $("#browse-section #instruction-tab").hasClass("active")) {
+      $("#browse-section #basic-tab, #browse-section #instruction-tab").removeClass("active");
     }
-    if(!$("#basic-info").hasClass("hidden") || !$("#instructions").hasClass("hidden")) {
-      $("#basic-info, #instructions").addClass("hidden");
+    if(!$("#browse-section #basic-info").hasClass("hidden") || !$("#browse-section #instructions").hasClass("hidden")) {
+      $("#browse-section #basic-info, #browse-section #instructions").addClass("hidden");
     }
-    if(!$("#ingredient-tab").hasClass("active")) {
-      $("#ingredient-tab").addClass("active");
+    if(!$("#browse-section #ingredient-tab").hasClass("active")) {
+      $("#browse-section #ingredient-tab").addClass("active");
     }
-    if($("#ingred-supp").hasClass("hidden")) {
-      $("#ingred-supp").removeClass("hidden");
+    if($("#browse-section #ingred-supp").hasClass("hidden")) {
+      $("#browse-section #ingred-supp").removeClass("hidden");
     }
   });
 }
@@ -558,25 +552,19 @@ function handleIngredientTabClick() {
 function handleInstructionTabClick() {
   $("#browse-section").on("click", "#instruction-tab", e => {
     e.preventDefault();
-    if($("#basic-tab").hasClass("active") || $("#ingredient-tab").hasClass("active")) {
-      $("#basic-tab, #ingredient-tab").removeClass("active");
+    if($("#browse-section #basic-tab").hasClass("active") || $("#browse-section #ingredient-tab").hasClass("active")) {
+      $("#browse-section #basic-tab, #browse-section #ingredient-tab").removeClass("active");
     }
-    if(!$("#basic-info").hasClass("hidden") || !$("#ingred-supp").hasClass("hidden")) {
-      $("#basic-info, #ingred-supp").addClass("hidden");
+    if(!$("#browse-section #basic-info").hasClass("hidden") || !$("#browse-section #ingred-supp").hasClass("hidden")) {
+      $("#browse-section #basic-info, #browse-section #ingred-supp").addClass("hidden");
     }
-    if(!$("#instruction-tab").hasClass("active")) {
-      $("#iinstruction-tab").addClass("active");
+    if(!$("#browse-section #instruction-tab").hasClass("active")) {
+      $("#browse-section #iinstruction-tab").addClass("active");
     }
-    if($("#instructions").hasClass("hidden")) {
-      $("#instructions").removeClass("hidden");
+    if($("#browse-section #instructions").hasClass("hidden")) {
+      $("#browse-section #instructions").removeClass("hidden");
     }
   });
-}
-
-function openTab() {
-  handleBasicTabClick();
-  handleIngredientTabClick();
-  handleInstructionTabClick();
 }
 
 /****** handle edit ******/
@@ -584,17 +572,16 @@ function handleEditClick() {
   $("#edit, .fa-pencil-square-o").on("click", e => {
     e.preventDefault();
     e.stopPropagation();
-    $("#edit-section").empty();
+    //$("#edit-section").empty();
     if($(window).innerWidth() <= 640) {
       navLinks.addClass("hidden");
     }
-    $("section.row").not("#edit-section").empty();
-    ajaxGetDelete(`/recipeauthor?author=${username}`, "GET", renderUserRecipes);
+    $("section.row").empty();
+    ajaxGetOrDelete(`/recipeauthor?author=${username}`, "GET", renderUserRecipes);
   });
 }
 
 function renderUserRecipes(data) {
-  const selector = $("#edit-page");
   if(data.length === 0) {
     $("#edit-section").append(`
       <div class="col-12">
@@ -616,25 +603,9 @@ function renderUserRecipes(data) {
         type,
         img,
       } = item;
-      displayUserRecipes(item)
+      displaySearchResult($("#edit-section"),item)
     });
-    if(data.length >= 19) {
-      displayPagination(selector);
-    }
   }
-
-function displayUserRecipes(item) {
-  $("#edit-section").append(`
-    <div class="col-3 card">
-      <img src="${item.img}" alt="${item.name}" data-id="${item._id}" class="card-img pointer">
-      <div class="center card-container">
-        <p class="text-red"><b>${item.name}</b></p>
-        <p><b>from:</b> ${item.series}</p>
-        <p><b>type:</b> ${item.type}</p>
-        <p><b>by:</b> ${item.author}</p>
-      </div>
-    </div>`);
-}
 
 function handleEditCardClick() {
   $("#edit-section").on("click", ".card img", function(e) {
@@ -644,15 +615,14 @@ function handleEditCardClick() {
     const id = $(this).attr("data-id");
     const img = $(this).attr("src");
     console.log(id);
-    $("#edit-section").empty();
-    $("section.row").not("#edit-section").empty();
-    ajaxGetDelete(`/recipes/${id}`, "GET", renderEditForm);
-    handleAccordionClicks(selector);
-    clearBasicInfo(selector);
-    clearIngredientsSupplies(selector);
-    clearInstructions(selector);
-    console.log(img);
-    handleSubmitEditClick(selector, `/recipes/${id}`, "PUT", id, img);
+    $("section.row").empty();
+    ajaxGetOrDelete(`/recipes/${id}`, "GET", renderEditForm);
+    window.setTimeout(() => {
+      handleAccordionClicks($("#edit-section"));
+      clearBasicInfo($("#edit-section"));
+      clearIngredientsSupplies($("#edit-section"));
+      clearInstructions($("#edit-section"));
+    }, 0);
   })
 }
 
@@ -690,45 +660,45 @@ function renderEditForm(item) {
     instructions,
     img
   } = item;
-  const selector = $("#edit-section");
-  renderCreateForm(selector);
-  $("#edit-section h2").empty().text("Edit Recipe");
-  $("#edit-section #basic-info-form").attr("data-id", item.id);
-  $("#edit-section #basic-info-form").attr("data-img", item.img);
-  $("#edit-section #options").append(`
-    <button type="button" role="button" class="create-recipe-buttons coffee-background text-white pointer" id="delete-recipe">Delete</button>`);
-    /*window.setTimeout(() => {
-      clearBasicInfo(selector);
-      clearIngredientsSupplies(selector);
-      clearInstructions(selector);
-      console.log(item.id);
-      handleSubmitEditClick(selector, `/recipes/${item.id}`, "PUT", item.id);
-      handleCancelEditClick(selector);
-      handleDeleteEditClick();
-    }, 0);*/
+
+  renderCreateForm($("#edit-section"));
+  window.setTimeout(() => {
+    setEditInput(item);
+    $("#edit-section h2").empty().text("Edit Recipe");
+    $("#edit-section #basic-info-form").attr("data-id", item.id);
+    $("#edit-section #basic-info-form").attr("data-img", item.img);
+    $("#edit-section #options").append(`
+      <button type="button" role="button" class="create-recipe-buttons coffee-background text-white pointer" id="delete-recipe">Delete</button>`);
+  },0)
 }
 
-function handleCancelEditClick(selector) {
-  selector.on("click", "#cancel-create", e => {
+function handleCancelEditClick() {
+  $("#edit-section").on("click", "#cancel-create", e => {
     e.preventDefault();
     e.stopPropagation();
     $("section.row").empty();
-    window.location.href="/recipes.html"
+    window.setTimeout(() => {
+      window.location.href = "/recipes.html";
+    }, 0);
   });
 }
 
-function handleSubmitEditClick(selector, url, httpMethod, id, img) {
-  selector.on("click", "#submit-create", e => {
+function handleSubmitEditClick() {
+  $("#edit-section").on("click", "#submit-create", e => {
     e.preventDefault();
     e.stopPropagation();
-      let imgFile = '';
+      let img = '';
       if($("#fileupload p:nth-child(3)").text()) {
-        imgFile = `/uploads/` + $("#fileupload p:nth-child(3)").text();
+        img = `/uploads/` + $("#fileupload p:nth-child(3)").text();
       }
       else {
-        imgFile = img;
+        img = $("#edit-section #basic-info-form").attr("data-img");
       }
-      console.log(imgFile);
+      console.log(img);
+
+      let id = $("#edit-section #basic-info-form").attr("data-id");
+      console.log(id);
+
       const name = $("#title").val().trim();
       const series = $("#series").val().trim();
       const serving = parseInt($("#serve").val());
@@ -744,7 +714,7 @@ function handleSubmitEditClick(selector, url, httpMethod, id, img) {
         alert('missing required fields')
       }
       else {
-        ajaxPostPut(url, httpMethod, JSON.stringify({
+        ajaxPostOrPut(`/recipes/${id}`, "PUT", JSON.stringify({
           id,
           name,
           series,
@@ -754,10 +724,10 @@ function handleSubmitEditClick(selector, url, httpMethod, id, img) {
           cookTime,
           supplies,
           ingredients,
-          img: imgFile,
+          img,
           instructions,
           author,
-      	}), createSuccess(`recipe updated`));
+      	}), createSuccess(`update request received`));
         window.location.href="/recipes.html";
       }
   })
@@ -768,19 +738,28 @@ function handleDeleteEditClick(){
     e.preventDefault();
     const id = $("#edit-section #basic-info-form").attr("data-id");
     console.log(id);
-    ajaxGetDelete(`/recipes/${id}`, 'DELETE', function() {
+    ajaxGetOrDelete(`/recipes/${id}`, 'DELETE', function() {
       $("section.row").empty();
       alert("recipe deleted");
-      window.location.href="/recipes.html"
+      window.location.href = "/recipes.html";
     });
   });
 }
 
 $(function() {
-  responsiveMenuBar();
-  handleSearch();
-  openTab();
+  handleDiffWindowSize();
+  responsiveMenuBarButton();
+  handleHamburgerClick();
+  handleSearchClick()
+  handleSearchSubmit();
+  handleSearchCardClick();
+  handleBasicTabClick();
+  handleIngredientTabClick();
+  handleInstructionTabClick();
   handleCreateClick();
   handleEditClick();
   handleEditCardClick();
+  handleSubmitEditClick();
+  handleCancelEditClick();
+  handleDeleteEditClick();
 });
