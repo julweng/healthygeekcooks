@@ -32,7 +32,7 @@
   clear: both;
 }
 
-.col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-8, .col-10, .col-12 {
+.col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-8, .col-12 {
   float: left;
 
   /* Gutters:
@@ -46,7 +46,7 @@
 }
 
 /* Mobile defaults */
-.col-2, .col-3, .col-4, .col-5, .col-6, .col-8, .col-10, .col-12 {
+.col-2, .col-3, .col-4, .col-5, .col-6, .col-12 {
   width: 100%;
 }
 .col-1 {
@@ -79,20 +79,10 @@
   .col-5 {
     width: calc(5/12 * 100%);
   }
-  
+
   /* 6 columns, 6/12 in % */
   .col-6 {
     width: 50%;
-  }
-
-  /* 8 columns, 8/12 in % */
-  .col-8 {
-    width: calc(8/12 * 100%);
-  }
-
-  /* 10 columns, 10/12 in % */
-  .col-10 {
-    width: calc(10/12 * 100%);
   }
 
   /* 12 columns, 12/12 in % */
