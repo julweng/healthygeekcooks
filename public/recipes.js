@@ -401,7 +401,7 @@ function renderCreateForm(selector) {
         </div>
         <div class="col-12 center ing-sup-container">
           <label class="col-12 left" for="ingredients">Ingredients<sup>*</sup></label>
-          <textarea class="col-12 high-textarea" name="ingredients" form="ingreidents-supplies" wrap="hard" placeholder="1 quartreduced fat vanilla ice cream, 100 ml Butterscotch syrup...(separated by commas)" id="ingredients" role="textbox" contenteditable="true" aria-multiline="true" required></textarea>
+          <textarea class="col-12 high-textarea" name="ingredients" form="ingreidents-supplies" wrap="hard" placeholder="1 quart reduced fat vanilla ice cream, 100 ml Butterscotch syrup...(separated by commas)" id="ingredients" role="textbox" contenteditable="true" aria-multiline="true" required></textarea>
         </div>
         <div class="col-12" id="fileupload">
           <p>Optional: Share a picture of your recipe. Only .png < 500kb is accepted</p>
