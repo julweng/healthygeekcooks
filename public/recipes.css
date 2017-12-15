@@ -178,6 +178,7 @@ div.tab button:hover, .active{
 #browse-section ul {
   margin: 0;
   padding-left: 1.7rem;
+  padding-bottom: 1rem;
 }
 
 #browse-section ul li {
@@ -195,10 +196,6 @@ div.tab button:hover, .active{
 
 #search-span {
   display: none;
-}
-
-#instruction {
-  padding-bottom: 1.5rem;
 }
 
 @media only screen and (max-width: 500px) {
