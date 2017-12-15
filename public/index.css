@@ -23,6 +23,7 @@ header, nav {
   right: 0;
 }
 
+
 header, nav, .modal, footer {
   position: fixed;
 }
@@ -65,8 +66,8 @@ nav a, .close, .close:hover, .close:focus, .sign-up-button, .sign-in-button {
 }
 
 nav a {
-  padding-right: 1rem;
-  padding-left: 1rem;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
 }
 
 nav a:hover {
@@ -79,6 +80,7 @@ nav a:hover {
 
 .hidden {
   display: none;
+  overflow: hidden;
 }
 
 .landing-img, fieldset {
@@ -268,8 +270,20 @@ footer {
   width: 50%;
 }
 
-@media only screen and (max-width: 680px) {
+@media only screen and (min-width: 641px) {
+  #home2, #login3 {
+    display: none;
+  }
+}
+@media only screen and (max-width: 640px) {
   #signup1, .modal, .modal-content {
     width: 80%;
+  }
+  #home2, #login3 {
+    padding-top: 0.65rem;
+    padding-bottom: 0.65rem;
+  }
+  #home, #login1 {
+    display: none;
   }
 }

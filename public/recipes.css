@@ -204,8 +204,21 @@ div.tab button:hover, .active{
   }
 }
 
-@media only screen and (min-width: 640px) {
+@media only screen and (min-width: 641px) {
   #search-span {
     display: inline-block;
+  }
+
+  #home2, #search2, #create2, #edit2, #logout2 {
+    display: none;
+  }
+}
+@media only screen and (max-width: 640px) {
+  #home2, #search2, #create2, #edit2, #logout2 {
+    padding-top: 0.65rem;
+    padding-bottom: 0.65rem;
+  }
+  #home, #search, #create, #edit, #logout {
+    display: none;
   }
 }

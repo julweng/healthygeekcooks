@@ -1,62 +1,5 @@
 'use strict';
 let username = localStorage.getItem("username");
-const recipeObj = {};
-const icon = $("#icon");
-const modal = $(".modal");
-const navLinks = $("#home, #search, #create, #edit, #logout");
-
-/******* responsive menu bar, search bar, and create recipe buttons*******/
-function responsiveMenuBarButton() {
-  $(window).on("resize", function(){
-    if($(window).innerWidth() <= 640) {
-      /* menu */
-      icon.removeClass("hidden");
-      navLinks.addClass("hidden");
-      /* search button */
-      $("#search-span").addClass("hidden");
-    }
-    else {
-      /* menu */
-      if(!icon.hasClass("hidden")) {
-        icon.addClass("hidden");
-      }
-      navLinks.removeClass("hidden");
-    }
-  });
-}
-
-function handleHomeClick() {
-  $("#home").on("click", e => {
-    e.preventDefault();
-    if($(window).innerWidth() <= 640) {
-      navLinks.addClass("hidden");
-      window.location.href = "index.html";
-    }
-  })
-}
-
-function handleDiffWindowSize() {
-  if($(window).innerWidth() <= 640) {
-    $("#icon").removeClass("hidden");
-    navLinks.addClass("hidden");
-  }
-  else {
-    $("#icon").addClass("hidden");
-    navLinks.removeClass("hidden");
-  }
-}
-
-function handleHamburgerClick() {
-  icon.on("click", e => {
-    e.preventDefault();
-    if(navLinks.hasClass("hidden")) {
-      navLinks.removeClass("hidden");
-    }
-    else {
-      navLinks.addClass("hidden");
-    }
-  });
-}
 
 /****** seasrch bar placeholder *****/
 function setPlaceholder() {
@@ -94,12 +37,9 @@ function handleAccordionClicks(selector) {
 
 /***** handle search  *****/
 function handleSearchClick() {
-  $("#search, .fa-search-plus").on("click", e => {
+  $("#search, #search2, .fa-search-plus").on("click", e => {
     e.preventDefault();
     e.stopPropagation();
-    if($(window).innerWidth() <= 640) {
-      navLinks.addClass("hidden");
-    }
     $("section.row").empty();
     renderSearchForm();
   });
@@ -442,12 +382,9 @@ function renderCreateForm(selector) {
 }
 
 function handleCreateClick() {
-  $("#create, .fa-file-text-o").on("click", e => {
+  $("#create, #create2, .fa-file-text-o").on("click", e => {
     e.preventDefault();
     e.stopPropagation();
-    if($(window).innerWidth() <= 640) {
-      navLinks.addClass("hidden");
-    }
     $('section.row').empty();
     renderCreateForm($("#create-section"));
     window.setTimeout(() => {
@@ -567,12 +504,9 @@ function handleInstructionTabClick() {
 
 /****** handle edit ******/
 function handleEditClick() {
-  $("#edit, .fa-pencil-square-o").on("click", e => {
+  $("#edit, #edit2, .fa-pencil-square-o").on("click", e => {
     e.preventDefault();
     e.stopPropagation();
-    if($(window).innerWidth() <= 640) {
-      navLinks.addClass("hidden");
-    }
     $("section.row").empty();
     ajaxGetOrDelete(`/recipeauthor?author=${username}`, "GET", renderUserRecipes);
   });
@@ -739,9 +673,6 @@ function handleDeleteEditClick(){
 }
 
 $(function() {
-  handleDiffWindowSize();
-  responsiveMenuBarButton();
-  handleHamburgerClick();
   handleSearchClick()
   handleSearchSubmit();
   handleSearchCardClick();

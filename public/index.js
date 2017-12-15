@@ -1,72 +1,12 @@
 'use strict';
 /******* delcare constant variables *******/
 const modal = $(".modal");
-const login1 = $("#login1");
-const navLinks = $("#home, #login1");
-
-/******* responsive nav bar *******/
-function responsiveNavBar() {
-  $(window).on('resize', function(){
-		if($(window).innerWidth() <= 640) {
-      $("#icon").removeClass("hidden");
-      navLinks.addClass("hidden");
-    }
-    else {
-      $("#icon").addClass("hidden");
-      navLinks.removeClass("hidden");
-    }
-  })
-}
-
-function handleHamburgerClick() {
-  $("#icon").on("click", e => {
-    e.preventDefault();
-    if(navLinks.hasClass("hidden")) {
-      navLinks.removeClass("hidden");
-    }
-    else {
-      navLinks.addClass("hidden");
-    }
-  });
-}
-
-function handleDiffWindowSize() {
-  if($(window).innerWidth() <= 640) {
-    $("#icon").removeClass("hidden");
-    navLinks.addClass("hidden");
-  }
-  else {
-    $("#icon").addClass("hidden");
-    navLinks.removeClass("hidden");
-  }
-}
-
-function handleHomeClick() {
-  $("#home").on("click", e => {
-    e.preventDefault();
-    console.log('home clicked');
-    if($(window).innerWidth() <= 640) {
-      navLinks.addClass("hidden");
-    }
-  })
-}
 
 function handleLogInClick() {
-	login1.on("click", e => {
+	$("#login1, #login3").on("click", e => {
 		e.preventDefault();
-    if($(window).innerWidth() <= 640) {
-      navLinks.addClass("hidden");
-    }
 		modal.removeClass("hidden");
 	})
-}
-
-function handleNavBarClicks() {
-  responsiveNavBar();
-  handleHamburgerClick();
-  handleHomeClick();
-  handleLogInClick();
-  handleDiffWindowSize();
 }
 
 /******* modal events *******/
@@ -91,13 +31,6 @@ function handleWindowClick() {
 			modal.addClass("hidden");
 		}
 	})
-}
-
-function handleModalEvent() {
-	handleLogInClick();
-	handleSignupClick();
-	handleCloseClick();
-	handleWindowClick();
 }
 
 /******* make ajax call to server via api ******/
@@ -186,8 +119,10 @@ function handleLogInSubmit() {
 }
 
 $(function() {
-	handleNavBarClicks();
-	handleModalEvent();
+  handleLogInClick();
+	handleSignupClick();
+	handleCloseClick();
+	handleWindowClick();
 	handleSignUpSubmit();
 	handleLogInSubmit();
 });
