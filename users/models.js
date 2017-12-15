@@ -15,14 +15,12 @@ const UserSchema = mongoose.Schema({
     required: true
   },
   resetPassword: String,
-  recipes: []
 });
 
 UserSchema.methods.apiRepr = function() {
   return {
     username: this.username || '',
     password: this.password || '',
-    recipes: this.recipes || '',
   };
 };
 
@@ -31,7 +29,7 @@ UserSchema.methods.validatePassword = function(password) {
 };
 
 UserSchema.statics.hashPassword = function(password) {
-  return bcrypt.hash(password, 10);
+  return bcrypt.hash(password, 5);
 };
 
 const User = mongoose.model('User', UserSchema);

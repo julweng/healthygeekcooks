@@ -201,13 +201,13 @@ describe('/api/user', function() {
             expect(res.body.location).to.equal('username');
           });
       });
-      it('Should reject users with password less than ten characters', function() {
+      it('Should reject users with password less than five characters', function() {
         return chai
           .request(app)
           .post('/api/users')
           .send({
             username,
-            password: '123456789',
+            password: '123',
           })
           .then(() =>
             expect.fail(null, null, 'Request should not succeed')
@@ -221,7 +221,7 @@ describe('/api/user', function() {
             expect(res).to.have.status(422);
             expect(res.body.reason).to.equal('ValidationError');
             expect(res.body.message).to.equal(
-              'Must be at least 10 characters long'
+              'Must be at least 5 characters long'
             );
             expect(res.body.location).to.equal('password');
           });
@@ -292,7 +292,7 @@ describe('/api/user', function() {
           .then(res => {
             expect(res).to.have.status(201);
             expect(res.body).to.be.an('object');
-            expect(res.body).to.have.keys('username', 'id', 'password');
+            expect(res.body).to.have.keys('username', 'password');
             expect(res.body.username).to.equal(username);
             return User.findOne({username});
           })

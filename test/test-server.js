@@ -105,19 +105,15 @@ describe('healthy geek cooks API resources', function() {
           res.body.forEach(function(recipe) {
             recipe.should.be.a('object');
             recipe.should.include.keys(
-              'id', 'name', 'type', 'ingredients', 'instructions', 'author', 'series', 'publishDate');
+              'id', 'name', 'ingredients', 'instructions', 'author', 'series');
           });
           resRecipe = res.body[0];
           return Recipe.findById(resRecipe.id);
           })
           .then(function(recipe) {
             resRecipe.name.should.equal(recipe.name);
-            resRecipe.type.should.equal(recipe.type);
-            resRecipe.ingredients.should.equal(recipe.ingredients);
-            resRecipe.instructions.should.equal(recipe.instructions);
             resRecipe.author.should.equal(recipe.author);
             resRecipe.series.should.equal(recipe.series);
-            resRecipe.publishDate.should.equal(recipe.publishDate);
           });
         });
     });
@@ -126,32 +122,23 @@ describe('healthy geek cooks API resources', function() {
       it('should add a new recipe', function() {
         const newRecipe = generateRecipeData();
         return chai.request(app)
-          .post('/recipes')
+          .post('/recipes/post')
           .send(newRecipe)
           .then(function(res) {
             res.should.have.status(201);
             res.should.be.json;
             res.body.should.be.a('object');
             res.body.should.include.keys(
-              'id', 'name', 'type', 'supplies','ingredients', 'instructions', 'author', 'series', 'publishDate');
+              'id', 'name', 'instructions', 'series', 'publishDate');
             res.body.name.should.equal(newRecipe.name);
-            res.body.type.should.equal(newRecipe.type);
-            res.body.supplies.should.equal(newRecipe.supplies);
-            res.body.ingredients.should.equal(newRecipe.ingredients);
-            res.body.instructions.should.equal(newRecipe.instructions);
             res.body.author.should.equal(newRecipe.author);
             res.body.series.should.equal(newRecipe.series);
-            res.body.publishDate.should.equal(newRecipe.publishDate);
             return Recipe.findById(res.body.id);
           })
           .then(function(recipe) {
             recipe.name.should.equal(newRecipe.name);
-            recipe.type.should.equal(newRecipe.type);
-            recipe.ingredients.should.equal(newRecipe.ingredients);
-            recipe.instructions.should.equal(newRecipe.instructions);
             recipe.author.should.equal(newRecipe.author);
             recipe.series.should.equal(newRecipe.series);
-            recipe.publishDate.should.equal(newRecipe.publishDate);
           });
       });
     });
@@ -160,7 +147,7 @@ describe('healthy geek cooks API resources', function() {
       it('should update fields sent over by user', function() {
         const updateData = {
           name: 'Kaldorei Spider Kabob',
-          ingredients: ["Small Spider Leg"]
+          serving: 2
         };
         return Recipe
           .findOne()
@@ -177,7 +164,7 @@ describe('healthy geek cooks API resources', function() {
           })
           .then(function(recipe) {
             recipe.name.should.equal(updateData.name);
-            recipe.ingredients.should.equal(updateData.ingredients);
+            recipe.serving.should.equal(updateData.serving);
           });
       });
     });
