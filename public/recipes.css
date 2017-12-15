@@ -197,6 +197,10 @@ div.tab button:hover, .active{
   display: none;
 }
 
+#instruction {
+  padding-bottom: 1.5rem;
+}
+
 @media only screen and (max-width: 500px) {
   #basic-clear, #ingredients-clear, #clear-instructions, #submit-create, #cancel-create, #delete-recipe {
     padding: 0.2rem;
