@@ -289,7 +289,7 @@ function trimStringArray(str, sep) {
 function clearBasicInfo(selector) {
   selector.on("click", "#basic-clear", e => {
     e.preventDefault();
-    const selector = $("#title, #series, #serve, #type, #prep, #cook");
+    const selector = $("#title, #series, #serving, #type, #prep, #cook");
     clearForm(selector);
   })
 }
@@ -327,7 +327,6 @@ function fileUpload() {
     dataType: 'json',
     add: function(e, data) {
         let uploadErrors = [];
-        console.log(data.originalFiles[0]['size']) ;
         if (data.originalFiles[0]['size'] > 500000) {
           uploadErrors.push('Filesize too big');
         }
@@ -479,7 +478,7 @@ function handleSubmitCreateClick(url, httpMethod) {
       }
       const name = $("#create-section #title").val().trim();
       const series = $("#create-section #series").val().trim();
-      const serving = parseInt($("#create-section #serve").val());
+      const serving = Number($("#create-section #serving").val().trim());
       const type = trimStringArray($("#create-section #type").val(), ",");
       const prepTime = $("#create-section #prep").val().trim();
       const cookTime = $("#create-section #cook").val().trim();
@@ -487,7 +486,6 @@ function handleSubmitCreateClick(url, httpMethod) {
       const ingredients = trimStringArray($("#create-section #ingredients").val(), ",");
       const instructions = trimStringArray($("#create-section textarea#instructions").val(), ".");
       const author = username;
-      console.log(name, series, serving, type, prepTime, cookTime, supplies, ingredients, instructions, author, img);
       if(!(name && series && type && ingredients && instructions)) {
         alert('missing required fields')
       }
@@ -572,7 +570,6 @@ function handleEditClick() {
   $("#edit, .fa-pencil-square-o").on("click", e => {
     e.preventDefault();
     e.stopPropagation();
-    //$("#edit-section").empty();
     if($(window).innerWidth() <= 640) {
       navLinks.addClass("hidden");
     }
@@ -614,7 +611,6 @@ function handleEditCardClick() {
     const selector = $("#edit-section");
     const id = $(this).attr("data-id");
     const img = $(this).attr("src");
-    console.log(id);
     $("section.row").empty();
     ajaxGetOrDelete(`/recipes/${id}`, "GET", renderEditForm);
     window.setTimeout(() => {
@@ -636,7 +632,7 @@ function arrayToString(arr, sep) {
 
 function setEditInput(item) {
   $("#edit-section #title").val(item.name);
-  $("#edit-section #serve").val(item.serving);
+  $("#edit-section #serving").val(item.serving);
   $("#edit-section #type").val(arrayToString(item.type, ','));
   $("#edit-section #series").val(item.series);
   $("#edit-section #prep").val(item.prepTime);
@@ -694,14 +690,11 @@ function handleSubmitEditClick() {
       else {
         img = $("#edit-section #basic-info-form").attr("data-img");
       }
-      console.log(img);
-
       let id = $("#edit-section #basic-info-form").attr("data-id");
-      console.log(id);
 
       const name = $("#edit-section #title").val().trim();
       const series = $("#edit-section #series").val().trim();
-      const serving = parseInt($("#edit-section #serve").val());
+      const serving = parseInt($("#edit-section #serving").val());
       const type = trimStringArray($("#edit-section #type").val(), ",");
       const prepTime = $("#edit-section #prep").val().trim();
       const cookTime = $("#edit-section #cook").val().trim();
@@ -714,7 +707,6 @@ function handleSubmitEditClick() {
         alert('missing required fields')
       }
       else {
-        console.log(id);
         ajaxPostOrPut(`/recipes/${id}`, "PUT", JSON.stringify({
           id,
           name,
@@ -738,7 +730,6 @@ function handleDeleteEditClick(){
   $("#edit-section").on("click", "#delete-recipe", e => {
     e.preventDefault();
     const id = $("#edit-section #basic-info-form").attr("data-id");
-    console.log(id);
     ajaxGetOrDelete(`/recipes/${id}`, 'DELETE', function() {
       $("section.row").empty();
       alert("recipe deleted");
