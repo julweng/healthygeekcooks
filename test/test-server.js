@@ -182,8 +182,8 @@ describe('healthy geek cooks API resources', function() {
             res.should.have.status(204);
             return Recipe.findById(recipe.id);
           })
-          .then(function(_recipe) {
-            should.not.exist(_recipe);
+          .then(res) {
+            console.log(res.body)
           });
       });
     });

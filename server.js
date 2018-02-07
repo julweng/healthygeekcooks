@@ -113,8 +113,10 @@ app.get('/recipename', (req, res) => {
     .find()
     .byName(req.query.name)
     .sort({author: 1})
-    .exec(function(err, recipe) {
-      res.send(recipe);
+    .exec()
+    .then(recipe => res.json(recipe.apiRepr()))
+    .catch(err => {console.log.error(err);
+    res.status(500).json({message: 'Internal Server Error'})
   });
 });
 
@@ -207,7 +209,7 @@ app.put('/recipes/:id', (req, res) => {
     }
   });
 
-  Recipe.findOneAndUpdate(ObjectId(req.params.id), {$set: toUpdate}, {returnOriginal:false})
+  Recipe.findOneAndUpdate(ObjectId(req.params.id), {$set: {toUpdate}}, {returnOriginal:false})
     .then(recipe => res.status(204).end())
     .catch(err => res.status(500).json({message: 'Internal Server Error'}));
 });

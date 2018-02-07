@@ -7,3 +7,8 @@ deploy:
   app: powerful-coast-30681
   on:
     repo: julweng/healthygeekcooks
+
+  env:
+    JWT_SECRET:
+      secure:
+        eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ
