@@ -9,6 +9,49 @@ function handleLogInClick() {
 	})
 }
 
+function handleLogin3Click() {
+	$("#login3").on("click", e => {
+		e.preventDefault();
+		$("#smallscreen-nav").slideToggle("slow", () => {
+			$("#cross").hide();
+		 	$("#hamburger").show();
+		});
+		modal.removeClass("hidden");
+	})
+}
+
+function handleHome2Click() {
+	$("#home2").on("click", e => {
+		e.preventDefault();
+		$("#smallscreen-nav").slideToggle("slow", () => {
+			$("#cross").hide();
+		 	$("#hamburger").show();
+		});
+		modal.addClass("hidden");
+	})
+}
+
+/******* hamburger ********/
+function handleHamburgerClick() {
+	$("#hamburger").click(e => {
+		e.preventDefault();
+		$("#smallscreen-nav").slideToggle("slow", () => {
+			$("#hamburger").hide();
+		 	$("#cross").show();
+		});
+	})
+}
+
+function handleCrossClick() {
+	$("#cross").click(e => {
+		e.preventDefault();
+		$("#smallscreen-nav").slideToggle("slow", () => {
+			$("#cross").hide();
+			$("#hamburger").show();
+		})
+	})
+}
+
 /******* modal events *******/
 function handleSignupClick() {
 	$("#signup1").on("click", e => {
@@ -119,7 +162,13 @@ function handleLogInSubmit() {
 }
 
 $(function() {
+	$("#cross").hide();
+	$("#smallscreen-nav").hide();
   handleLogInClick();
+	handleLogin3Click();
+	handleHome2Click();
+	handleHamburgerClick();
+	handleCrossClick();
 	handleSignupClick();
 	handleCloseClick();
 	handleWindowClick();

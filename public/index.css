@@ -42,7 +42,7 @@ button:focus, button:hover, button:active {
   outline: none !important;
 }
 
-nav {
+nav, #smallscreen-nav a {
   line-height: 3.1rem;
   vertical-align: middle;
 }
@@ -51,12 +51,12 @@ nav {
   margin-right: 5rem;
 }
 
-nav a, #pitch, .close {
+nav a, #pitch, .close, #smallscreen-nav a {
   color: #FFF;
   font-weight: bold;
 }
 
-nav a, .close, .close:hover, .close:focus, .sign-up-button, .sign-in-button {
+nav a, #smallscreen-nav a, .close, .close:hover, .close:focus, .sign-up-button, .sign-in-button {
   text-decoration: none;
   font-size: 1.3rem;
 }
@@ -65,12 +65,12 @@ nav a, .close, .close:hover, .close:focus, .sign-up-button, .sign-in-button {
     cursor: pointer;
 }
 
-nav a {
+nav a, #smallscreen-nav a {
   padding-right: 0.5rem;
   padding-left: 0.5rem;
 }
 
-nav a:hover {
+nav a:hover, #smallscreen-nav a:hover, #hamburger:hover, #cross:hover {
   background-color: #E78F8E;
 }
 
@@ -92,7 +92,7 @@ nav a:hover {
 }
 
 .landing-img {
-  height: 36rem;
+  height: 39rem;
   background-image: url("img/landing.png");
   background-size: 100% 100%;
   margin-top: 0;
@@ -270,16 +270,53 @@ footer {
   width: 50%;
 }
 
+#hamburger, #cross {
+  background:none;
+  position:absolute;
+  top:0;
+  right:0;
+  padding: 0.4rem 1rem;
+  border:0;
+  font-weight:bold;
+  cursor:pointer;
+  outline:none;
+  z-index: 10000000000000;
+}
+
+#hamburger {
+  font-size:1.5rem;
+}
+
+#cross {
+  font-size:3.4rem;
+}
+
+#smallscreen-nav {
+  position: absolute;
+  top: 3rem;
+  right: 0;
+  padding: 0.3rem 1.2rem;
+  z-index:1000000;
+}
+
+#signup2, #login2 {
+  padding: 0.4rem;
+  margin: 0.5rem 0.2rem;
+}
+
 @media only screen and (min-width: 641px) {
-  #home2, #login3 {
+  #hamburger, #cross, #smallscreen-nav {
     display: none;
   }
 }
 @media only screen and (max-width: 640px) {
-  #signup1, .modal, .modal-content {
-    width: 80%;
+  .modal {
+    width: 100%;
   }
-  #home2, #login3 {
+  #signup1, .modal-content {
+    width: 90%;
+  }
+  #hamburger {
     padding-top: 0.65rem;
     padding-bottom: 0.65rem;
   }

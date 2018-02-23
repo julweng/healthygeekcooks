@@ -1,6 +1,36 @@
 'use strict';
 let username = localStorage.getItem("username");
 
+/******* hamburger ********/
+function handleHamburgerClick() {
+	$("#hamburger").click(e => {
+		e.preventDefault();
+		$("#smallscreen-nav").slideToggle("slow", () => {
+			$("#hamburger").hide();
+		 	$("#cross").show();
+		});
+	})
+}
+
+function handleCrossClick() {
+	$("#cross").click(e => {
+		e.preventDefault();
+		$("#smallscreen-nav").slideToggle("slow", () => {
+			$("#cross").hide();
+			$("#hamburger").show();
+		})
+	})
+}
+function handleSmallScreenNavClick() {
+  $("#search2, #create2, #edit2").click(e => {
+		e.preventDefault();
+		$("#smallscreen-nav").slideToggle("slow", () => {
+			$("#cross").hide();
+			$("#hamburger").show();
+		})
+	})
+}
+
 /****** seasrch bar placeholder *****/
 function setPlaceholder() {
   $("#search-section").on("change", "input[type=radio]", function(e) {
@@ -673,6 +703,11 @@ function handleDeleteEditClick(){
 }
 
 $(function() {
+  $("#cross").hide();
+	$("#smallscreen-nav").hide();
+  handleHamburgerClick();
+	handleCrossClick();
+  handleSmallScreenNavClick();
   handleSearchClick()
   handleSearchSubmit();
   handleSearchCardClick();
