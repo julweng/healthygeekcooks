@@ -92,18 +92,24 @@ nav a:hover, #smallscreen-nav a:hover, #hamburger:hover, #cross:hover {
 }
 
 .landing-img {
-  height: 39rem;
-  background-image: url("img/landing.png");
+  height: 42rem;
+  background: linear-gradient(
+      rgba(26, 26, 26, 0.4),
+      rgba(26, 26, 26, 0.4)
+    ),
+  url("img/landing.png");
   background-size: 100% 100%;
   margin-top: 0;
 }
 
 #pitch > h1 {
   font-size: 3.5rem;
+  font-family: 'Lato', sans-serif;
 }
 
 #pitch > h2 {
   font-size: 2rem;
+  font-weight: lighter;
 }
 
 #pitch, form {
@@ -322,5 +328,8 @@ footer {
   }
   #home, #login1 {
     display: none;
+  }
+	.landing-img {
+    background-size: 100%;
   }
 }
