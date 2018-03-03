@@ -429,7 +429,7 @@ function handleCreateClick() {
 }
 
 function createSuccess(message) {
-  alert(message)
+  console.log(message);
 }
 
 function handleSubmitCreateClick(url, httpMethod) {

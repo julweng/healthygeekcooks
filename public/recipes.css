@@ -198,6 +198,11 @@ div.tab button:hover, .active{
   display: none;
 }
 
+#basic-clear, #ingredients-clear, #clear-instructions {
+  border: 0.188rem soild #A31621;
+  background: #F5F5F5;
+}
+
 @media only screen and (max-width: 640px) {
   #basic-clear, #ingredients-clear, #clear-instructions, #submit-create, #cancel-create, #delete-recipe {
     padding: 0.2rem;
