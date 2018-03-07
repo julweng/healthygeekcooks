@@ -126,8 +126,11 @@ app.get('/recipeseries', (req, res) => {
     .find()
     .bySeries(req.query.series)
     .sort({name: 1})
-    .exec(function(err, recipe) {
-      res.send(recipe);
+    .exec()
+    .then(recipe => res.send(recipe))
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({message: 'Internal Server Error'})
   });
 });
 
@@ -137,8 +140,11 @@ app.get('/recipeauthor', (req, res) => {
     .find()
     .byAuthor(req.query.author)
     .sort({name: 1})
-    .exec(function(err, recipe) {
-      res.send(recipe);
+    .exec()
+    .then(recipe => res.send(recipe))
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({message: 'Internal Server Error'})
     });
 });
 
@@ -147,8 +153,11 @@ app.get('/recipetype', (req, res) => {
   Recipe.find()
     .byType(req.query.type)
     .sort({name: 1})
-    .exec(function(err, recipe) {
-      res.send(recipe);
+    .exec()
+    .then(recipe => res.send(recipe))
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({message: 'Internal Server Error'})
     });
 });
 
@@ -156,8 +165,11 @@ app.get('/recipetype', (req, res) => {
 app.get('/recipe/user/name', (req, res) => {
   Recipe.find()
     .byNameAndAuthor(req.query.name, req.query.author)
-    .exec(function(err, recipe) {
-      res.send(recipe);
+    .exec()
+    .then(recipe => res.send(recipe))
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({message: 'Internal Server Error'})
     });
 });
 
