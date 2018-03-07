@@ -112,6 +112,7 @@ function handleSearchSubmit() {
     let query = $("#search-input").val();
     $("#search-input").val('');
     if(search === "name") {
+			console.log(query);
       ajaxGetOrDelete(`/recipename?name=${query}`, "GET", renderSearchResult);
     }
     else if(search === "type") {

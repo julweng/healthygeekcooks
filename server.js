@@ -108,7 +108,6 @@ app.get('/recipes/:id', (req, res) => {
 
 // get by recipe name
 app.get('/recipename', (req, res) => {
-  console.log(req.query.name);
   Recipe
     .find()
     .byName(req.query.name)
