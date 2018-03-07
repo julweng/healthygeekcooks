@@ -111,7 +111,6 @@ app.get('/recipename', (req, res) => {
   Recipe
     .find()
     .byName(req.query.name)
-    .sort({author: 1})
     .exec(function(err, recipe) {
       res.send(recipe);
   });
