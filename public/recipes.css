@@ -198,28 +198,23 @@ div.tab button:hover, .active{
   display: none;
 }
 
-@media only screen and (max-width: 500px) {
+#basic-clear, #ingredients-clear, #clear-instructions {
+  border: 0.188rem soild #A31621;
+  background: #F5F5F5;
+}
+
+@media only screen and (max-width: 640px) {
   #basic-clear, #ingredients-clear, #clear-instructions, #submit-create, #cancel-create, #delete-recipe {
     padding: 0.2rem;
     font-size: 90%
+  }
+  #home, #search, #create, #edit, #logout {
+    display: none;
   }
 }
 
 @media only screen and (min-width: 641px) {
   #search-span {
     display: inline-block;
-  }
-
-  #home2, #search2, #create2, #edit2, #logout2 {
-    display: none;
-  }
-}
-@media only screen and (max-width: 640px) {
-  #home2, #search2, #create2, #edit2, #logout2 {
-    padding-top: 0.65rem;
-    padding-bottom: 0.65rem;
-  }
-  #home, #search, #create, #edit, #logout {
-    display: none;
   }
 }

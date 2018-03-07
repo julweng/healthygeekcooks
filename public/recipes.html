@@ -19,19 +19,22 @@
   <header class="black-background">
     <nav class="row black-background" role="navigation">
 			<div class="col-12 black-background">
-				<a href="/" class="col-2 text-white center col-1-margin-right" id="home" aria-label="home">HOME</a>
+        <button class="col-2 center text-white" id="hamburger">&#9776;</button>
+        <button class="col-2 center text-white" id="cross">&#735;</button>
 				<a href="#search-section" class="col-2 text-white center" id="search" aria-label="search recipes">SEARCH</a>
 				<a href="#create-section" class="col-2 text-white center" id="create" aria-label="create recipes">CREATE</a>
 				<a href="#edit-section" class="col-2 text-white center" id="edit" aria-label="edit recipes">EDIT</a>
 				<a href="/api/auth/logout" class="col-2 text-white center" id="logout" aria-label="log out">LOG OUT</a>
-        <a href="/" class="center text-white" id="home2" aria-labelledby="home"><i class="fa fa-home fa-lg"></i></a>
-        <a href="#search-section" class="center text-white" id="search2" aria-labelledby="search"><i class="fa fa-search"></i></a>
-        <a href="#create-section" class="center text-white" id="create2" aria-labelledby="create"><i class="fa fa-file-text-o" aria-hidden="true"></i></a>
-        <a href="#edit-section" class="center text-white" id="edit2" aria-labelledby="edit"><i class="fa fa-pencil-square-o"></i></a>
-        <a href="/api/auth/logout" class="text-white center" id="logout2" aria-labelledby="log out"><i class="fa fa-sign-out"></i></a>
 			</div>
     </nav>
   </header>
+  <div class="col-12 black-background" id="smallscreen-nav">
+    <a href="#search-section" class="col-2 text-white center" id="search2" aria-label="search recipes">SEARCH</a>
+    <a href="#create-section" class="col-2 text-white center" id="create2" aria-label="create recipes">CREATE</a>
+    <a href="#edit-section" class="col-2 text-white center" id="edit2" aria-label="edit recipes">EDIT</a>
+    <a href="/api/auth/logout" class="col-2 text-white center" aria-label="log out">LOG OUT</a>
+  </div>
+
 	<main role="main" class="white-background">
 		<!--explain available functionalities-->
 	  <section class="row" id="intro-section">

@@ -112,6 +112,7 @@ app.get('/recipename', (req, res) => {
     .find()
     .byName(req.query.name)
     .sort({author: 1})
+    .exec()
     .then(recipe => res.send(recipe))
     .catch(err => {
       console.error(err);
