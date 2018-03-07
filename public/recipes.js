@@ -110,9 +110,10 @@ function handleSearchSubmit() {
     $("section.row").not("#search-section").empty();
     let search = $("#search-section input[type=radio]:checked").val();
     let query = $("#search-input").val();
+		console.log(query);
+		console.log(search);
     $("#search-input").val('');
     if(search === "name") {
-			console.log(query);
       ajaxGetOrDelete(`/recipename?name=${query}`, "GET", renderSearchResult);
     }
     else if(search === "type") {
