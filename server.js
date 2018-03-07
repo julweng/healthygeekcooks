@@ -108,15 +108,14 @@ app.get('/recipes/:id', (req, res) => {
 
 // get by recipe name
 app.get('/recipename', (req, res) => {
-  console.log(req.query.name);
   Recipe
     .find()
     .byName(req.query.name)
     .sort({author: 1})
-    .exec()
-    .then(recipe => res.json(recipe.apiRepr()))
-    .catch(err => {console.log.error(err);
-    res.status(500).json({message: 'Internal Server Error'})
+    .then(recipe => res.send(recipe))
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({message: 'Internal Server Error'})
   });
 });
 
